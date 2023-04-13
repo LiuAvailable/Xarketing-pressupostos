@@ -264,12 +264,56 @@ function TreballadorsTable(){
     )
 }
 
+function PressupostosTable(){
+    const pressupostos = [
+        {id:'pst-1234', bi:0.00, total:0.00},
+        {id:'pst-4321', bi:0.00, total:0.00},
+        {id:'pst-3412', bi:0.00, total:0.00}
+    ]
+    return(
+        <TableBox className="table">
+            <ul>
+            <TableRow className="rowHeader">
+                <p name='id'>ID</p>
+                <p name='string'>Base imposable</p>
+                <p name='string'>Preu total</p>
+            </TableRow>
+            {pressupostos.map((p) => (
+                <TableRow>
+                    <p name='id' className="rowid">{p.id}</p>
+                    <p name='string' className="rowname">{p.bi}</p>
+                    <p name='string' className="rowrole">{p.total}</p>
+                    <RowButtons>
+                        <button
+                            type="button"
+                            className="btnGreen"
+                            style={{'--width':'75px'}}
+                        >
+                            Editar
+                        </button>
+                        <button
+                            type="button"
+                            className="btnRed"
+                            style={{'--width':'75px'}}
+                        >
+                            Eliminar
+                        </button>
+                    </RowButtons>
+                </TableRow>
+            ))}
+            </ul>
+        </TableBox>
+    )
+}
 
 function Table({type}){
     let table;
     switch (type){
         case 'treballadors':
             table = <TreballadorsTable />
+            break;
+        case 'pressupostos':
+            table = <PressupostosTable />
             break;
         default:
             break;

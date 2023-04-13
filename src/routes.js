@@ -1,6 +1,7 @@
 import LoginView from 'views/Login';
 import HomeView from 'views/Home';
 import TreballadorsView from 'views/Treballadors';
+import PressupostosView from 'views/Presupostos';
 
 export const dashboardRoutes = [
     {
@@ -13,6 +14,12 @@ export const dashboardRoutes = [
         path: '/treballador',
         name: 'Treballadors',
         component: TreballadorsView,
+        layout: '/private',
+    },
+    {
+        path: '/pressupost',
+        name: 'Pressupostos',
+        component: PressupostosView,
         layout: '/private',
     },
 ];
