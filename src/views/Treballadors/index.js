@@ -92,8 +92,6 @@ select
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
-
 `;
 
 function TreballadorsView(){

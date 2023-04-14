@@ -1,5 +1,10 @@
-import React from "react";
+import Popup from "components/Popup/Popup";
+import React, { useState } from "react";
 import styled from "styled-components";
+
+
+import { FaEuroSign } from 'react-icons/fa';
+import { HiClipboard } from 'react-icons/hi';
 
 
 const TableBox = styled.div`
@@ -99,7 +104,7 @@ const TableRow = styled.li`
 
         p
         {
-            width: 100%;
+            width: 80%;
             background: #aa547020;
             border-radius: 36px;
             height: 30px;
@@ -108,7 +113,7 @@ const TableRow = styled.li`
             justify-content:center;
             cursor: pointer;
 
-            svg{font-size: 1.75em; color: #252525;}
+            svg{font-size: 18px; color: #252525;}
         }
 
         &:hover { p{background: #aa547030;} }
@@ -248,6 +253,7 @@ gap: 10px;
 
 
 function TreballadorsTable(){
+    const [llista, setLlista] = useState('')
 
     const treballadors = [
         {dni: '12345678A', name:'Marta Pujol', role:'Desenvolupador front-end', presupostos:
@@ -269,7 +275,14 @@ function TreballadorsTable(){
             {id: 'wks-1234'},{id: 'wks-4321'},{id: 'wks-3412'}
         ]},
     ]
+
+    const showPopUpList = ({setLlista}, list, header) => {
+        setLlista({title:header, list});
+        document.querySelector('.llista').classList.remove('hide')
+    }
+
     return(
+        <>
         <TableBox className="table">
             <ul>
             <TableRow className="rowHeader">
@@ -284,8 +297,8 @@ function TreballadorsTable(){
                     <p name='id' className="rowid">{t.dni}</p>
                     <p name='string' className="rowname">{t.name}</p>
                     <p name='string' className="rowrole">{t.role}</p>
-                    <p name='popup'>-</p>
-                    <p name='popup'>-</p>
+                    <div className="popup" onClick={() => showPopUpList({setLlista}, t.presupostos, 'Pressupostos')}><p><FaEuroSign/></p></div>
+                    <div className="popup" onClick={() => showPopUpList({setLlista}, t.worksheet, 'Fulls de feina')}><p><HiClipboard/></p></div>
                     <RowButtons>
                         <button
                             type="button"
@@ -298,6 +311,8 @@ function TreballadorsTable(){
             ))}
             </ul>
         </TableBox>
+        <Popup type='llista' element={llista}/>
+        </>
     )
 }
 
@@ -344,18 +359,25 @@ function PressupostosTable(){
 }
 
 function WorksheetTable(){
+    const [llista, setLlista] = useState('');
+
+    const showPopUpList = ({setLlista}, list, header) => {
+        setLlista({title:header, list});
+        document.querySelector('.llista').classList.remove('hide')
+    }
     const worksheets = [
         {id:'wks-1234', pressupost:'pst-1234', workers:[
-            {dni:'12345678A'}
+            {id:'12345678A'}
         ]},
         {id:'wks-4321', pressupost:'pst-4321', workers:[
-            {dni:'12345678A'}
+            {id:'12345678A'}
         ]},
         {id:'wks-3412', pressupost:'pst-3412', workers:[
-            {dni:'12345678A'}
+            {id:'12345678A'}
         ]}
     ]
     return(
+        <>
         <TableBox className="table">
             <ul>
             <TableRow className="rowHeader">
@@ -367,7 +389,7 @@ function WorksheetTable(){
                 <TableRow>
                     <p name='id' className="rowid">{w.id}</p>
                     <p name='string' className="rowpressupost">{w.pressupost}</p>
-                    <p name='popup'>-</p>
+                    <div className="popup" onClick={() => showPopUpList({setLlista}, w.workers, 'Fulls de feina')}><p><HiClipboard/></p></div>
                     <RowButtons>
                         <button
                             type="button"
@@ -381,6 +403,8 @@ function WorksheetTable(){
             ))}
             </ul>
         </TableBox>
+        <Popup type='llista' element={llista}/>
+        </>
     )
 }
 

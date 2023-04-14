@@ -132,7 +132,7 @@ function HomeView() {
         <Bg>
             <Body>
                 <Box bg="#3a9ff8">
-                    <Link className="link" to="/private/rutes"></Link>
+                    <Link className="link" to="/private/fullsfeina"></Link>
                     <div className="iconBox">
                         <HiClipboard />
                     </div>
@@ -143,7 +143,7 @@ function HomeView() {
                     </p>
                 </Box>
                 <Box bg="#2720ff">
-                    <Link className="link" to="/private/ubicacio"></Link>
+                    <Link className="link" to="/private/materials"></Link>
                     <div className="iconBox">
                         <GiCardboardBoxClosed />
                     </div>
