@@ -306,6 +306,47 @@ function PressupostosTable(){
     )
 }
 
+function WorksheetTable(){
+    const worksheets = [
+        {id:'wks-1234', pressupost:'pst-1234', workers:[
+            {dni:'12345678A'}
+        ]},
+        {id:'wks-4321', pressupost:'pst-4321', workers:[
+            {dni:'12345678A'}
+        ]},
+        {id:'wks-3412', pressupost:'pst-3412', workers:[
+            {dni:'12345678A'}
+        ]}
+    ]
+    return(
+        <TableBox className="table">
+            <ul>
+            <TableRow className="rowHeader">
+                <p name='id'>ID</p>
+                <p name='string'>Pressupost</p>
+                <p name='string'>Treballadors</p>
+            </TableRow>
+            {worksheets.map((w) => (
+                <TableRow>
+                    <p name='id' className="rowid">{w.id}</p>
+                    <p name='string' className="rowpressupost">{w.pressupost}</p>
+                    <p name='popup'>-</p>
+                    <RowButtons>
+                        <button
+                            type="button"
+                            className="btnBlue"
+                            style={{'--width':'75px'}}
+                        >
+                            Veure
+                        </button>
+                    </RowButtons>
+                </TableRow>
+            ))}
+            </ul>
+        </TableBox>
+    )
+}
+
 function Table({type}){
     let table;
     switch (type){
@@ -314,6 +355,9 @@ function Table({type}){
             break;
         case 'pressupostos':
             table = <PressupostosTable />
+            break;
+        case 'worksheet':
+            table = <WorksheetTable />
             break;
         default:
             break;
