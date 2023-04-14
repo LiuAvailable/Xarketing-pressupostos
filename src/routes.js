@@ -4,6 +4,7 @@ import TreballadorsView from 'views/Treballadors';
 import PressupostosView from 'views/Presupostos';
 import WorkSheetView from 'views/Worksheet';
 import ComparatorView from 'views/Comparator';
+import MaterialsView from 'views/Materials';
 
 export const dashboardRoutes = [
     {
@@ -34,6 +35,12 @@ export const dashboardRoutes = [
         path: '/comparador',
         name: 'Comparador',
         component: ComparatorView,
+        layout: '/private',
+    },
+    {
+        path: '/materials',
+        name: 'Materials',
+        component: MaterialsView,
         layout: '/private',
     },
 ];

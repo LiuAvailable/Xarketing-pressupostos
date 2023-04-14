@@ -361,7 +361,7 @@ function WorksheetTable(){
             <TableRow className="rowHeader">
                 <p name='id'>ID</p>
                 <p name='string'>Pressupost</p>
-                <p name='string'>Treballadors</p>
+                <p name='popup'>Treballadors</p>
             </TableRow>
             {worksheets.map((w) => (
                 <TableRow>
@@ -424,11 +424,39 @@ function ComparatorTable(){
                 <p name='string'>Total F.F.</p>
             </TableRow>
             {comparadors.map((c) => (
-                <TableRow className="rowcolored" color='#e91e63'>
+                <TableRow className="rowcolored">
                     <p name='id' className="rowpressupost">{c.pressupost}</p>
                     <p name='string'>{c.pst_total}</p>
-                    <p name='id' className="rowworksheet">{c.worksheet}</p>
-                    <p name='id'>{c.wks_total}</p>
+                    <p name='string' className="rowworksheet">{c.worksheet}</p>
+                    <p name='string'>{c.wks_total}</p>
+                </TableRow>
+            ))}
+            </ul>
+        </TableBox>
+    )
+}
+
+function MaterialsTable(){
+    const materials = [
+        {id:'mat-1234', nom:'Pot pintura', preu:0.00, descripció:'Lorem Ipsum dolor sit amet.'},
+        {id:'mat-4321', nom:'Pot pintura', preu:0.00, descripció:'Lorem Ipsum dolor sit amet.'},
+        {id:'mat-3412', nom:'Pinzell', preu:0.00, descripció:'Lorem Ipsum dolor sit amet.'}
+    ]
+    return(
+        <TableBox className="table">
+            <ul>
+            <TableRow className="rowHeader">
+                <p name='id'>ID</p>
+                <p name='string'>Nom</p>
+                <p name='string'>Preu</p>
+                <p name='popup'>Descripció</p>
+            </TableRow>
+            {materials.map((m) => (
+                <TableRow className="rowcolored">
+                    <p name='id' className="rowid">{m.id}</p>
+                    <p name='string' className="rowname">{m.nom}</p>
+                    <p name='string' className="rowname">{m.preu}</p>
+                    <p name='popup'>-</p>
                 </TableRow>
             ))}
             </ul>
@@ -450,6 +478,9 @@ function Table({type}){
             break;
         case 'comparator':
             table = <ComparatorTable />
+            break;
+        case 'materials':
+            table = <MaterialsTable />
             break;
         default:
             break;

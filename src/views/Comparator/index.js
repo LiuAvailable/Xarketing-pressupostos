@@ -145,7 +145,7 @@ gap: 2rem;
     cursor:pointer;
 
     &:hover{background: rgba(0,0,0,.05);}
-    &.active{border: 1px solid #70707060;}
+    &.active{border: 1px solid #70707020; box-shadow: 0 3px 6px #00000010;}
 
     .color
     {
