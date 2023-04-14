@@ -457,6 +457,18 @@ function MaterialsTable(){
                     <p name='string' className="rowname">{m.nom}</p>
                     <p name='string' className="rowname">{m.preu}</p>
                     <p name='popup'>-</p>
+                    <RowButtons>
+                        <button
+                            type="button"
+                            className="btnGreen"
+                            style={{'--width':'75px'}}
+                        >Editar</button>
+                        <button
+                            type="button"
+                            className="btnRed"
+                            style={{'--width':'75px'}}
+                        >Eliminar</button>
+                    </RowButtons>
                 </TableRow>
             ))}
             </ul>
