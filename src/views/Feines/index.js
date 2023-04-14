@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import {GiCardboardBoxClosed} from 'react-icons/gi';
-import { BsArrowLeft } from 'react-icons/bs';
+import { BsArrowLeft, BsFillBookFill } from 'react-icons/bs';
 
 import { Link } from "react-router-dom";
 
@@ -70,7 +69,7 @@ const CreateUser = styled.div`
 margin: 2rem 0;
 `;
 
-function MaterialsView(){
+function FeinesView(){
     const filters = [
         {placeholder:'ID', name:'id'},
         {placeholder:'Nom', name:'name'},
@@ -82,10 +81,10 @@ function MaterialsView(){
                 <Link exact to='/private/home'/>
             </Back>
             <div className="pageHeader">
-                <div className="icon"> <GiCardboardBoxClosed/> </div>
+                <div className="icon"> <BsFillBookFill/> </div>
                 <div className="sectionName">
-                    <h1>Materials</h1>
-                    <p>Els teus materials</p>
+                    <h1>Feines</h1>
+                    <p>Les teves feines</p>
                 </div>
             </div>
             <CreateUser>
@@ -93,12 +92,12 @@ function MaterialsView(){
                     type='button'
                     className="btnBlue"
                     style={{'--width':'140px'}}
-                >Nou material</button>
+                >Nova feina</button>
             </CreateUser>
             <Filters filters={filters}/>
-            <Table type='materials'/>
+            <Table type='feines'/>
         </Bg>
     )
 }
 
-export default MaterialsView;
+export default FeinesView;

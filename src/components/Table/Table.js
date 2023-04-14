@@ -476,6 +476,46 @@ function MaterialsTable(){
     )
 }
 
+function FeinesTable(){
+    const feines = [
+        {id:'fna-1234', nom:'Pintar', preu:10, descripció:'Lorem Ipsum dolor sit amet.'},
+        {id:'fna-4321', nom:'Pot pintura', preu:11, descripció:'Lorem Ipsum dolor sit amet.'},
+        {id:'fna-3412', nom:'Pinzell', preu:10, descripció:'Lorem Ipsum dolor sit amet.'}
+    ]
+    return(
+        <TableBox className="table">
+            <ul>
+            <TableRow className="rowHeader">
+                <p name='id'>ID</p>
+                <p name='string'>Nom</p>
+                <p name='string'>Preu/hora</p>
+                <p name='popup'>Descripció</p>
+            </TableRow>
+            {feines.map((f) => (
+                <TableRow className="rowcolored">
+                    <p name='id' className="rowid">{f.id}</p>
+                    <p name='string' className="rowname">{f.nom}</p>
+                    <p name='string' className="rowname">{f.preu}</p>
+                    <p name='popup'>-</p>
+                    <RowButtons>
+                        <button
+                            type="button"
+                            className="btnGreen"
+                            style={{'--width':'75px'}}
+                        >Editar</button>
+                        <button
+                            type="button"
+                            className="btnRed"
+                            style={{'--width':'75px'}}
+                        >Eliminar</button>
+                    </RowButtons>
+                </TableRow>
+            ))}
+            </ul>
+        </TableBox>
+    ) 
+}
+
 function Table({type}){
     let table;
     switch (type){
@@ -493,6 +533,9 @@ function Table({type}){
             break;
         case 'materials':
             table = <MaterialsTable />
+            break;
+        case 'feines':
+            table = <FeinesTable />
             break;
         default:
             break;
