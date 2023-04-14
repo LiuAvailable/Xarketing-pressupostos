@@ -3,6 +3,7 @@ import HomeView from 'views/Home';
 import TreballadorsView from 'views/Treballadors';
 import PressupostosView from 'views/Presupostos';
 import WorkSheetView from 'views/Worksheet';
+import ComparatorView from 'views/Comparator';
 
 export const dashboardRoutes = [
     {
@@ -27,6 +28,12 @@ export const dashboardRoutes = [
         path: '/fullsfeina',
         name: 'Fulls de feina',
         component: WorkSheetView,
+        layout: '/private',
+    },
+    {
+        path: '/comparador',
+        name: 'Comparador',
+        component: ComparatorView,
         layout: '/private',
     },
 ];

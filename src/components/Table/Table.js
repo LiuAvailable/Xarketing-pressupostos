@@ -162,6 +162,42 @@ const TableRow = styled.li`
         background: #3a387860;
     }
 
+    &.rowcolored
+    {
+        --red: #e91e63;
+        --light-red: #e91e6320;
+
+        --green: #8eec8e;
+        --light-green: #8eec8e20;
+
+        --yellow: #f2c40e;
+        --light-yellow: #f2c40e20;
+
+        position:relative;
+        p{color: #3a3a3a;}
+
+        &::before
+        {
+            content: '';
+            position:absolute;
+            left: 0;
+            top:50%;
+            transform: translateY(-50%);
+            height: 80%;
+            width: 6px;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+        &.red{background: var(--light-red);}
+        &.red::before{background: var(--red);}
+
+        &.green{background: var(--light-green);}
+        &.green::before{background: var(--green);}
+
+        &.yellow{background: var(--light-yellow);}
+        &.yellow::before{background: var(--yellow);}
+    }
     @media only screen and (max-width: 740px) {
         & {
             p {
@@ -212,6 +248,7 @@ gap: 10px;
 
 
 function TreballadorsTable(){
+
     const treballadors = [
         {dni: '12345678A', name:'Marta Pujol', role:'Desenvolupador front-end', presupostos:
         [
@@ -347,6 +384,58 @@ function WorksheetTable(){
     )
 }
 
+function ComparatorTable(){
+
+    /**
+     * Function to calculate %diference and set row color.
+     */
+    const calculatePercentage = () => {
+        const table = document.querySelectorAll('.rowcolored');
+        table.forEach(row => {
+            const pst = parseFloat(row.querySelector("p:nth-child(2)").textContent)
+            const ff = parseFloat(row.querySelector("p:nth-child(4)").textContent)
+
+            const percentatge = (pst-ff)/pst*100;
+            
+            if (percentatge >= 0.0 && percentatge <= 10.0) {
+                row.classList.add('green');
+              } else if (percentatge >= 11.0 && percentatge <= 30.0) {
+                row.classList.add('yellow');
+              } else if (percentatge > 30.0) {
+                row.classList.add('red');
+              }
+        })
+    }
+
+    setTimeout(() => calculatePercentage(), 50);
+
+    const comparadors = [
+        {pressupost:'pst-1234', pst_total: 1.20, worksheet: 'wks-1234', wks_total: 0.20},
+        {pressupost:'pst-4321', pst_total: 1.00, worksheet: 'wks-4321', wks_total: 0.95},
+        {pressupost:'pst-3412', pst_total: 1.00, worksheet: 'wks-3412', wks_total: 0.85}
+    ]
+    return(
+        <TableBox className="table">
+            <ul>
+            <TableRow className="rowHeader">
+                <p name='id'>Pressupost</p>
+                <p name='string'>Total Pres.</p>
+                <p name='string'>Full de Feina</p>
+                <p name='string'>Total F.F.</p>
+            </TableRow>
+            {comparadors.map((c) => (
+                <TableRow className="rowcolored" color='#e91e63'>
+                    <p name='id' className="rowpressupost">{c.pressupost}</p>
+                    <p name='string'>{c.pst_total}</p>
+                    <p name='id' className="rowworksheet">{c.worksheet}</p>
+                    <p name='id'>{c.wks_total}</p>
+                </TableRow>
+            ))}
+            </ul>
+        </TableBox>
+    )
+}
+
 function Table({type}){
     let table;
     switch (type){
@@ -358,6 +447,9 @@ function Table({type}){
             break;
         case 'worksheet':
             table = <WorksheetTable />
+            break;
+        case 'comparator':
+            table = <ComparatorTable />
             break;
         default:
             break;
