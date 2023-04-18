@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import { FaEuroSign } from 'react-icons/fa';
 import { HiClipboard } from 'react-icons/hi';
+import { IoIosInformationCircleOutline } from 'react-icons/io'
 
 
 const TableBox = styled.div`
@@ -461,12 +462,18 @@ function ComparatorTable(){
 }
 
 function MaterialsTable(){
+    const [nota, setNota] = useState('');
     const materials = [
-        {id:'mat-1234', nom:'Pot pintura', preu:0.00, descripció:'Lorem Ipsum dolor sit amet.'},
-        {id:'mat-4321', nom:'Pot pintura', preu:0.00, descripció:'Lorem Ipsum dolor sit amet.'},
-        {id:'mat-3412', nom:'Pinzell', preu:0.00, descripció:'Lorem Ipsum dolor sit amet.'}
+        {id:'mat-1234', nom:'Pot pintura', preu:0.00, descripcio:'Lorem Ipsum dolor sit amet.'},
+        {id:'mat-4321', nom:'Pot pintura', preu:0.00, descripcio:'Lorem Ipsum dolor sit amet.'},
+        {id:'mat-3412', nom:'Pinzell', preu:0.00, descripcio:'Lorem Ipsum dolor sit amet.'}
     ]
+    const showPopupNota = (descripcio) => {
+        setNota({title:'Descripció del material', descripcio})
+        document.querySelector(".nota").classList.remove('hide');
+    }
     return(
+        <>
         <TableBox className="table">
             <ul>
             <TableRow className="rowHeader">
@@ -480,7 +487,7 @@ function MaterialsTable(){
                     <p name='id' className="rowid">{m.id}</p>
                     <p name='string' className="rowname">{m.nom}</p>
                     <p name='string' className="rowname">{m.preu}</p>
-                    <p name='popup'>-</p>
+                    <div className="popup" onClick={() => showPopupNota(m.descripcio)}><p><IoIosInformationCircleOutline/></p></div>
                     <RowButtons>
                         <button
                             type="button"
@@ -497,16 +504,24 @@ function MaterialsTable(){
             ))}
             </ul>
         </TableBox>
+        <Popup type='nota' element={nota}/>
+        </>
     )
 }
 
 function FeinesTable(){
+    const [nota, setNota] = useState('');
     const feines = [
-        {id:'fna-1234', nom:'Pintar', preu:10, descripció:'Lorem Ipsum dolor sit amet.'},
-        {id:'fna-4321', nom:'Pot pintura', preu:11, descripció:'Lorem Ipsum dolor sit amet.'},
-        {id:'fna-3412', nom:'Pinzell', preu:10, descripció:'Lorem Ipsum dolor sit amet.'}
+        {id:'fna-1234', nom:'Pintar', preu:10, descripcio:'Lorem Ipsum dolor sit amet.'},
+        {id:'fna-4321', nom:'Pot pintura', preu:11, descripcio:'Lorem Ipsum dolor sit amet.'},
+        {id:'fna-3412', nom:'Pinzell', preu:10, descripcio:'Lorem Ipsum dolor sit amet.'}
     ]
+    const showPopupNota = (descripcio) => {
+        setNota({title:'Descripció de la feina', descripcio})
+        document.querySelector(".nota").classList.remove('hide');
+    }
     return(
+        <>
         <TableBox className="table">
             <ul>
             <TableRow className="rowHeader">
@@ -520,7 +535,7 @@ function FeinesTable(){
                     <p name='id' className="rowid">{f.id}</p>
                     <p name='string' className="rowname">{f.nom}</p>
                     <p name='string' className="rowname">{f.preu}</p>
-                    <p name='popup'>-</p>
+                    <div className="popup" onClick={() => showPopupNota(f.descripcio)}><p><IoIosInformationCircleOutline/></p></div>
                     <RowButtons>
                         <button
                             type="button"
@@ -537,6 +552,8 @@ function FeinesTable(){
             ))}
             </ul>
         </TableBox>
+        <Popup type='nota' element={nota}/>
+        </>
     ) 
 }
 

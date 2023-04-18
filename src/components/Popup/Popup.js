@@ -88,17 +88,35 @@ function PopupList({element}){
                 {element ? element.list.map((i) => (
                     <p name='single'>{i.id}</p>
                 )) : ''}
-
         </PopUpBox>
     )
 }
 
+function PopupNota({element}){
+    return(
+        <PopUpBox>
+            <PopUpHeader>
+                <p>{element ? element.title : ''}</p>
+                <button
+                    type="button"
+                    className="btnGlass"
+                    style={{'--width':'60px'}}
+                    onClick={() => closePopUp()}
+                >Tancar</button>
+            </PopUpHeader>
+                <p name='single'>{element.descripcio}</p>
+        </PopUpBox>
+    )
+}
 
 function Popup({type, element}){
     let popup;
     switch(type){
         case ('llista'):
             popup = <PopupList element={element}/>
+            break;
+        case ('nota'):
+            popup = <PopupNota element={element}/>
             break;
         default:
             break;
