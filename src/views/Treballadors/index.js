@@ -115,7 +115,7 @@ function TreballadorsView(){
                     <p>Tots els treballadors</p>
                 </div>
             </div>
-            <CreateUser>
+            <CreateUser className="createUser">
                 <input type='text' name='dni' placeholder="DNI"/>
                 <input type='text' name='name' placeholder="Nom"/>
                 <select>
@@ -126,12 +126,21 @@ function TreballadorsView(){
                     type='button'
                     className="btnBlue"
                     style={{'--width':'80px'}}
+                    onClick={() => crearTreballador()}
                 >Crear</button>
             </CreateUser>
             <Filters filters={filters}/>
             <Table type='treballadors'/>
         </Bg>
     )
+}
+
+const crearTreballador = () => {
+    const dni = document.querySelector(".createUser > input[name='dni']").value;
+    const name = document.querySelector(".createUser > input[name='name']").value;
+    const role = document.querySelector("select").value;
+
+    console.log({dni, name, role})
 }
 
 export default TreballadorsView;

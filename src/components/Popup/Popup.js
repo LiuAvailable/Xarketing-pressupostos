@@ -109,6 +109,10 @@ function PopupNota({element}){
     )
 }
 
+function PopupEliminar(){
+    
+}
+
 function Popup({type, element}){
     let popup;
     switch(type){
@@ -117,6 +121,9 @@ function Popup({type, element}){
             break;
         case ('nota'):
             popup = <PopupNota element={element}/>
+            break;
+        case ('eliminar'):
+            popup = <PopupEliminar element={element}/>
             break;
         default:
             break;
