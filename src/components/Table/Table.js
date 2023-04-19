@@ -254,7 +254,8 @@ gap: 10px;
 
 
 function TreballadorsTable(){
-    const [llista, setLlista] = useState('')
+    const [llista, setLlista] = useState('');
+    const [element, setElement] = useState('');
 
     const treballadors = [
         {dni: '12345678A', name:'Marta Pujol', role:'Desenvolupador front-end', presupostos:
@@ -281,7 +282,10 @@ function TreballadorsTable(){
         setLlista({title:header, list});
         document.querySelector('.llista').classList.remove('hide')
     }
-
+    const popupEliminar = (dni) => {
+        setElement({title:'Eliminar un treballador', descripcio:`Estas segur que vols eliminar el treballador amb dni ${dni}?`})
+        document.querySelector('.eliminar').classList.remove('hide')
+    }
     return(
         <>
         <TableBox className="table">
@@ -304,6 +308,7 @@ function TreballadorsTable(){
                         <button
                             type="button"
                             className="btnRed"
+                            onClick={() => popupEliminar(t.dni)}
                         >
                             Eliminar
                         </button>
@@ -313,6 +318,7 @@ function TreballadorsTable(){
             </ul>
         </TableBox>
         <Popup type='llista' element={llista}/>
+            <Popup type='eliminar' element={element} />
         </>
     )
 }
@@ -463,6 +469,9 @@ function ComparatorTable(){
 
 function MaterialsTable(){
     const [nota, setNota] = useState('');
+    const [material, setMaterial] = useState('');
+    const [element, setElement] = useState('');
+
     const materials = [
         {id:'mat-1234', nom:'Pot pintura', preu:0.00, descripcio:'Lorem Ipsum dolor sit amet.'},
         {id:'mat-4321', nom:'Pot pintura', preu:0.00, descripcio:'Lorem Ipsum dolor sit amet.'},
@@ -471,6 +480,14 @@ function MaterialsTable(){
     const showPopupNota = (descripcio) => {
         setNota({title:'Descripció del material', descripcio})
         document.querySelector(".nota").classList.remove('hide');
+    }
+    const editMaterial = ({m}) => {
+        setMaterial({id:m.id, name:m.nom, preu:m.preu, descripcio:m.descripcio});
+        document.querySelector('.material').classList.remove('hide')
+    }
+    const popupEliminar = (id) => {
+        setElement({title:'Eliminar un material', descripcio:`Estas segur que vols eliminar el material amb id ${id}?`})
+        document.querySelector('.eliminar').classList.remove('hide')
     }
     return(
         <>
@@ -493,11 +510,13 @@ function MaterialsTable(){
                             type="button"
                             className="btnGreen"
                             style={{'--width':'75px'}}
+                            onClick={() => editMaterial({m})}
                         >Editar</button>
                         <button
                             type="button"
                             className="btnRed"
                             style={{'--width':'75px'}}
+                            onClick={() => popupEliminar(m.id)}
                         >Eliminar</button>
                     </RowButtons>
                 </TableRow>
@@ -505,20 +524,28 @@ function MaterialsTable(){
             </ul>
         </TableBox>
         <Popup type='nota' element={nota}/>
+        <Popup type='material' element={material}/>
+        <Popup type='eliminar' element={element}/>
         </>
     )
 }
 
 function FeinesTable(){
     const [nota, setNota] = useState('');
+    const [element, setElement] = useState('');
+
     const feines = [
         {id:'fna-1234', nom:'Pintar', preu:10, descripcio:'Lorem Ipsum dolor sit amet.'},
         {id:'fna-4321', nom:'Pot pintura', preu:11, descripcio:'Lorem Ipsum dolor sit amet.'},
         {id:'fna-3412', nom:'Pinzell', preu:10, descripcio:'Lorem Ipsum dolor sit amet.'}
     ]
     const showPopupNota = (descripcio) => {
-        setNota({title:'Descripció de la feina', descripcio})
+        setNota({title:'Descripció de la feina', descripcio});
         document.querySelector(".nota").classList.remove('hide');
+    }
+    const popupEliminar = (id) => {
+        setElement({title:'Eliminar una feina', descripcio:`Estas segur que vols eliminar la feina amb id ${id}?`})
+        document.querySelector('.eliminar').classList.remove('hide')
     }
     return(
         <>
@@ -546,6 +573,7 @@ function FeinesTable(){
                             type="button"
                             className="btnRed"
                             style={{'--width':'75px'}}
+                            onClick={() => popupEliminar(f.id)}
                         >Eliminar</button>
                     </RowButtons>
                 </TableRow>
@@ -553,6 +581,7 @@ function FeinesTable(){
             </ul>
         </TableBox>
         <Popup type='nota' element={nota}/>
+        <Popup type='eliminar' element={element}/>
         </>
     ) 
 }

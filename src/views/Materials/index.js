@@ -69,7 +69,9 @@ const Back = styled.div`
 const CreateUser = styled.div`
 margin: 2rem 0;
 `;
-
+const crearMaterial = () => {
+    document.querySelector('.material').classList.remove('hide')
+}
 function MaterialsView(){
     const filters = [
         {placeholder:'ID', name:'id'},
@@ -93,6 +95,7 @@ function MaterialsView(){
                     type='button'
                     className="btnBlue"
                     style={{'--width':'140px'}}
+                    onClick={() => crearMaterial()}
                 >Nou material</button>
             </CreateUser>
             <Filters filters={filters}/>

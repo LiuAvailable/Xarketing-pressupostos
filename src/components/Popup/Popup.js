@@ -92,7 +92,7 @@ function PopupList({element}){
     )
 }
 
-function PopupNota({element}){
+function PopupNota({element, btnConfirm}){
     return(
         <PopUpBox>
             <PopUpHeader>
@@ -105,12 +105,88 @@ function PopupNota({element}){
                 >Tancar</button>
             </PopUpHeader>
                 <p name='single'>{element.descripcio}</p>
+                {btnConfirm ? <button type="button" className="btnBlue" style={{'--width':'120px'}}>Confirmar</button> : ''}
         </PopUpBox>
     )
 }
 
-function PopupEliminar(){
-    
+const MaterialForm = styled.form`
+    padding: 2rem;
+    display:flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    input, textarea
+    {
+        width: 140px;
+        height: 36px;
+        padding-left:10px;
+        border-radius: 5px;
+        box-shadow: 3px 3px 6px #00000010;
+        border:none;
+        color: #3a3878;
+    }
+
+    input::placeholder,
+    textarea::placeholder{color: #a0a0a0;}
+
+    textarea
+    {
+        width: 100%;
+        min-height: 72px;
+    }
+`;
+
+function CrearMaterial({element}){
+
+    const closeThisPopUp = () => {
+        document.querySelector(".material input[name='id']").value = '';
+        document.querySelector(".material input[name='name']").value = '';
+        document.querySelector(".material input[name='preu']").value = '';
+        document.querySelector(".material textarea").value = ''; 
+
+        closePopUp();
+    }
+
+    setTimeout( 
+    () => {
+        if(element){
+            document.querySelector(".material input[name='id']").value = element.id;
+            document.querySelector(".material input[name='name']").value = element.name;
+            document.querySelector(".material input[name='preu']").value = element.preu;
+            document.querySelector(".material textarea").value = element.descripcio;
+        } else {
+            document.querySelector(".material input[name='id']").value = '';
+            document.querySelector(".material input[name='name']").value = '';
+            document.querySelector(".material input[name='preu']").value = '';
+            document.querySelector(".material textarea").value = '';
+        }
+    },50);
+
+    return(
+        <PopUpBox>
+        <PopUpHeader>
+            <p>{element ? 'Modificar un material' : 'Crear un material'}</p>
+            <button
+                type="button"
+                className="btnGlass"
+                style={{'--width':'60px'}}
+                onClick={() => closeThisPopUp()}
+            >Tancar</button>
+        </PopUpHeader>
+                <MaterialForm>
+                    <input type='text' name='id' placeholder="id"/>
+                    <input type='text' name='name' placeholder="Nom"/>
+                    <input type='number' name='preu' placeholder="Preu"/>
+                    <textarea placeholder="Descripció"></textarea>
+                </MaterialForm>
+                <button
+                    type="button"
+                    className="btnBlue"
+                    style={{'--width':'80px'}}
+                >Crear</button>
+        </PopUpBox>
+    )
 }
 
 function Popup({type, element}){
@@ -123,7 +199,10 @@ function Popup({type, element}){
             popup = <PopupNota element={element}/>
             break;
         case ('eliminar'):
-            popup = <PopupEliminar element={element}/>
+            popup = <PopupNota element={element} btnConfirm={true}/>
+            break;
+        case ('material'):
+            popup = <CrearMaterial element={element}/>
             break;
         default:
             break;
