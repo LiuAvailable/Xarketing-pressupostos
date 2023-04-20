@@ -69,6 +69,10 @@ const CreateUser = styled.div`
 margin: 2rem 0;
 `;
 
+const crearFeina = () => {
+    document.querySelector('.material').classList.remove('hide')
+}
+
 function FeinesView(){
     const filters = [
         {placeholder:'ID', name:'id'},
@@ -92,6 +96,7 @@ function FeinesView(){
                     type='button'
                     className="btnBlue"
                     style={{'--width':'140px'}}
+                    onClick={() => crearFeina()}
                 >Nova feina</button>
             </CreateUser>
             <Filters filters={filters}/>

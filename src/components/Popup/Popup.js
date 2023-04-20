@@ -137,7 +137,7 @@ const MaterialForm = styled.form`
     }
 `;
 
-function CrearMaterial({element}){
+function CrearMaterial({element, feina}){
 
     const closeThisPopUp = () => {
         document.querySelector(".material input[name='id']").value = '';
@@ -163,10 +163,17 @@ function CrearMaterial({element}){
         }
     },50);
 
+    let header;
+    if(feina){
+        header = element ? 'Modificar una feina' : 'Crear una feina'
+    } else {
+        header = element ? 'Modificar un material' : 'Crear un material'
+    }
+
     return(
         <PopUpBox>
         <PopUpHeader>
-            <p>{element ? 'Modificar un material' : 'Crear un material'}</p>
+            <p>{header}</p>
             <button
                 type="button"
                 className="btnGlass"
@@ -189,7 +196,7 @@ function CrearMaterial({element}){
     )
 }
 
-function Popup({type, element}){
+function Popup({type, element, feina}){
     let popup;
     switch(type){
         case ('llista'):
@@ -202,7 +209,7 @@ function Popup({type, element}){
             popup = <PopupNota element={element} btnConfirm={true}/>
             break;
         case ('material'):
-            popup = <CrearMaterial element={element}/>
+            popup = <CrearMaterial element={element} feina={feina}/>
             break;
         default:
             break;

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { BsTrashFill } from 'react-icons/bs';
 
 const FilterBox = styled.div`
+&.hide{display:none;}
     display: flex;
     flex-wrap: wrap;
     align-items:center;
@@ -85,7 +86,7 @@ const FilterBox = styled.div`
     } 
 `;
 
-function Filters({filters}){
+function Filters({filters, hide}){
     const onFocus = ($event) => { $event.target.parentNode.classList.add('focus') }
     const onBlur = ($event) => { if($event.target.value === '') $event.target.parentNode.classList.remove('focus') }
 
@@ -126,6 +127,7 @@ function Filters({filters}){
     
     const removeFilters = () => {
         document.querySelectorAll('.table > ul > li:not(.rowHeader)').forEach(row => row.classList.remove('hide'));
+        document.querySelectorAll('.colorBox')?.forEach(e => e.classList.remove('active'))
 
         document.querySelectorAll('.inputBox.focus').forEach(iBox => {
             iBox.classList.remove('focus');
@@ -135,7 +137,7 @@ function Filters({filters}){
 
 
     return(
-        <FilterBox>
+        <FilterBox className={hide}>
             { filters.map((f) => (
                 <div className="inputBox">
                     <p>{f.placeholder}</p>

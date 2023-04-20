@@ -323,14 +323,14 @@ function TreballadorsTable(){
     )
 }
 
-function PressupostosTable(){
+function PressupostosTable({hide}){
     const pressupostos = [
         {id:'pst-1234', bi:0.00, total:0.00},
         {id:'pst-4321', bi:0.00, total:0.00},
         {id:'pst-3412', bi:0.00, total:0.00}
     ]
     return(
-        <TableBox className="table">
+        <TableBox className={`table ${hide}`}>
             <ul>
             <TableRow className="rowHeader">
                 <p name='id'>ID</p>
@@ -533,6 +533,7 @@ function MaterialsTable(){
 function FeinesTable(){
     const [nota, setNota] = useState('');
     const [element, setElement] = useState('');
+    const [feina, setFeina] = useState('');
 
     const feines = [
         {id:'fna-1234', nom:'Pintar', preu:10, descripcio:'Lorem Ipsum dolor sit amet.'},
@@ -546,6 +547,10 @@ function FeinesTable(){
     const popupEliminar = (id) => {
         setElement({title:'Eliminar una feina', descripcio:`Estas segur que vols eliminar la feina amb id ${id}?`})
         document.querySelector('.eliminar').classList.remove('hide')
+    }
+    const editFeina = ({f}) => {
+        setFeina({id:f.id, name:f.nom, preu:f.preu, descripcio:f.descripcio});
+        document.querySelector('.material').classList.remove('hide')
     }
     return(
         <>
@@ -568,6 +573,7 @@ function FeinesTable(){
                             type="button"
                             className="btnGreen"
                             style={{'--width':'75px'}}
+                            onClick={() => editFeina({f})}
                         >Editar</button>
                         <button
                             type="button"
@@ -582,18 +588,19 @@ function FeinesTable(){
         </TableBox>
         <Popup type='nota' element={nota}/>
         <Popup type='eliminar' element={element}/>
+        <Popup type='material' element={feina} feina={true}/>
         </>
     ) 
 }
 
-function Table({type}){
+function Table({type,hide}){
     let table;
     switch (type){
         case 'treballadors':
             table = <TreballadorsTable />
             break;
         case 'pressupostos':
-            table = <PressupostosTable />
+            table = <PressupostosTable hide={hide}/>
             break;
         case 'worksheet':
             table = <WorksheetTable />
