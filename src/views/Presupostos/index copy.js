@@ -137,110 +137,107 @@ const AddPressupostBox = styled.div`
 }
 `;
 const Feina = styled.div`
-&,.feina
+position:relative;
+background: white;
+border-radius:15px;
+box-shadow: 3px 3px 6px #00000020;
+padding: 2rem;
+
+display:flex;
+flex-direction:column;
+
+select, input, textarea
 {
-    position:relative;
+    width: 140px;
+    height: 40px;
+
+    border:none;
+    outline:none;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 1px 3px 6px #00000020;
     background: white;
-    border-radius:15px;
-    box-shadow: 3px 3px 6px #00000020;
-    padding: 2rem;
-
+    background: #A0A0A025;
+}
+input:read-only
+{
+    background: #A0A0A040;
+    box-shadow: none;
+    border: 1px solid #A0A0A080;
+}
+input[name='id']{margin: 10px 0;}
+.row
+{
     display:flex;
-    flex-direction:column;
+    flex-direction:row;
+    align-items: center;
+    margin: 1rem 0;
+    p{margin: 0;margin-right: 5px; font-size: 14px;}
+    input{margin-right: 40px;}
+}
+.treballador
+{
+    top: 1rem;
+    right:2rem;
+    position:absolute;
+    gap: 10px;
+    p{margin: 0;font-size: 12px;}
 
-    select, input, textarea
-    {
-        width: 140px;
-        height: 40px;
+}
+textarea
+{
+    width: 100%;
+    min-height: 80px;
+    margin-bottom: 2rem;
+}
 
-        border:none;
-        outline:none;
-        padding: 10px;
-        border-radius: 5px;
-        box-shadow: 1px 3px 6px #00000020;
-        background: white;
-        background: #A0A0A025;
-    }
-    input:read-only
-    {
-        background: #A0A0A040;
-        box-shadow: none;
-        border: 1px solid #A0A0A080;
-    }
-    input[name='id']{margin: 10px 0;}
-    .row
-    {
-        display:flex;
-        flex-direction:row;
-        align-items: center;
-        margin: 1rem 0;
-        p{margin: 0;margin-right: 5px; font-size: 14px;}
-        input{margin-right: 40px;}
-    }
-    .treballador
-    {
-        top: 1rem;
-        right:2rem;
-        position:absolute;
-        gap: 10px;
-        p{margin: 0;font-size: 12px;}
+.material
+{
+    position: relative;
+    margin: 1rem 0 1rem 12rem;
+    display:flex;
+    flex-direction:row;
+    gap: 20px;
 
-    }
-    textarea
-    {
-        width: 100%;
-        min-height: 80px;
-        margin-bottom: 2rem;
-    }
-
-    .material
-    {
-        position: relative;
-        margin: 1rem 0 1rem 12rem;
-        display:flex;
-        flex-direction:row;
-        gap: 20px;
-
-        input[name='preuTotal']{position:absolute; right: 0;}
-        input[type='number'], input[name='preuTotal']{width: 80px;}
-        .inputBox{ 
-            position:relative;
-            p
-            {
-                margin: 0;
-                position:absolute;
-                top: -20px;
-                left: 50%;
-                transform: translateX(-50%);
-                font-size: 12px;
-            }
-        }
-        .eliminar
+    input[name='preuTotal']{position:absolute; right: 0;}
+    input[type='number'], input[name='preuTotal']{width: 80px;}
+    .inputBox{ 
+        position:relative;
+        p
         {
+            margin: 0;
             position:absolute;
-            top: 50%;
-            left:-10px;
-            transform:translate(-100%, -50%);
-            padding: 1px 4px;
-            border: 1px solid transparent;
-            color: #d44e4f;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
             font-size: 12px;
-            border-radius: 5px;
-            transition: .1s;
-            cursor: pointer;
-            &:hover{border: 1px solid #d44e4f;}
         }
     }
-    .btnTintedGlass{font-size: 14px; margin-left: 12rem;}
-
-    .totalFeina
+    .eliminar
     {
-        display:flex;
-        justify-content: flex-end;
-        align-items:center;
-        gap:10px;
-        p{font-size: 12px;margin:0;}
+        position:absolute;
+        top: 50%;
+        left:-10px;
+        transform:translate(-100%, -50%);
+        padding: 1px 4px;
+        border: 1px solid transparent;
+        color: #d44e4f;
+        font-size: 12px;
+        border-radius: 5px;
+        transition: .1s;
+        cursor: pointer;
+        &:hover{border: 1px solid #d44e4f;}
     }
+}
+.btnTintedGlass{font-size: 14px; margin-left: 12rem;}
+
+.totalFeina
+{
+    display:flex;
+    justify-content: flex-end;
+    align-items:center;
+    gap:10px;
+    p{font-size: 12px;margin:0;}
 }
 `;
 const Totals = styled.div`
@@ -278,140 +275,11 @@ flex-direction: row-reverse;
 gap: 20px;
 button{margin-left:0 !important;}
 `;
-const NewFeina = styled.div`
-display: flex;
-align-items:center;
-justify-content:center;
-border-radius: 15px;
-text-transform: uppercase;
-margin: 1rem 0;
-height: 4rem;
-
-background: #A0A0A020;
-border: 1px solid #A0A0A060;
-backdrop-filter: blur(2px);
-cursor:pointer;
-color: #606060;
-
-&:hover{background: #A0A0A030;}
-`;
-
-
-/* MORE STYLES IN _presupostView.scss */
 
 function CreatePresupost({hide,setHide}){
 
-    /**
-     * Function to remove a material from a task
-     * @param material material to be removed
-     */
-    const rmMaterial = (material) => {material.remove()}
-
-    /**
-     * function to add a new task to the presupost
-     * @param feina == task to add a new material
-     * if feina is null, it is the first task, the one is created by default
-     */
-    const addMaterial = (feina) => {
-        const materialHTML =
-            `
-                <select>
-                    <option>Material</option>
-                    <option>Pot pintura</option>
-                    <option>Pinzell</option>
-                </select>
-                <div class="inputBox">
-                    <p>unitats</p>
-                    <input type='number' name='unitatsMaterial' />
-                </div>
-                <div class="inputBox">
-                    <p>preu/U</p>
-                    <input type='number' name='preuUnitat' />
-                </div>
-                <input type='text' name='preuTotal' readOnly/>
-                <div class="eliminar">eliminar</div>
-            `
-        const material = document.createElement('div')
-        material.classList.add('material');
-        material.innerHTML = materialHTML;
-
-        let materialElement;
-
-        if(feina){ // feina added manualy (!= first)
-            feina.feinaElement.querySelector('.materialBox').appendChild(material)
-            const materialElements = feina.feinaElement.querySelectorAll(".material");
-            materialElement = materialElements[materialElements.length -1 ];
-        }else{ // feina by default (== first)
-            document.querySelector('.materialBox').appendChild(material);
-            const materialElements = document.querySelectorAll(".feinesBox > div:nth-child(1) .material");
-            materialElement = materialElements[materialElements.length -1 ];
-        }
-
-        materialElement.querySelector(".eliminar").addEventListener('click', () => rmMaterial(materialElement))
-    }
-
-    /**
-     * function to add a new task
-     */
-    const addFeina = () => {
-        const feinaHTML = 
-            `<div class='feina'>
-                <select>
-                    <option>Feina</option>
-                    <option>Pintar</option>
-                </select>
-                <input type='text' placeholder='identificador' name='id'/>
-                <div class="row treballador">
-                    <p>Assignada a:</p>
-                    <select>
-                        <option>Treballador</option>
-                        <option>Pere Pons</option>
-                    </select>
-                </div>
-                <div class="row">
-                    <p>Preu/hora:</p>
-                    <input type='number' placeholder="preu/hora" name='preu'/>
-                    <p>hores:</p>
-                    <input type='number' placeholder="hores" name='hores'/>
-                </div>
-                <textarea placeholder="Descripció"></textarea>
-                <div class="materialBox">
-                    <div class="material">
-                        <select>
-                            <option>Material</option>
-                            <option>Pot pintura</option>
-                            <option>Pinzell</option>
-                        </select>
-                        <div class="inputBox">
-                            <p>unitats</p>
-                            <input type='number' name='unitatsMaterial' />
-                        </div>
-                        <div class="inputBox">
-                            <p>preu/U</p>
-                            <input type='number' name='preuUnitat' />
-                        </div>
-                        <input type='text' name='preuTotal' readOnly/>
-                    </div>
-                </div>
-                    <button 
-                        type='button' 
-                        class="btnTintedGlass" 
-                        style="--width: 120px;"
-                    >Afegir Material</button>
-            
-                    <div class="totalFeina">
-                        <p>Total:</p>
-                        <input type='text' name='totalFeina' readOnly/>
-                    </div>
-            </div>`
-
-        const feina = document.createElement('div')
-        feina.innerHTML = feinaHTML;
-        document.querySelector('.feinesBox').appendChild(feina);
-
-        const feinaElements = document.querySelectorAll(".feinesBox .feina");
-        const feinaElement = feinaElements[feinaElements.length -1 ];
-        feinaElement.querySelector(".btnTintedGlass").addEventListener('click', () => addMaterial({feinaElement}))
+    const addMaterial = () => {
+        
     }
 
     let form;
@@ -428,7 +296,6 @@ function CreatePresupost({hide,setHide}){
                         <input type='text' name='idff'/>
                     </div>
                 </div>
-                <div className="feinesBox">
                 <Feina className='feina'>
                     <select>
                         <option>Feina</option>
@@ -449,7 +316,7 @@ function CreatePresupost({hide,setHide}){
                         <input type='number' placeholder="hores" name='hores'/>
                     </div>
                     <textarea placeholder="Descripció"></textarea>
-                    <div className="materialBox">
+
                         <div className="material">
                             <select>
                                 <option>Material</option>
@@ -465,8 +332,8 @@ function CreatePresupost({hide,setHide}){
                                 <input type='number' name='preuUnitat' />
                             </div>
                             <input type='text' name='preuTotal' readOnly/>
+                            <div className="eliminar">eliminar</div>
                         </div>
-                    </div>
                         <button 
                             type='button' 
                             className="btnTintedGlass" 
@@ -478,9 +345,7 @@ function CreatePresupost({hide,setHide}){
                             <input type='text' name='totalFeina' readOnly/>
                         </div>
                 </Feina>
-
-                </div>
-                <NewFeina onClick={() => addFeina()}>Afegir una altre feina</NewFeina>
+                <NewFeina>Afegir una altre feina</NewFeina>
                         <Totals className="totals">
                             <div className="inputBox">
                                 <p>Descompte</p>
@@ -517,5 +382,22 @@ function CreatePresupost({hide,setHide}){
     }
     return form;
 }
+const NewFeina = styled.div`
+display: flex;
+align-items:center;
+justify-content:center;
+border-radius: 15px;
+text-transform: uppercase;
+margin: 1rem 0;
+height: 4rem;
+
+background: #A0A0A020;
+border: 1px solid #A0A0A060;
+backdrop-filter: blur(2px);
+cursor:pointer;
+color: #606060;
+
+&:hover{background: #A0A0A030;}
+`;
 
 export default PressupostosView;
