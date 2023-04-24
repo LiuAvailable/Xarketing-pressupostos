@@ -172,12 +172,13 @@ const TableRow = styled.li`
     {
         --red: #e91e63;
         --light-red: #e91e6320;
+        --light-red: #f8dce5;
 
         --green: #8eec8e;
-        --light-green: #8eec8e20;
+        --light-green: #eff9ec;
 
         --yellow: #f2c40e;
-        --light-yellow: #f2c40e20;
+        --light-yellow: #fcf4d9;
 
         position:relative;
         p{color: #3a3a3a;}

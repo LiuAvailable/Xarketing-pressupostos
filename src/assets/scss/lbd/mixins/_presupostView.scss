@@ -12,7 +12,7 @@
     background: white;
     border-radius:15px;
     box-shadow: 3px 3px 6px #00000020;
-    padding: 2rem;
+    padding: 5rem 2rem 2rem 2rem;
 
     display:flex;
     flex-direction:column;
@@ -48,7 +48,7 @@
     }
     .treballador
     {
-        top: 1rem;
+        top: 4rem;
         right:2rem;
         position:absolute;
         gap: 10px;
@@ -111,4 +111,11 @@
         gap:10px;
         p{font-size: 12px;margin:0;}
     }
+}
+.eliminarFeina
+{
+    position:absolute;
+    top: 1rem;
+    margin: 0 !important;
+    right: 2rem;
 }

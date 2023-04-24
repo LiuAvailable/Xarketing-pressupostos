@@ -305,7 +305,11 @@ function CreatePresupost({hide,setHide}){
      * Function to remove a material from a task
      * @param material material to be removed
      */
-    const rmMaterial = (material) => {material.remove()}
+    const rmMaterial = (material) => {
+        const feinaElement = material.parentNode.parentNode
+        material.remove()
+        sumTotalFeina({feinaElement})
+    }
 
     /**
      * function to add a new task to the presupost
@@ -348,6 +352,9 @@ function CreatePresupost({hide,setHide}){
         }
 
         materialElement.querySelector(".eliminar").addEventListener('click', () => rmMaterial(materialElement))
+
+        materialElement.querySelector("input[name='unitatsMaterial']").addEventListener('change', () => sumTotalMaterial({materialElement}));
+        materialElement.querySelector("input[name='preuUnitat']").addEventListener('change', () => sumTotalMaterial({materialElement}));
     }
 
     /**
@@ -356,6 +363,7 @@ function CreatePresupost({hide,setHide}){
     const addFeina = () => {
         const feinaHTML = 
             `<div class='feina'>
+            <button class='btnTintedGlass eliminarFeina' style="--width:80px">Eliminar</button>
                 <select>
                     <option>Feina</option>
                     <option>Pintar</option>
@@ -411,7 +419,117 @@ function CreatePresupost({hide,setHide}){
 
         const feinaElements = document.querySelectorAll(".feinesBox .feina");
         const feinaElement = feinaElements[feinaElements.length -1 ];
-        feinaElement.querySelector(".btnTintedGlass").addEventListener('click', () => addMaterial({feinaElement}))
+        feinaElement.querySelector(".btnTintedGlass:not(.eliminarFeina)").addEventListener('click', () => addMaterial({feinaElement}))
+        feinaElement.querySelector(".eliminarFeina").addEventListener('click', () => {feinaElement.remove(); sumTotal()})
+
+        feinaElement.querySelector("input[name='preu']").addEventListener('change', () => sumTotalFeina({feinaElement}))
+        feinaElement.querySelector("input[name='hores']").addEventListener('change', () => sumTotalFeina({feinaElement}))
+
+        const materialElement = feinaElement.querySelector(".material:first-child");
+        materialElement.querySelector("input[name='unitatsMaterial']").addEventListener('change', () => sumTotalMaterial({materialElement}));
+        materialElement.querySelector("[name='preuUnitat']").addEventListener('change', () => sumTotalMaterial({materialElement}));
+    }
+
+    /**
+     * function to sum the total of the presupost
+     */
+    const sumTotal = () => {
+        const feines = document.querySelectorAll("input[name='totalFeina']")
+
+        const totalElement = document.querySelector("input[name='totalPresupost']");
+        let total = 0;
+
+        feines.forEach(f => total = total + parseInt(f.value));
+
+        total = total > 0 ? total : '';
+        /* descompte */
+        let descompte = parseInt(document.querySelector("input[name='descompte']").value);
+        descompte = descompte >= 0 ? total * descompte / 100 : 0;
+
+        /* impost */
+        let impost = parseInt(document.querySelector("input[name='impost']").value);
+        impost = impost >= 0 ? total * impost / 100 : 0;
+
+        /* total */
+        totalElement.value = (total - descompte + impost).toFixed(2);
+    }
+
+    /**
+     * Function to sum the total of a task.
+     * @param feina == task to calculate
+     */
+    const sumTotalFeina = (feina) => {
+        if(!feina) feina = document.querySelector(".feina:first-child");
+        else feina = feina.feinaElement;
+
+        const totalFeina = feina.querySelector("input[name='totalFeina']");
+        let total = 0;
+
+        const preu = parseInt(feina.querySelector("input[name='preu']").value)
+        const hores = parseInt(feina.querySelector("input[name='hores']").value);
+
+        const totalMaterials = feina.querySelectorAll(".material input[name='preuTotal']")
+        totalMaterials.forEach(material => {
+            parseInt(material.value) > 0 ? total = total + parseInt(material.value) : total = total;
+        });
+
+        
+        if(preu > 0) hores > 0 ? total = total + hores*preu : total = total + preu;
+        total > 0 ? totalFeina.value = total : totalFeina.value = '';
+
+        sumTotal()
+    }
+
+    /**
+     * Function to sum the total of a material
+     * @param material == material to calculate
+     */
+    const sumTotalMaterial = (material) => {
+        if(!material) material = document.querySelector(".feina:first-child .material:first-child");
+        else material = material.materialElement;
+
+        const totalMaterial = material.querySelector("input[name='preuTotal']");
+        let total = 0;
+
+        const unitats = parseInt(material.querySelector("input[name='unitatsMaterial']").value);
+        const preu = parseInt(material.querySelector("input[name='preuUnitat']").value);
+
+        unitats > 0 ? total = total + unitats * preu : total = preu;
+        total > 0 ? totalMaterial.value = total : totalMaterial.value = '';
+
+        sumTotalFeina({feinaElement:material.parentNode.parentNode})
+    }
+
+    const CreatePresupost = () => {
+        const id = document.querySelector(".identificators input[name='id']").value;
+        const idFF = document.querySelector(".identificators input[name='idff']").value;
+        const descompte = document.querySelector("input[name='descompte']").value;
+        const impost = document.querySelector("input[name='impost']").value;
+        const bi = document.querySelector("input[name='baseImposable']").value;
+        const total = document.querySelector("input[name='totalPresupost']").value;
+        const feines = [];
+
+        document.querySelectorAll('.feina').forEach(f => {
+            const feina = f.querySelector('select').value;
+            const id = f.querySelector("input[name='id'").value;
+            const treballador = f.querySelector(".treballador select").value;
+            const preu = f.querySelector("input[name='preu']").value;
+            const hores = f.querySelector("input[name='hores']").value;
+            const descripcio = f.querySelector("textarea").value;
+            const total = f.querySelector("input[name='totalFeina']").value;
+
+            const materials = [];
+            f.querySelectorAll('.material').forEach(m => {
+                const material = m.querySelector('select').value;
+                const preu = m.querySelector("input[name='preuUnitat']").value;
+                const unitats = m.querySelector("input[name='unitatsMaterial']").value;
+                const total = m.querySelector("input[name='preuTotal']").value;
+                materials.push({material, preu, unitats, total})
+            })
+            feines.push({feina, id, treballador, preu, hores, descripcio, total, materials})
+        })
+
+        console.log({id, idFF, descompte, impost, bi, total, feines})
     }
 
     let form;
@@ -444,9 +562,9 @@ function CreatePresupost({hide,setHide}){
                     </div>
                     <div className="row">
                         <p>Preu/hora:</p>
-                        <input type='number' placeholder="preu/hora" name='preu'/>
+                        <input type='number' placeholder="preu/hora" name='preu'  onChange={() => sumTotalFeina()}/>
                         <p>hores:</p>
-                        <input type='number' placeholder="hores" name='hores'/>
+                        <input type='number' placeholder="hores" name='hores'  onChange={() => sumTotalFeina()}/>
                     </div>
                     <textarea placeholder="Descripció"></textarea>
                     <div className="materialBox">
@@ -458,11 +576,11 @@ function CreatePresupost({hide,setHide}){
                             </select>
                             <div className="inputBox">
                                 <p>unitats</p>
-                                <input type='number' name='unitatsMaterial' />
+                                <input type='number' name='unitatsMaterial' onChange={() => sumTotalMaterial()}/>
                             </div>
                             <div className="inputBox">
                                 <p>preu/U</p>
-                                <input type='number' name='preuUnitat' />
+                                <input type='number' name='preuUnitat' onChange={() => sumTotalMaterial()} />
                             </div>
                             <input type='text' name='preuTotal' readOnly/>
                         </div>
@@ -484,19 +602,19 @@ function CreatePresupost({hide,setHide}){
                         <Totals className="totals">
                             <div className="inputBox">
                                 <p>Descompte</p>
-                                <input type='text' name='descompte' />
+                                <input type='number' name='descompte' onChange={() => sumTotal()} min='0'/>
                             </div>
                             <div className="inputBox">
                                 <p>Impost</p>
-                                <input type='text' name='descompte' />
+                                <input type='number' name='impost' onChange={() => sumTotal()} min='0'/>
                             </div>
                             <div className="inputBox">
                                 <p>Base imposable</p>
-                                <input type='text' name='descompte' readOnly/>
+                                <input type='text' name='baseImposable' readOnly/>
                             </div>
                             <div className="inputBox">
                                 <p>Preu total</p>
-                                <input type='text' name='descompte' readOnly/>
+                                <input type='text' name='totalPresupost' readOnly/>
                             </div>
                         </Totals>
                 <ButtonsExit>
@@ -504,6 +622,7 @@ function CreatePresupost({hide,setHide}){
                         type='button'
                         className="btnBlue"
                         style={{'--width':'75px'}}
+                        onClick={() => CreatePresupost()}
                     >Crear</button>
                     <button
                         type='button'
