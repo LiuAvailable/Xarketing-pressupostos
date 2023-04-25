@@ -324,7 +324,116 @@ function TreballadorsTable(){
     )
 }
 
-function PressupostosTable({hide}){
+function PressupostosTable({hide, setElement}){
+
+
+    const pressupost = {
+        id:1234,
+        idff: 1234,
+        descompte: 20,
+        impost:20,
+        bi:'',
+        total:80,
+        feines:[
+            {
+                feina:'Pintar',
+                id:'fna-1',
+                treballador: 'Pere Pons',
+                preu: 5,
+                hores: 2,
+                descripcio: 'Lorem Ipsum dolor sit ament.',
+                total: 40,
+                materials:[
+                    {
+                        material:"Pot pintura",
+                        unitats:2,
+                        preu: 5,
+                        total: 10
+                    },
+                    {
+                        material:"Pinzell",
+                        unitats:2,
+                        preu: 5,
+                        total: 10
+                    },
+                    {
+                        material:"Pinzell",
+                        unitats:2,
+                        preu: 5,
+                        total: 10
+                    }
+                ]
+            },
+            {
+                feina:'Pintar',
+                id:'fna-2',
+                treballador: 'Pere Pons',
+                preu: 5,
+                hores: 2,
+                descripcio: 'Lorem Ipsum dolor sit ament.',
+                total: 40,
+                materials:[
+                    {
+                        material:"Pot pintura",
+                        unitats:2,
+                        preu: 5,
+                        total: 10
+                    },
+                    {
+                        material:"Pinzell",
+                        unitats:2,
+                        preu: 5,
+                        total: 10
+                    }
+                ]
+            },
+            {
+                feina:'Pintar',
+                id:'fna-3',
+                treballador: 'Pere Pons',
+                preu: 5,
+                hores: 2,
+                descripcio: 'Lorem Ipsum dolor sit ament.',
+                total: 40,
+                materials:[
+                    {
+                        material:"Pot pintura",
+                        unitats:2,
+                        preu: 5,
+                        total: 10
+                    },
+                    {
+                        material:"Pinzell",
+                        unitats:2,
+                        preu: 5,
+                        total: 10
+                    },
+                    {
+                        material:"Pinzell",
+                        unitats:2,
+                        preu: 5,
+                        total: 10
+                    },
+                    {
+                        material:"Pinzell",
+                        unitats:2,
+                        preu: 5,
+                        total: 10
+                    },
+                    {
+                        material:"Pinzell",
+                        unitats:2,
+                        preu: 5,
+                        total: 10
+                    }
+                ]
+            },
+
+        ]
+
+    }
+
+
     const pressupostos = [
         {id:'pst-1234', bi:0.00, total:0.00},
         {id:'pst-4321', bi:0.00, total:0.00},
@@ -348,6 +457,7 @@ function PressupostosTable({hide}){
                             type="button"
                             className="btnGreen"
                             style={{'--width':'75px'}}
+                            onClick={() => setElement(pressupost)}
                         >
                             Editar
                         </button>
@@ -594,14 +704,14 @@ function FeinesTable(){
     ) 
 }
 
-function Table({type,hide}){
+function Table({type,hide, setElement}){
     let table;
     switch (type){
         case 'treballadors':
             table = <TreballadorsTable />
             break;
         case 'pressupostos':
-            table = <PressupostosTable hide={hide}/>
+            table = <PressupostosTable hide={hide} setElement={setElement}/>
             break;
         case 'worksheet':
             table = <WorksheetTable />
