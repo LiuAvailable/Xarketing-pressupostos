@@ -70,6 +70,7 @@ const CreateUser = styled.div`
 margin: 2rem 0;
 
 display:flex;
+flex-wrap:wrap;
 gap: 6px;
 
 input, select
@@ -91,6 +92,14 @@ select
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+@media only screen and (max-width: 476px) { 
+    input, select
+    {
+        height: 26px;
+        font-size: 12px;
+        width: 80px;
+    }
 }
 `;
 

@@ -31,113 +31,6 @@ const AddPressupostBox = styled.div`
     }
 }
 `;
-const Feina = styled.div`
-&,.feina
-{
-    position:relative;
-    background: white;
-    border-radius:15px;
-    box-shadow: 3px 3px 6px #00000020;
-    padding: 2rem;
-
-    display:flex;
-    flex-direction:column;
-
-    select, input, textarea
-    {
-        width: 140px;
-        height: 40px;
-
-        border:none;
-        outline:none;
-        padding: 10px;
-        border-radius: 5px;
-        box-shadow: 1px 3px 6px #00000020;
-        background: white;
-        background: #A0A0A025;
-    }
-    input:read-only
-    {
-        background: #A0A0A040;
-        box-shadow: none;
-        border: 1px solid #A0A0A080;
-    }
-    input[name='id']{margin: 10px 0;}
-    .row
-    {
-        display:flex;
-        flex-direction:row;
-        align-items: center;
-        margin: 1rem 0;
-        p{margin: 0;margin-right: 5px; font-size: 14px;}
-        input{margin-right: 40px;}
-    }
-    .treballador
-    {
-        top: 1rem;
-        right:2rem;
-        position:absolute;
-        gap: 10px;
-        p{margin: 0;font-size: 12px;}
-
-    }
-    textarea
-    {
-        width: 100%;
-        min-height: 80px;
-        margin-bottom: 2rem;
-    }
-
-    .material
-    {
-        position: relative;
-        margin: 1rem 0 1rem 12rem;
-        display:flex;
-        flex-direction:row;
-        gap: 20px;
-
-        input[name='preuTotal']{position:absolute; right: 0;}
-        input[type='number'], input[name='preuTotal']{width: 80px;}
-        .inputBox{ 
-            position:relative;
-            p
-            {
-                margin: 0;
-                position:absolute;
-                top: -20px;
-                left: 50%;
-                transform: translateX(-50%);
-                font-size: 12px;
-            }
-        }
-        .eliminar
-        {
-            position:absolute;
-            top: 50%;
-            left:-10px;
-            transform:translate(-100%, -50%);
-            padding: 1px 4px;
-            border: 1px solid transparent;
-            color: #d44e4f;
-            font-size: 12px;
-            border-radius: 5px;
-            transition: .1s;
-            cursor: pointer;
-            &:hover{border: 1px solid #d44e4f;}
-        }
-    }
-    .btnTintedGlass{font-size: 14px; margin-left: 12rem;}
-
-    .totalFeina
-    {
-        display:flex;
-        justify-content: flex-end;
-        align-items:center;
-        gap:10px;
-        p{font-size: 12px;margin:0;}
-    }
-}
-`;
 const Totals = styled.div`
 input{
     width: 160px;
@@ -363,7 +256,7 @@ function CreatePresupost({hide,setHide, element}){
                     <button 
                         type='button' 
                         class="btnTintedGlass" 
-                        style="--width: 120px;"
+                        style="--width: 130px;"
                     >Afegir Material</button>
             
                     <div class="totalFeina">
@@ -506,7 +399,7 @@ function CreatePresupost({hide,setHide, element}){
                     </div>
                 </div>
                 <div className="feinesBox">
-                <Feina className='feina'>
+                <div className='feina'>
                     <select>
                         <option>Feina</option>
                         <option>Pintar</option>
@@ -547,14 +440,14 @@ function CreatePresupost({hide,setHide, element}){
                         <button 
                             type='button' 
                             className="btnTintedGlass" 
-                            style={{'--width':'120px'}}
+                            style={{'--width':'130px'}}
                             onClick={() => addMaterial()}
                         >Afegir Material</button>
                         <div className="totalFeina">
                             <p>Total:</p>
                             <input type='text' name='totalFeina' readOnly/>
                         </div>
-                </Feina>
+                </div>
 
                 </div>
                 <NewFeina onClick={() => addFeina()}>Afegir una altre feina</NewFeina>
@@ -580,13 +473,13 @@ function CreatePresupost({hide,setHide, element}){
                     <button
                         type='button'
                         className="btnBlue"
-                        style={{'--width':'75px'}}
+                        style={{'--width':'80px'}}
                         onClick={() => CreatePresupost()}
                     >Crear</button>
                     <button
                         type='button'
                         className="btnTintedGlass"
-                        style={{'--width':'75px'}}
+                        style={{'--width':'80px'}}
                         onClick={() => setHide('')}
                     >Cancelar</button>
                 </ButtonsExit>

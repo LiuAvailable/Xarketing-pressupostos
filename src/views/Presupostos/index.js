@@ -25,7 +25,7 @@ const Bg = styled.div`
     display:flex;
     flex-direction: column;
 
-    @media only screen and (max-width: 460px) {
+    @media only screen and (max-width: 534px) {
         & 
         {
             width: calc(100% + 30px);

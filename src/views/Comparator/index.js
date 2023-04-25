@@ -110,17 +110,17 @@ function ComparatorView(){
                 {/* eslint-disable-next-line */}
                 <div className="colorBox" onClick={($event) => filterDiference($event, 'green')}>
                     <div className="color green"></div>
-                    <p>Diferència 0-10%</p>
+                    <p>Dif. 0-10%</p>
                 </div>
                 {/* eslint-disable-next-line */}
                 <div className="colorBox" onClick={($event) => filterDiference($event, 'yellow')}>
                     <div className="color yellow"></div>
-                    <p>Diferència 11-30%</p>
+                    <p>Dif. 11-30%</p>
                 </div>
                 {/* eslint-disable-next-line */}
                 <div className="colorBox" onClick={($event) => filterDiference($event, 'red')}>
                     <div className="color red"></div>
-                    <p>Diferència +30%</p>
+                    <p>Dif. +30%</p>
                 </div>
             </ColorLegend>
             <Table type='comparator'/>
@@ -162,7 +162,27 @@ gap: 2rem;
         pointer-events:none;
     }
 
-    p{margin: 0; font-size: 14px;pointer-events:none;}
+    p{margin: 0; font-size: 14px;pointer-events:none;text-align:center;}
+}
+@media only screen and (max-width: 726px) { 
+    gap: 10px;
+    .colorBox{
+        padding: .2em .5em;
+        p{font-size: 12px;}
+    }
+}
+@media only screen and (max-width: 360px) { 
+    gap: 4px;
+    .colorBox{
+        padding: .2em .2em;
+        .color{
+            height: 16px;
+            width: 16px;
+            border-radius: 4px;
+
+        }
+        p{font-size: 10px; width: 40px;}
+    }
 }
 `;
 export default ComparatorView;
