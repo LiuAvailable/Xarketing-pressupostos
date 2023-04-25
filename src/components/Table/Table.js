@@ -319,13 +319,18 @@ function TreballadorsTable(){
             </ul>
         </TableBox>
         <Popup type='llista' element={llista}/>
-            <Popup type='eliminar' element={element} />
+        <Popup type='eliminar' element={element} />
         </>
     )
 }
 
-function PressupostosTable({hide, setElement}){
+function PressupostosTable({hide, setElement, setHide}){
+    const [eliminar, setDelete] = useState('');
 
+    const popupEliminar = (id) => {
+        setDelete({title:'Eliminar un treballador', descripcio:`Estas segur que vols eliminar el pressupost amb id ${id}?`})
+        document.querySelector('.eliminar').classList.remove('hide')
+    }
 
     const pressupost = {
         id:1234,
@@ -428,11 +433,13 @@ function PressupostosTable({hide, setElement}){
                     }
                 ]
             },
-
         ]
-
     }
 
+    const editPresupost = (pressupost) => {
+        setElement(pressupost)
+        setHide('hide')
+    }
 
     const pressupostos = [
         {id:'pst-1234', bi:0.00, total:0.00},
@@ -440,6 +447,7 @@ function PressupostosTable({hide, setElement}){
         {id:'pst-3412', bi:0.00, total:0.00}
     ]
     return(
+        <>
         <TableBox className={`table ${hide}`}>
             <ul>
             <TableRow className="rowHeader">
@@ -457,7 +465,7 @@ function PressupostosTable({hide, setElement}){
                             type="button"
                             className="btnGreen"
                             style={{'--width':'75px'}}
-                            onClick={() => setElement(pressupost)}
+                            onClick={() => editPresupost(pressupost)}
                         >
                             Editar
                         </button>
@@ -465,6 +473,7 @@ function PressupostosTable({hide, setElement}){
                             type="button"
                             className="btnRed"
                             style={{'--width':'75px'}}
+                            onClick={() => popupEliminar(p.id)}
                         >
                             Eliminar
                         </button>
@@ -473,6 +482,8 @@ function PressupostosTable({hide, setElement}){
             ))}
             </ul>
         </TableBox>
+        <Popup type='eliminar' element={eliminar}/>
+        </>
     )
 }
 
@@ -704,14 +715,14 @@ function FeinesTable(){
     ) 
 }
 
-function Table({type,hide, setElement}){
+function Table({type,hide, setElement, setHide}){
     let table;
     switch (type){
         case 'treballadors':
             table = <TreballadorsTable />
             break;
         case 'pressupostos':
-            table = <PressupostosTable hide={hide} setElement={setElement}/>
+            table = <PressupostosTable hide={hide} setElement={setElement} setHide={setHide}/>
             break;
         case 'worksheet':
             table = <WorksheetTable />

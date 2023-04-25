@@ -81,8 +81,7 @@ function PressupostosView(){
     ]
 
     const crearPressupost = () => {
-        console.log(element)
-        // setElement('')
+        setElement('')
         setHide('hide');
     }
     return(
@@ -107,7 +106,7 @@ function PressupostosView(){
                 >Nou pressupost</button>
             </CreateUser>
             <Filters filters={filters} hide={hideTable}/>
-            <Table type='pressupostos' hide={hideTable} setElement={setElement}/>
+            <Table type='pressupostos' hide={hideTable} setElement={setElement} setHide={setHide}/>
             <CreatePresupost hide={hideTable} setHide={setHide} element={element}/>
         </Bg>
     )

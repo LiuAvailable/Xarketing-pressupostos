@@ -256,7 +256,7 @@ function CreatePresupost({hide,setHide, element}){
                 })
                 feina=feina+1;
             })
-        }, 75)
+        }, 500)
 
     }
 
