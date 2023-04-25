@@ -289,7 +289,7 @@ function TreballadorsTable(){
     }
     return(
         <>
-        <TableBox className="table">
+        <TableBox className="table" minWidth='1000px' respMinWidth='720px'>
             <ul>
             <TableRow className="rowHeader">
                 <p name='id'>DNI</p>
@@ -448,7 +448,7 @@ function PressupostosTable({hide, setElement, setHide}){
     ]
     return(
         <>
-        <TableBox className={`table ${hide}`}>
+        <TableBox className={`table ${hide}`} minWidth='780px' respMinWidth='520px'>
             <ul>
             <TableRow className="rowHeader">
                 <p name='id'>ID</p>
@@ -507,7 +507,7 @@ function WorksheetTable(){
     ]
     return(
         <>
-        <TableBox className="table">
+        <TableBox className="table" minWidth='650px' respMinWidth='480px'>
             <ul>
             <TableRow className="rowHeader">
                 <p name='id'>ID</p>
@@ -568,7 +568,7 @@ function ComparatorTable(){
         {pressupost:'pst-3412', pst_total: 1.00, worksheet: 'wks-3412', wks_total: 0.85}
     ]
     return(
-        <TableBox className="table">
+        <TableBox className="table" minWidth='750px' respMinWidth='650px'>
             <ul>
             <TableRow className="rowHeader">
                 <p name='id'>Pressupost</p>
@@ -613,7 +613,7 @@ function MaterialsTable(){
     }
     return(
         <>
-        <TableBox className="table">
+        <TableBox className="table" minWidth='920px' respMinWidth='650px'>
             <ul>
             <TableRow className="rowHeader">
                 <p name='id'>ID</p>
@@ -676,7 +676,7 @@ function FeinesTable(){
     }
     return(
         <>
-        <TableBox className="table">
+        <TableBox className="table" minWidth='920px' respMinWidth='650px'>
             <ul>
             <TableRow className="rowHeader">
                 <p name='id'>ID</p>
