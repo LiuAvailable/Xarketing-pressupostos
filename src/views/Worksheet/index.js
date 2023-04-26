@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { HiClipboard } from 'react-icons/hi';
@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 
 import Table from '../../components/Table/Table';
 import Filters from "components/Table/Filters";
+import WorksheetDetails from './worksheetDetails';
 
 const Bg = styled.div`
     margin: auto;
@@ -48,12 +49,20 @@ const Back = styled.div`
     &:hover{background: #EEE; svg{color: #505050;}}
     
     svg{font-size: 1.2em; color: #707070;}
-    a
+    a,button
     {
         position: absolute;
         width: 100%;
         height: 100%;
         cursor:pointer;
+    }
+    button
+    {
+        outline:none;
+        border:none;
+        background:none;
+        opacity:0;
+        user-select:none;
     }
     @media only screen and (max-width: 620px) {
         width: 48px;
@@ -69,6 +78,9 @@ const Back = styled.div`
 
 function WorkSheetView(){
 
+    const [hide, setHide] = useState('');
+    const [element, setElement] = useState('');
+
     const filters = [
         {placeholder:'ID', name:'id'},
         {placeholder:'Pressupost', name:'pressupost'},
@@ -79,6 +91,7 @@ function WorkSheetView(){
             <Back>
                 <BsArrowLeft/>
                 <Link exact to='/private/home'/>
+                {hide === 'hide' ? <button type="button" onClick={() => setHide('')}>Tornar</button> : ''}
             </Back>
             <div className="pageHeader">
                 <div className="icon"> <HiClipboard/> </div>
@@ -87,8 +100,13 @@ function WorkSheetView(){
                     <p>Els teus fulls de feina</p>
                 </div>
             </div>
-            <Filters filters={filters}/>
-            <Table type='worksheet'/>
+            {hide !== 'hide' ?
+            <>
+                <Filters filters={filters}/>
+                <Table type='worksheet' hide={hide} setElement={setElement} setHide={setHide}/>
+            </> : ''
+            }
+            <WorksheetDetails hide={hide} setHide={setHide} element={element}/>
         </Bg>
     )
 }

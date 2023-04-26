@@ -44,8 +44,14 @@
         flex-direction:row;
         align-items: center;
         margin: 1rem 0;
-        p{margin: 0;margin-right: 5px; font-size: 14px;}
-        input{margin-right: 40px;}
+        gap: 40px;
+        .inputBox
+        {
+            display:flex; 
+            align-items: center;
+            gap: 5px;
+            p{margin: 0;}
+        }
     }
     .treballador
     {
@@ -54,6 +60,7 @@
         position:absolute;
         gap: 10px;
         p{margin: 0;font-size: 12px;}
+
     }
     &:nth-child(1) .treballador{top:1rem;}
     textarea
@@ -129,6 +136,29 @@
             input[type='number'], input[name='preuTotal']{width: 60px;}
         }
         .btnTintedGlass{font-size: 12px; margin-left: 2rem;}
+
+        .row
+        {
+            gap: 20px;
+            .inputBox
+            {
+                flex-direction: column; 
+                justify-content: center; 
+                align-items: unset;
+                p{font-size: 12px;}
+            }
+        }
+
+        .treballador
+        {
+            right:1rem;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: unset;
+            gap: 0;
+            p{font-size: 12px;}
+        }
     }
     @media only screen and (max-width: 452px) {
         input::-webkit-outer-spin-button,
@@ -143,7 +173,6 @@
         &:nth-child(1){padding: 1rem;}
 
         .treballador{top: 3rem}
-        &:nth-child(1) .treballador{top:0;}
 
         .material{
             gap:10px;
@@ -159,6 +188,26 @@
         }
         .material:not(:first-child){margin-top: 2rem;}
         .btnTintedGlass{margin-left: 0;}
+
+        .row
+        {
+            gap: 16px;
+            .inputBox
+            {
+                flex-direction: column; 
+                justify-content: center; 
+                align-items: unset;
+                p{font-size: 10px;}
+            }
+        }
+
+        .treballador
+        {
+            right:1rem;
+            top:3rem;
+            gap: 0;
+            p{font-size: 10px;}
+        }
     }
     @media only screen and (max-width: 348px) {
         select, input, textarea
@@ -189,4 +238,7 @@
     top: 1rem;
     margin: 0 !important;
     right: 2rem;
+    @media only screen and (max-width: 760px) {
+        right: 1rem;
+    }
 }

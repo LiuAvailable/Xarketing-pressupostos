@@ -487,8 +487,117 @@ function PressupostosTable({hide, setElement, setHide}){
     )
 }
 
-function WorksheetTable(){
+function WorksheetTable({setElement, setHide}){
     const [llista, setLlista] = useState('');
+
+    const pressupost = {
+        id:1234,
+        idff: 1234,
+        descompte: 20,
+        impost:20,
+        bi:'',
+        total:80,
+        feines:[
+            {
+                feina:'Pintar',
+                id:'fna-1',
+                treballador: 'Pere Pons',
+                preu: 5,
+                hores: 2,
+                descripcio: 'Lorem Ipsum dolor sit ament.',
+                total: 40,
+                materials:[
+                    {
+                        material:"Pot pintura",
+                        unitats:2,
+                        preu: 5,
+                        total: 10
+                    },
+                    {
+                        material:"Pinzell",
+                        unitats:2,
+                        preu: 5,
+                        total: 10
+                    },
+                    {
+                        material:"Pinzell",
+                        unitats:2,
+                        preu: 5,
+                        total: 10
+                    }
+                ]
+            },
+            {
+                feina:'Pintar',
+                id:'fna-2',
+                treballador: 'Pere Pons',
+                preu: 5,
+                hores: 2,
+                descripcio: 'Lorem Ipsum dolor sit ament.',
+                total: 40,
+                materials:[
+                    {
+                        material:"Pot pintura",
+                        unitats:2,
+                        preu: 5,
+                        total: 10
+                    },
+                    {
+                        material:"Pinzell",
+                        unitats:2,
+                        preu: 5,
+                        total: 10
+                    }
+                ]
+            },
+            {
+                feina:'Pintar',
+                id:'fna-3',
+                treballador: 'Pere Pons',
+                preu: 5,
+                hores: 2,
+                descripcio: 'Lorem Ipsum dolor sit ament.',
+                total: 40,
+                materials:[
+                    {
+                        material:"Pot pintura",
+                        unitats:2,
+                        preu: 5,
+                        total: 10
+                    },
+                    {
+                        material:"Pinzell",
+                        unitats:2,
+                        preu: 5,
+                        total: 10
+                    },
+                    {
+                        material:"Pinzell",
+                        unitats:2,
+                        preu: 5,
+                        total: 10
+                    },
+                    {
+                        material:"Pinzell",
+                        unitats:2,
+                        preu: 5,
+                        total: 10
+                    },
+                    {
+                        material:"Pinzell",
+                        unitats:2,
+                        preu: 5,
+                        total: 10
+                    }
+                ]
+            },
+        ]
+    }
+
+    const editPresupost = () => {
+        setElement(pressupost)
+        setHide('hide')
+    }
 
     const showPopUpList = ({setLlista}, list, header) => {
         setLlista({title:header, list});
@@ -524,6 +633,7 @@ function WorksheetTable(){
                             type="button"
                             className="btnBlue"
                             style={{'--width':'75px'}}
+                            onClick={() => editPresupost()}
                         >
                             Veure
                         </button>
@@ -548,7 +658,8 @@ function ComparatorTable(){
             const pst = parseFloat(row.querySelector("p:nth-child(2)").textContent)
             const ff = parseFloat(row.querySelector("p:nth-child(4)").textContent)
 
-            const percentatge = (pst-ff)/pst*100;
+            // const percentatge = (pst-ff)/pst*100;
+            const percentatge = (ff-pst)/pst*100;
             
             if (percentatge >= 0.0 && percentatge <= 10.0) {
                 row.classList.add('green');
@@ -556,6 +667,8 @@ function ComparatorTable(){
                 row.classList.add('yellow');
               } else if (percentatge > 30.0) {
                 row.classList.add('red');
+              }else if(percentatge<0){
+                row.classList.add('green')
               }
         })
     }
@@ -563,9 +676,10 @@ function ComparatorTable(){
     setTimeout(() => calculatePercentage(), 50);
 
     const comparadors = [
-        {pressupost:'pst-1234', pst_total: 1.20, worksheet: 'wks-1234', wks_total: 0.20},
-        {pressupost:'pst-4321', pst_total: 1.00, worksheet: 'wks-4321', wks_total: 0.95},
-        {pressupost:'pst-3412', pst_total: 1.00, worksheet: 'wks-3412', wks_total: 0.85}
+        {pressupost:'pst-1234', pst_total: 1.20, worksheet: 'wks-1234', wks_total: 1.25},
+        {pressupost:'pst-4321', pst_total: 1.00, worksheet: 'wks-4321', wks_total: 1.25},
+        {pressupost:'pst-3412', pst_total: 1.00, worksheet: 'wks-3412', wks_total: 1.55},
+        {pressupost:'pst-3412', pst_total: 1.00, worksheet: 'wks-3412', wks_total: 0.90}
     ]
     return(
         <TableBox className="table" minWidth='750px' respMinWidth='650px'>
@@ -725,7 +839,7 @@ function Table({type,hide, setElement, setHide}){
             table = <PressupostosTable hide={hide} setElement={setElement} setHide={setHide}/>
             break;
         case 'worksheet':
-            table = <WorksheetTable />
+            table = <WorksheetTable hide={hide} setElement={setElement} setHide={setHide}/>
             break;
         case 'comparator':
             table = <ComparatorTable />

@@ -20,6 +20,7 @@ body > .navbar-collapse {
         width: 260px;
         z-index: 4;
         padding-bottom: 100px;
+        background: #f8f9fa;
     }
 
     .sidebar-background {
@@ -84,6 +85,7 @@ body > .navbar-collapse {
         li {
             .nav-link {
                 color: $white-color;
+                color:#2d2d2d;;
                 margin: 5px 15px;
                 opacity: 0.86;
                 border-radius: 4px;
@@ -116,13 +118,16 @@ body > .navbar-collapse {
 
             &:hover .nav-link {
                 background: rgba(255, 255, 255, 0.13);
+                background: rgba(0, 0, 0, 0.13);
+                background: #3a387820;
                 opacity: 1;
             }
 
             &.active .nav-link {
                 color: $white-color;
+                color: #EEE;
                 opacity: 1;
-                background: rgba(255, 255, 255, 0.23);
+                background: #3a3878;
             }
 
             &.separator {
@@ -266,6 +271,7 @@ body > .navbar-collapse {
         min-height: calc(100% - 123px);
         background-image: url('../../img/backgroundImage.jpg');
         background-size: cover;
+        background-repeat: no-repeat;
         background-position: center;
         background-attachment: fixed;
     }

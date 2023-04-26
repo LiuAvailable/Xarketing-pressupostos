@@ -66,6 +66,64 @@ const Back = styled.div`
         svg{font-size:1em;}
     }
 `;
+const ColorLegend = styled.div`
+margin: 4rem 0 1rem 0;
+display:flex;
+align-items:center;
+justify-content:center;
+gap: 2rem;
+
+.colorBox
+{
+    display:flex;
+    align-items:center;
+    gap: 5px;
+    padding: .2em 1em;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    cursor:pointer;
+
+    &:hover{background: rgba(0,0,0,.05);}
+    &.active{border: 1px solid #70707020; box-shadow: 0 3px 6px #00000010;}
+
+    .color
+    {
+        height: 20px;
+        width: 20px;
+        border-radius: 5px;
+        border: 2px solid white;
+        box-shadow: 0px 1px 6px #00000020;
+
+        &.red{background:#e91e63;}
+        &.green{background:#8eec8e;}
+        &.yellow{background:#f2c40e;}
+
+        pointer-events:none;
+    }
+
+    p{margin: 0; font-size: 14px;pointer-events:none;text-align:center;}
+}
+@media only screen and (max-width: 726px) { 
+    gap: 10px;
+    .colorBox{
+        padding: .2em .5em;
+        p{font-size: 12px;}
+    }
+}
+@media only screen and (max-width: 360px) { 
+    gap: 4px;
+    .colorBox{
+        padding: .2em .2em;
+        .color{
+            height: 16px;
+            width: 16px;
+            border-radius: 4px;
+
+        }
+        p{font-size: 10px; width: 40px;}
+    }
+}
+`;
 
 function ComparatorView(){
 
@@ -127,62 +185,4 @@ function ComparatorView(){
         </Bg>
     )
 }
-const ColorLegend = styled.div`
-margin: 4rem 0 1rem 0;
-display:flex;
-align-items:center;
-justify-content:center;
-gap: 2rem;
-
-.colorBox
-{
-    display:flex;
-    align-items:center;
-    gap: 5px;
-    padding: .2em 1em;
-    border-radius: 5px;
-    border: 1px solid transparent;
-    cursor:pointer;
-
-    &:hover{background: rgba(0,0,0,.05);}
-    &.active{border: 1px solid #70707020; box-shadow: 0 3px 6px #00000010;}
-
-    .color
-    {
-        height: 20px;
-        width: 20px;
-        border-radius: 5px;
-        border: 2px solid white;
-        box-shadow: 0px 1px 6px #00000020;
-
-        &.red{background:#e91e63;}
-        &.green{background:#8eec8e;}
-        &.yellow{background:#f2c40e;}
-
-        pointer-events:none;
-    }
-
-    p{margin: 0; font-size: 14px;pointer-events:none;text-align:center;}
-}
-@media only screen and (max-width: 726px) { 
-    gap: 10px;
-    .colorBox{
-        padding: .2em .5em;
-        p{font-size: 12px;}
-    }
-}
-@media only screen and (max-width: 360px) { 
-    gap: 4px;
-    .colorBox{
-        padding: .2em .2em;
-        .color{
-            height: 16px;
-            width: 16px;
-            border-radius: 4px;
-
-        }
-        p{font-size: 10px; width: 40px;}
-    }
-}
-`;
 export default ComparatorView;
