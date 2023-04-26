@@ -70,7 +70,12 @@ margin: 2rem 0;
 `;
 
 const crearFeina = () => {
-    document.querySelector('.material').classList.remove('hide')
+    document.querySelector('.material').classList.remove('hide');
+
+    document.querySelector(".material input[name='id']").value = '';
+    document.querySelector(".material input[name='name']").value = '';
+    document.querySelector(".material input[name='preu']").value = '';
+    document.querySelector(".material textarea").value = '';
 }
 
 function FeinesView(){

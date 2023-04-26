@@ -148,7 +148,7 @@ function CrearMaterial({element, feina}){
         closePopUp();
     }
 
-    setTimeout( 
+    setTimeout(
     () => {
         if(element){
             document.querySelector(".material input[name='id']").value = element.id;
