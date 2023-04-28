@@ -482,7 +482,7 @@ function WorksheetDetails({hide,setHide, element}){
             myInterval = setInterval(() => {
                 totalSeconds = setTime(totalSeconds);
                 saveTime(totalSeconds)
-            }, 1);
+            }, 1000);
         }
     }
     let form;
@@ -594,11 +594,11 @@ function WorksheetDetails({hide,setHide, element}){
                 <Totals className="totals">
                     <div className="inputBox">
                         <p>Descompte</p>
-                        <input type='number' name='descompte' onChange={() => sumTotal()} min='0'/>
+                        <input type='text' name='descompte' min='0' readOnly/>
                     </div>
                     <div className="inputBox">
                         <p>Impost</p>
-                        <input type='number' name='impost' onChange={() => sumTotal()} min='0'/>
+                        <input type='text' name='impost' min='0' readOnly/>
                     </div>
                     <div className="inputBox">
                         <p>Base imposable</p>

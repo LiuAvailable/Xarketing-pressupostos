@@ -647,40 +647,20 @@ function WorksheetTable({setElement, setHide}){
     )
 }
 
-function ComparatorTable(){
-
-    /**
-     * Function to calculate %diference and set row color.
-     */
-    const calculatePercentage = () => {
-        const table = document.querySelectorAll('.rowcolored');
-        table.forEach(row => {
-            const pst = parseFloat(row.querySelector("p:nth-child(2)").textContent)
-            const ff = parseFloat(row.querySelector("p:nth-child(4)").textContent)
-
-            // const percentatge = (pst-ff)/pst*100;
-            const percentatge = (ff-pst)/pst*100;
-            
-            if (percentatge >= 0.0 && percentatge <= 10.0) {
-                row.classList.add('green');
-              } else if (percentatge >= 11.0 && percentatge <= 30.0) {
-                row.classList.add('yellow');
-              } else if (percentatge > 30.0) {
-                row.classList.add('red');
-              }else if(percentatge<0){
-                row.classList.add('green')
-              }
-        })
-    }
-
-    setTimeout(() => calculatePercentage(), 50);
+function ComparatorTable({diferencia}){
 
     const comparadors = [
-        {pressupost:'pst-1234', pst_total: 1.20, worksheet: 'wks-1234', wks_total: 1.25},
-        {pressupost:'pst-4321', pst_total: 1.00, worksheet: 'wks-4321', wks_total: 1.25},
-        {pressupost:'pst-3412', pst_total: 1.00, worksheet: 'wks-3412', wks_total: 1.55},
-        {pressupost:'pst-3412', pst_total: 1.00, worksheet: 'wks-3412', wks_total: 0.90}
+            { pressupost:'pst-3412', pst_total: 1.00, worksheet: 'wks-3412', wks_total: 0.95 },
+            { pressupost:'pst-4321', pst_total: 1.00, worksheet: 'wks-4321', wks_total: 1.25 },
+            { pressupost:'pst-3412', pst_total: 1.00, worksheet: 'wks-3412', wks_total: 0.94 },
+            { pressupost:'pst-3412', pst_total: 1.00, worksheet: 'wks-3412', wks_total: 1 },
+            { pressupost:'pst-3412', pst_total: 1.00, worksheet: 'wks-3412', wks_total: 0.99 },
+            { pressupost:'pst-3412', pst_total: 1.00, worksheet: 'wks-3412', wks_total: 0.96 },
+            { pressupost:'pst-3412', pst_total: 1.00, worksheet: 'wks-3412', wks_total: 0.90 },
+            { pressupost:'pst-1234', pst_total: 1.20, worksheet: 'wks-1234', wks_total: 1.25 }
     ]
+
+
     return(
         <TableBox className="table" minWidth='750px' respMinWidth='650px'>
             <ul>
@@ -829,7 +809,7 @@ function FeinesTable(){
     ) 
 }
 
-function Table({type,hide, setElement, setHide}){
+function Table({type,hide, setElement, setHide, diferencia}){
     let table;
     switch (type){
         case 'treballadors':
@@ -842,7 +822,7 @@ function Table({type,hide, setElement, setHide}){
             table = <WorksheetTable hide={hide} setElement={setElement} setHide={setHide}/>
             break;
         case 'comparator':
-            table = <ComparatorTable />
+            table = <ComparatorTable diferencia={diferencia}/>
             break;
         case 'materials':
             table = <MaterialsTable />

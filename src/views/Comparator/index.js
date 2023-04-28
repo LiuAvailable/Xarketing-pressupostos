@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { GoGraph } from 'react-icons/go';
 import { BsArrowLeft } from 'react-icons/bs';
+import { AiOutlineArrowRight } from 'react-icons/ai';
 
 import { Link } from "react-router-dom";
 
@@ -67,7 +68,7 @@ const Back = styled.div`
     }
 `;
 const ColorLegend = styled.div`
-margin: 4rem 0 1rem 0;
+margin: 2rem 0 1rem 0;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -124,8 +125,75 @@ gap: 2rem;
     }
 }
 `;
+const SetDiference = styled.div`
+position:relative;
+    margin: 2rem 0 1rem 0;
+    padding: 0 10px 0 20px;
+    width: 170px;
+    height: 50px;
+    border-radius: 10px;
+    background:#fcf4d9;
+    box-shadow: 3px 3px 6px #00000010;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    &::before
+    {
+        content: '';
+        position:absolute;
+        left:0;
+        top:50%;
+        transform: translateY(-50%);
+        width: 5px;
+        height:70%;
+        background: #f2c40e;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+    input
+    {
+        border:none;
+        outline:none;
+        background: white;
+        padding: 0 10px;
+        width: 80px;
+        height: 36px;
+        border-radius:5px;
+    }
+    button
+    {
+        background:#f2c40e;
+        border:none;
+        outline:none;
+        color:white;
+        border-radius:10px;
+        height: 36px;
+        width: 36px;
+        svg{pointer-events:none}
+    }
+
+    @media only screen and (max-width: 726px) { 
+        margin: 1rem 0 .5rem 0;
+        height: 40px;
+        width: 140px;
+        input
+        {
+            height: 28px;
+            font-size:12px;
+            width:60px;
+        }
+        button
+        {
+            height: 28px;
+            width: 28px;
+        }
+    }
+`;
 
 function ComparatorView(){
+    const [diferencia, setDiff] = useState(5)
 
     /**
      * Function to filter table by diference
@@ -150,6 +218,35 @@ function ComparatorView(){
         {placeholder:'Pressupost', name:'pressupost'},
         {placeholder:'Full de feina', name:'worksheet'}
     ]
+
+    const saveDiference = () => {
+        const diference = document.querySelector(".setDiference > input").value;
+        setDiff(diference)
+        setTimeout(() => calculatePercentage(), 50);
+    }
+
+    /**
+     * Function to calculate %diference and set row color.
+     */
+    const calculatePercentage = () => {
+        const table = document.querySelectorAll('.rowcolored');
+        table.forEach(row => {
+            row.classList.remove('red','yellow','green')
+            const pst = parseFloat(row.querySelector("p:nth-child(2)").textContent)
+            const ff = parseFloat(row.querySelector("p:nth-child(4)").textContent)
+
+            const percentatge = ((ff-pst)/pst*100).toFixed(2);
+
+            if (percentatge >= 0) {
+                row.classList.add('red');
+            } else if(percentatge >= diferencia*-1){
+                row.classList.add('yellow')
+            } else{row.classList.add('green')}
+        })
+    }
+
+    setTimeout(() => calculatePercentage(), 50);
+
     return(
         <Bg>
             <Back>
@@ -164,24 +261,28 @@ function ComparatorView(){
                 </div>
             </div>
             <Filters filters={filters}/>
+            <SetDiference className="setDiference">
+                <input type='number' placeholder='5'/>
+                <button type='button' onClick={() => saveDiference()}><AiOutlineArrowRight/></button>
+            </SetDiference>
             <ColorLegend>
                 {/* eslint-disable-next-line */}
                 <div className="colorBox" onClick={($event) => filterDiference($event, 'green')}>
                     <div className="color green"></div>
-                    <p>Dif. 0-10%</p>
+                    <p>Positiu</p>
                 </div>
                 {/* eslint-disable-next-line */}
                 <div className="colorBox" onClick={($event) => filterDiference($event, 'yellow')}>
                     <div className="color yellow"></div>
-                    <p>Dif. 11-30%</p>
+                    <p>Dif. {diferencia}%</p>
                 </div>
                 {/* eslint-disable-next-line */}
                 <div className="colorBox" onClick={($event) => filterDiference($event, 'red')}>
                     <div className="color red"></div>
-                    <p>Dif. +30%</p>
+                    <p>Negatiu</p>
                 </div>
             </ColorLegend>
-            <Table type='comparator'/>
+            <Table type='comparator' diferencia={diferencia}/>
         </Bg>
     )
 }
