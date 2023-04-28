@@ -364,6 +364,7 @@ function CreatePresupost({hide,setHide, element}){
         const feines = document.querySelectorAll("input[name='totalFeina']")
 
         const totalElement = document.querySelector("input[name='totalPresupost']");
+        const baseImposable = document.querySelector("input[name='baseImposable']");
         let total = 0;
 
         feines.forEach(f => total = total + parseInt(f.value));
@@ -378,7 +379,8 @@ function CreatePresupost({hide,setHide, element}){
         impost = impost >= 0 ? total * impost / 100 : 0;
 
         /* total */
-        totalElement.value = (total - descompte + impost).toFixed(2);
+        totalElement.value = ((total - descompte + impost)*1.21).toFixed(2);
+        baseImposable.value = (total - descompte + impost).toFixed(2);
     }
 
     /**

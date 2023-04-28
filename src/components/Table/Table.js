@@ -503,7 +503,7 @@ function WorksheetTable({setElement, setHide}){
                 id:'fna-1',
                 treballador: 'Pere Pons',
                 preu: 5,
-                hores: 2,
+                hores: '08:30:00',
                 descripcio: 'Lorem Ipsum dolor sit ament.',
                 total: 40,
                 materials:[
@@ -532,7 +532,7 @@ function WorksheetTable({setElement, setHide}){
                 id:'fna-2',
                 treballador: 'Pere Pons',
                 preu: 5,
-                hores: 2,
+                hores: '08:30:00',
                 descripcio: 'Lorem Ipsum dolor sit ament.',
                 total: 40,
                 materials:[
@@ -555,7 +555,7 @@ function WorksheetTable({setElement, setHide}){
                 id:'fna-3',
                 treballador: 'Pere Pons',
                 preu: 5,
-                hores: 2,
+                hores: '08:30:00',
                 descripcio: 'Lorem Ipsum dolor sit ament.',
                 total: 40,
                 materials:[

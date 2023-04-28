@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { AiFillPlayCircle, AiFillPauseCircle } from 'react-icons/ai';
+
 /* MORE STYLES IN _presupostView.scss */
 
 const AddPressupostBox = styled.div`
@@ -77,6 +79,50 @@ const AddPressupostBox = styled.div`
     }
 }
 `;
+const Totals = styled.div`
+input
+{
+    width: 160px;
+    height: 40px;
+
+    border:none;
+    outline:none;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 1px 3px 6px #00000020;
+    background: white;
+}
+input:read-only
+{
+    background: #EEE;
+    box-shadow: none;
+    border: 1px solid #A0A0A080;
+}
+margin: 4rem 0 2rem 0;
+display:flex;
+flex-direction: row;
+justify-content: space-evenly;
+.inputBox
+{
+    p{font-size: 12px; margin: 0;}
+}
+
+@media only screen and (max-width: 1200px) {
+    input{width: 140px;}
+}
+@media only screen and (max-width: 760px) {
+    input{width: 100px; height: 36px; font-size:12px;}
+    justify-content: space-between;
+}
+@media only screen and (max-width: 448px) {
+    margin: 2rem 0 2rem 0;
+    display:grid;
+    grid-template-columns: repeat(2,1fr);
+    justify-items:center;
+    grid-gap: 10px 0;
+}
+
+`;
 const ButtonsExit = styled.div`
 margin-top: 2rem;
 display:flex;
@@ -124,7 +170,11 @@ function WorksheetDetails({hide,setHide, element}){
             /* identificators */
             document.querySelector(".identificators input[name='id']").value = element.id;
             document.querySelector(".identificators input[name='idff']").value = element.idff;
-
+            /* presupost totals */
+            document.querySelector("input[name='descompte']").value = element.descompte;
+            document.querySelector("input[name='impost']").value = element.impost;
+            document.querySelector("input[name='baseImposable']").value = element.bi;
+            document.querySelector("input[name='totalPresupost']").value = element.total;
 
             /* feines */
             let feina = 1;
@@ -133,7 +183,7 @@ function WorksheetDetails({hide,setHide, element}){
                 document.querySelector(`.feina:nth-child(${feina}) input[name='id']`).value = f.id;
                 document.querySelector(`.feina:nth-child(${feina}) .treballador select`).value = f.treballador;
                 document.querySelector(`.feina:nth-child(${feina}) input[name='preu']`).value = f.preu;
-                document.querySelector(`.feina:nth-child(${feina}) input[name='hores']`).value = f.hores;
+                // document.querySelector(`.feina:nth-child(${feina}) p[name='hores'] strong`).textContent = f.hores;
                 document.querySelector(`.feina:nth-child(${feina}) input[name='totalFeina']`).value = f.total;
                 document.querySelector(`.feina:nth-child(${feina}) textarea`).value = f.descripcio;
 
@@ -214,7 +264,6 @@ function WorksheetDetails({hide,setHide, element}){
     const addFeina = () => {
         const feinaHTML = 
             `
-            <button class='btnTintedGlass eliminarFeina' style="--width:80px">Eliminar</button>
                 <select>
                     <option>Feina</option>
                     <option>Pintar</option>
@@ -230,7 +279,7 @@ function WorksheetDetails({hide,setHide, element}){
                 <div class="row">
                     <div class='inputBox'>
                         <p>Preu/hora:</p>
-                        <input type='number' placeholder="preu/hora" name='preu'/>
+                        <input type='text' name='preu' readOnly/>
                     </div>
                     <div class='inputBox'>
                         <p>hores:</p>
@@ -265,8 +314,7 @@ function WorksheetDetails({hide,setHide, element}){
                     <div class="totalFeina">
                         <p>Total:</p>
                         <input type='text' name='totalFeina' readOnly/>
-                    </div>
-                `
+                    </div>`
 
         const feina = document.createElement('div')
         feina.classList.add('feina');
@@ -276,7 +324,7 @@ function WorksheetDetails({hide,setHide, element}){
         const feinaElements = document.querySelectorAll(".feinesBox .feina");
         const feinaElement = feinaElements[feinaElements.length -1 ];
         feinaElement.querySelector(".btnTintedGlass:not(.eliminarFeina)").addEventListener('click', () => addMaterial({feinaElement}))
-        feinaElement.querySelector(".eliminarFeina").addEventListener('click', () => feinaElement.remove())
+        // feinaElement.querySelector(".eliminarFeina").addEventListener('click', () => {feinaElement.remove(); sumTotal()})
 
         feinaElement.querySelector("input[name='preu']").addEventListener('change', () => sumTotalFeina({feinaElement}))
         feinaElement.querySelector("input[name='hores']").addEventListener('change', () => sumTotalFeina({feinaElement}))
@@ -284,6 +332,32 @@ function WorksheetDetails({hide,setHide, element}){
         const materialElement = feinaElement.querySelector(".material:first-child");
         materialElement.querySelector("input[name='unitatsMaterial']").addEventListener('change', () => sumTotalMaterial({materialElement}));
         materialElement.querySelector("[name='preuUnitat']").addEventListener('change', () => sumTotalMaterial({materialElement}));
+    }
+
+    /**
+     * function to sum the total of the presupost
+     */
+    const sumTotal = () => {
+        const feines = document.querySelectorAll("input[name='totalFeina']")
+
+        const totalElement = document.querySelector("input[name='totalPresupost']");
+        const baseImposable = document.querySelector("input[name='baseImposable']");
+        let total = 0;
+
+        feines.forEach(f => total = total + parseInt(f.value));
+
+        total = total > 0 ? total : '';
+        /* descompte */
+        let descompte = parseInt(document.querySelector("input[name='descompte']").value);
+        descompte = descompte >= 0 ? total * descompte / 100 : 0;
+
+        /* impost */
+        let impost = parseInt(document.querySelector("input[name='impost']").value);
+        impost = impost >= 0 ? total * impost / 100 : 0;
+
+        /* total */
+        totalElement.value = ((total - descompte + impost)*1.21).toFixed(2);
+        baseImposable.value = (total - descompte + impost).toFixed(2);
     }
 
     /**
@@ -308,6 +382,8 @@ function WorksheetDetails({hide,setHide, element}){
         
         if(preu > 0) hores > 0 ? total = total + hores*preu : total = total + preu;
         total > 0 ? totalFeina.value = total : totalFeina.value = '';
+
+        sumTotal()
     }
 
     /**
@@ -319,6 +395,7 @@ function WorksheetDetails({hide,setHide, element}){
         else material = material.materialElement;
 
         const totalMaterial = material.querySelector("input[name='preuTotal']");
+
         let total = 0;
 
         const unitats = parseInt(material.querySelector("input[name='unitatsMaterial']").value);
@@ -361,21 +438,101 @@ function WorksheetDetails({hide,setHide, element}){
 
         console.log({id, idFF, descompte, impost, bi, total, feines})
     }
+    let myInterval;
+    const timer = (event) => {
+        /* convert time to seconds */
+        const timeToSec = (time) => {
+            time = time.split(':');
+            return parseInt(time[0])*3600 + parseInt(time[1])*60 + parseInt(time[2])
+        }
 
+        const setTime = (totalSeconds) => {
+            return totalSeconds+1;
+        }
+
+        const saveTime = (totalSeconds) => {
+            let hours = pad(parseInt(totalSeconds/3600));
+            let time = `${hours}:${pad(parseInt(totalSeconds / 60)-hours*60)}:${pad(totalSeconds % 60)}`
+            acumulat.textContent = time;
+
+        }
+               
+        const pad = (val) => {
+            var valString = val + "";
+            if (valString.length < 2) {
+                return "0" + valString;
+            } else {
+                return valString;
+            }
+        }
+               
+        const stop = () => {
+            clearInterval(myInterval);
+        }
+
+        const timer = event.target.parentNode;
+
+        const acumulat = timer.querySelector("p[name='acumulat']");
+        let totalSeconds = timeToSec(acumulat.textContent)
+        if(event.target.classList.contains('active')) {
+            event.target.classList.remove('active')
+            stop()
+        }else {
+            event.target.classList.add('active')
+            myInterval = setInterval(() => {
+                totalSeconds = setTime(totalSeconds);
+                saveTime(totalSeconds)
+            }, 1);
+        }
+    }
     let form;
+
+    const addHours = () => {
+        const hores = document.querySelector(".time p[name='acumulat']").textContent;
+        const feinaId = document.querySelector(".time select").value;
+        
+        console.log(`hores:${hores} | feinaId:${feinaId}`)
+
+        document.querySelectorAll('.feina').forEach(feina => {
+            if(feina.querySelector("input[name='id']").value === feinaId){
+                feina.querySelector("input[name='hores']").value = parseInt(hores.split(':')[0])
+                sumTotalFeina({feinaElement:feina})
+            }
+        })
+
+    }
     if(hide === 'hide'){
         form = (
             <AddPressupostBox>
                 <div className="identificators">
                     <div className="inputBox">
                         <p>Id</p>
-                        <input type='text' name='id'/>
+                        <input type='text' name='id' readOnly/>
                     </div>
                     <div className="inputBox">
                         <p>Id fulls de feina</p>
-                        <input type='text' name='idff'/>
+                        <input type='text' name='idff' readOnly/>
                     </div>
                 </div>
+
+
+                <div className="time">
+                    <p name='acumulat'>00:00:00</p>
+                    {/* eslint-disable-next-line */}
+                    <button type="button" className="timer play" onClick={($event) => timer($event)}>
+                        <AiFillPlayCircle/>
+                        <AiFillPauseCircle/>
+                    </button>
+                    <div>
+                        <select>
+                            <option>fna-1</option>
+                            <option>fna-2</option>
+                            <option>fna-3</option>
+                        </select>
+                        <button type="button" className="btnBlue" style={{'--width':'80px'}} onClick={() => addHours()}>Afegir</button>
+                    </div>
+                </div>
+
                 <div className="feinesBox">
                 <div className='feina'>
                     <select>
@@ -390,16 +547,18 @@ function WorksheetDetails({hide,setHide, element}){
                             <option>Pere Pons</option>
                         </select>
                     </div>
+
                     <div className="row">
                         <div className="inputBox">
                             <p>Preu/hora:</p>
-                            <input type='number' placeholder="preu/hora" name='preu'  onChange={() => sumTotalFeina()}/>
+                            <input type='text' placeholder="preu/hora" name='preu'  readOnly/>
                         </div>
                         <div className="inputBox">
                             <p>hores:</p>
-                            <input type='number' placeholder="hores" name='hores'  onChange={() => sumTotalFeina()}/>
+                            <input type='number' name='hores'  onChange={() => sumTotalFeina()}/>
                         </div>
                     </div>
+
                     <textarea placeholder="Descripció"></textarea>
                     <div className="materialBox">
                         <div className="material">
@@ -432,6 +591,24 @@ function WorksheetDetails({hide,setHide, element}){
                 </div>
 
                 </div>
+                <Totals className="totals">
+                    <div className="inputBox">
+                        <p>Descompte</p>
+                        <input type='number' name='descompte' onChange={() => sumTotal()} min='0'/>
+                    </div>
+                    <div className="inputBox">
+                        <p>Impost</p>
+                        <input type='number' name='impost' onChange={() => sumTotal()} min='0'/>
+                    </div>
+                    <div className="inputBox">
+                        <p>Base imposable</p>
+                        <input type='text' name='baseImposable' readOnly/>
+                    </div>
+                    <div className="inputBox">
+                        <p>Preu total</p>
+                        <input type='text' name='totalPresupost' readOnly/>
+                    </div>
+                </Totals>
                 <ButtonsExit>
                     <button
                         type='button'
