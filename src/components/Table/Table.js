@@ -22,7 +22,8 @@ const TableBox = styled.div`
         min-width: ${(props) => props.minWidth};
         margin: 0;
     }
-
+    .logs p{text-align:center;}
+    .logs p:first-child{text-align:unset;}
     @media only screen and (max-width: 364px) {
         margin: 0;
         width: calc(100% + 30px);
@@ -809,6 +810,41 @@ function FeinesTable(){
     ) 
 }
 
+function LogsTable(){
+
+    const registres = [
+        {user:'Pere Pons', data:'2/4/2023', connectat:'08:01:23', inici:'9:00:52', fi:'17:01:01'},
+        {user:'Pere Ponsa', data:'3/4/2023', connectat:'08:01:23', inici:'9:00:52', fi:'17:01:01'},
+        {user:'Pere Ponsb', data:'4/4/2023', connectat:'08:01:23', inici:'9:00:52', fi:'17:01:01'},
+        {user:'Pere Ponsc', data:'5/4/2023', connectat:'08:01:23', inici:'9:00:52', fi:'17:01:01'},
+        {user:'Pere Ponsd', data:'6/4/2023', connectat:'08:01:23', inici:'9:00:52', fi:'17:01:01'},
+        {user:'Pere Ponse', data:'7/4/2023', connectat:'08:01:23', inici:'9:00:52', fi:'17:01:01'},
+        {user:'Pere Ponsf', data:'8/4/2023', connectat:'08:01:23', inici:'9:00:52', fi:'17:01:01'}
+    ]
+    return(
+        <TableBox className="table" minWidth='900px' respMinWidth='750px'>
+            <ul className="logs">
+                <TableRow className="rowHeader">
+                    <p name='string_s'>Usuari</p>
+                    <p name='string_s'>Data</p>
+                    <p name='string_s'>Temps connectat</p>
+                    <p name='string_s'>Inici</p>
+                    <p name='string_s'>Fi</p>
+                </TableRow>
+                {registres.map((r) => (
+                    <TableRow>
+                        <p name='string_s' className="rowuser">{r.user}</p>
+                        <p name='string_s' className="rowdate">{r.data}</p>
+                        <p name='string_s'>{r.connectat}</p>
+                        <p name='string_s'>{r.inici}</p>
+                        <p name='string_s'>{r.fi}</p>
+                    </TableRow>
+                ))}
+            </ul>
+        </TableBox>
+    )
+}
+
 function Table({type,hide, setElement, setHide, diferencia}){
     let table;
     switch (type){
@@ -830,6 +866,8 @@ function Table({type,hide, setElement, setHide, diferencia}){
         case 'feines':
             table = <FeinesTable />
             break;
+        case 'logs':
+            table = <LogsTable/>
         default:
             break;
     }

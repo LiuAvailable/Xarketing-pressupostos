@@ -6,6 +6,7 @@ import WorkSheetView from 'views/Worksheet';
 import ComparatorView from 'views/Comparator';
 import MaterialsView from 'views/Materials';
 import FeinesView from 'views/Feines';
+import LogsView from 'views/Logs';
 
 export const dashboardRoutes = [
     {
@@ -48,6 +49,12 @@ export const dashboardRoutes = [
         path: '/feines',
         name: 'Feines',
         component: FeinesView,
+        layout: '/private',
+    },
+    {
+        path: '/logs',
+        name: 'Logs',
+        component: LogsView,
         layout: '/private',
     },
 ];

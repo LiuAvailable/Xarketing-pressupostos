@@ -230,8 +230,10 @@ function ComparatorView(){
      */
     const calculatePercentage = () => {
         const table = document.querySelectorAll('.rowcolored');
+
+        document.querySelectorAll('.colorBox').forEach(c => c.classList.remove('active'))
         table.forEach(row => {
-            row.classList.remove('red','yellow','green')
+            row.classList.remove('red','yellow','green', 'hide');
             const pst = parseFloat(row.querySelector("p:nth-child(2)").textContent)
             const ff = parseFloat(row.querySelector("p:nth-child(4)").textContent)
 
@@ -286,4 +288,5 @@ function ComparatorView(){
         </Bg>
     )
 }
+
 export default ComparatorView;
