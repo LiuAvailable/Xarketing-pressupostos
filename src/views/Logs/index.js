@@ -68,8 +68,8 @@ const Back = styled.div`
 
 function LogsView(){
     const filters = [
-        {placeholder:'Usuari', name:'user'},
-        {placeholder:'Data', name:'date'},
+        { placeholder:'Usuari', name:'user' },
+        { placeholder:'Data', name:'date' },
     ]
        
     return (
@@ -81,7 +81,7 @@ function LogsView(){
             <div className="pageHeader">
                 <div className="icon"> <BsCardList/> </div>
                 <div className="sectionName">
-                    <h1>Registre de Logs</h1>
+                    <h1>Logs</h1>
                     <p>Connexions i desconnexions dels usuaris</p>
                 </div>
             </div>

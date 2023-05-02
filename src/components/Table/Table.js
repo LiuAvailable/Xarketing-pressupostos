@@ -811,7 +811,6 @@ function FeinesTable(){
 }
 
 function LogsTable(){
-
     const registres = [
         {user:'Pere Pons', data:'2/4/2023', connectat:'08:01:23', inici:'9:00:52', fi:'17:01:01'},
         {user:'Pere Ponsa', data:'3/4/2023', connectat:'08:01:23', inici:'9:00:52', fi:'17:01:01'},
