@@ -327,6 +327,7 @@ function TreballadorsTable(){
 
 function PressupostosTable({hide, setElement, setHide}){
     const [eliminar, setDelete] = useState('');
+    const [nota, setNota] = useState('')
 
     const popupEliminar = (id) => {
         setDelete({title:'Eliminar un treballador', descripcio:`Estas segur que vols eliminar el pressupost amb id ${id}?`})
@@ -340,6 +341,8 @@ function PressupostosTable({hide, setElement, setHide}){
         impost:20,
         bi:'',
         total:80,
+        dataEntrada: '2023-06-01',
+        dataEntrega: '2023-06-08',
         feines:[
             {
                 feina:'Pintar',
@@ -441,11 +444,15 @@ function PressupostosTable({hide, setElement, setHide}){
         setElement(pressupost)
         setHide('hide')
     }
+    const showPopupNota = (descripcio) => {
+        setNota({title:'Descripció', descripcio});
+        document.querySelector(".nota").classList.remove('hide');
+    }
 
     const pressupostos = [
-        {id:'pst-1234', bi:0.00, total:0.00},
-        {id:'pst-4321', bi:0.00, total:0.00},
-        {id:'pst-3412', bi:0.00, total:0.00}
+        {id:'pst-1234', bi:0.00, total:0.00, descripcio: 'Lorem Ipsom dolor sit amet', dataEntrada: '2023-06-01', dataEntrega: '2023-06-08'},
+        {id:'pst-4321', bi:0.00, total:0.00, descripcio: 'Lorem Ipsom dolor sit amet', dataEntrada: '2023-06-01', dataEntrega: '2023-06-08'},
+        {id:'pst-3412', bi:0.00, total:0.00, descripcio: 'Lorem Ipsom dolor sit amet', dataEntrada: '2023-06-01', dataEntrega: '2023-06-08'}
     ]
     return(
         <>
@@ -453,14 +460,16 @@ function PressupostosTable({hide, setElement, setHide}){
             <ul>
             <TableRow className="rowHeader">
                 <p name='id'>ID</p>
-                <p name='string'>Base imposable</p>
-                <p name='string'>Preu total</p>
+                <p name='data'>Entrada</p>
+                <p name='data'>Entrega</p>
+                <p name='popup'>Descripció</p>
             </TableRow>
             {pressupostos.map((p) => (
                 <TableRow>
                     <p name='id' className="rowid">{p.id}</p>
-                    <p name='string' className="rowname">{p.bi}</p>
-                    <p name='string' className="rowrole">{p.total}</p>
+                    <p name='data'>{p.dataEntrada}</p>
+                    <p name='data'>{p.dataEntrega}</p>
+                    <div className="popup" onClick={() => showPopupNota(p.descripcio)}><p><IoIosInformationCircleOutline/></p></div>
                     <RowButtons>
                         <button
                             type="button"
@@ -483,6 +492,7 @@ function PressupostosTable({hide, setElement, setHide}){
             ))}
             </ul>
         </TableBox>
+        <Popup type='nota' element={nota}/>
         <Popup type='eliminar' element={eliminar}/>
         </>
     )
@@ -498,6 +508,8 @@ function WorksheetTable({setElement, setHide}){
         impost:20,
         bi:'',
         total:80,
+        dataEntrada: '2023-06-01',
+        dataEntrega: '2023-06-08',
         feines:[
             {
                 feina:'Pintar',
@@ -605,13 +617,13 @@ function WorksheetTable({setElement, setHide}){
         document.querySelector('.llista').classList.remove('hide')
     }
     const worksheets = [
-        {id:'wks-1234', pressupost:'pst-1234', workers:[
+        {id:'wks-1234', pressupost:'pst-1234', dataEntrada:'2023-01-01', dataEntrega:'2023-01-08', workers:[
             {id:'12345678A'}
         ]},
-        {id:'wks-4321', pressupost:'pst-4321', workers:[
+        {id:'wks-4321', pressupost:'pst-4321', dataEntrada:'2023-01-01', dataEntrega:'2023-01-08', workers:[
             {id:'12345678A'}
         ]},
-        {id:'wks-3412', pressupost:'pst-3412', workers:[
+        {id:'wks-3412', pressupost:'pst-3412', dataEntrada:'2023-01-01', dataEntrega:'2023-01-08', workers:[
             {id:'12345678A'}
         ]}
     ]
@@ -623,12 +635,16 @@ function WorksheetTable({setElement, setHide}){
                 <p name='id'>ID</p>
                 <p name='string'>Pressupost</p>
                 <p name='popup'>Treballadors</p>
+                <p name='data'>Entrada</p>
+                <p name='data'>Entrega</p>
             </TableRow>
             {worksheets.map((w) => (
                 <TableRow>
                     <p name='id' className="rowid">{w.id}</p>
                     <p name='string' className="rowpressupost">{w.pressupost}</p>
                     <div className="popup" onClick={() => showPopUpList({setLlista}, w.workers, 'Fulls de feina')}><p><HiClipboard/></p></div>
+                    <p name='data'>{w.dataEntrada}</p>
+                    <p name='data'>{w.dataEntrega}</p>
                     <RowButtons>
                         <button
                             type="button"
@@ -867,6 +883,7 @@ function Table({type,hide, setElement, setHide, diferencia}){
             break;
         case 'logs':
             table = <LogsTable/>
+            break;
         default:
             break;
     }

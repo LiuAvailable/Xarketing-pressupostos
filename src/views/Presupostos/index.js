@@ -81,7 +81,7 @@ function PressupostosView(){
     ]
 
     const crearPressupost = () => {
-        setElement('')
+        setElement('');
         setHide('hide');
     }
     return(

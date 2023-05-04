@@ -3,7 +3,6 @@ import HomeView from 'views/Home';
 import TreballadorsView from 'views/Treballadors';
 import PressupostosView from 'views/Presupostos';
 import WorkSheetView from 'views/Worksheet';
-import ComparatorView from 'views/Comparator';
 import MaterialsView from 'views/Materials';
 import FeinesView from 'views/Feines';
 import LogsView from 'views/Logs';
@@ -23,7 +22,7 @@ export const dashboardRoutes = [
     },
     {
         path: '/pressupost',
-        name: 'Pressupostos',
+        name: "Fitxes d'entrada",
         component: PressupostosView,
         layout: '/private',
     },
@@ -31,12 +30,6 @@ export const dashboardRoutes = [
         path: '/fullsfeina',
         name: 'Fulls de feina',
         component: WorkSheetView,
-        layout: '/private',
-    },
-    {
-        path: '/comparador',
-        name: 'Comparador',
-        component: ComparatorView,
         layout: '/private',
     },
     {

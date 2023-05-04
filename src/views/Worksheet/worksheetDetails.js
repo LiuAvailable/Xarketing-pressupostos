@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import { AiFillPlayCircle, AiFillPauseCircle } from 'react-icons/ai';
 
 /* MORE STYLES IN _presupostView.scss */
 
@@ -264,17 +263,19 @@ function WorksheetDetails({hide,setHide, element}){
     const addFeina = () => {
         const feinaHTML = 
             `
-                <select>
-                    <option>Feina</option>
-                    <option>Pintar</option>
-                </select>
-                <input type='text' placeholder='identificador' name='id'/>
-                <div class="row treballador">
-                    <p>Assignada a:</p>
+                <div class='row'>
                     <select>
-                        <option>Treballador</option>
-                        <option>Pere Pons</option>
+                        <option>Feina</option>
+                        <option>Pintar</option>
                     </select>
+                    <input type='text' placeholder='identificador' name='id'/>
+                    <div class="treballador">
+                        <p>Assignada a:</p>
+                        <select>
+                            <option>Treballador</option>
+                            <option>Pere Pons</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="row">
                     <div class='inputBox'>
@@ -438,69 +439,9 @@ function WorksheetDetails({hide,setHide, element}){
 
         console.log({id, idFF, descompte, impost, bi, total, feines})
     }
-    let myInterval;
-    const timer = (event) => {
-        /* convert time to seconds */
-        const timeToSec = (time) => {
-            time = time.split(':');
-            return parseInt(time[0])*3600 + parseInt(time[1])*60 + parseInt(time[2])
-        }
 
-        const setTime = (totalSeconds) => {
-            return totalSeconds+1;
-        }
-
-        const saveTime = (totalSeconds) => {
-            let hours = pad(parseInt(totalSeconds/3600));
-            let time = `${hours}:${pad(parseInt(totalSeconds / 60)-hours*60)}:${pad(totalSeconds % 60)}`
-            acumulat.textContent = time;
-
-        }
-               
-        const pad = (val) => {
-            var valString = val + "";
-            if (valString.length < 2) {
-                return "0" + valString;
-            } else {
-                return valString;
-            }
-        }
-               
-        const stop = () => {
-            clearInterval(myInterval);
-        }
-
-        const timer = event.target.parentNode;
-
-        const acumulat = timer.querySelector("p[name='acumulat']");
-        let totalSeconds = timeToSec(acumulat.textContent)
-        if(event.target.classList.contains('active')) {
-            event.target.classList.remove('active')
-            stop()
-        }else {
-            event.target.classList.add('active')
-            myInterval = setInterval(() => {
-                totalSeconds = setTime(totalSeconds);
-                saveTime(totalSeconds)
-            }, 1000);
-        }
-    }
     let form;
 
-    const addHours = () => {
-        const hores = document.querySelector(".time p[name='acumulat']").textContent;
-        const feinaId = document.querySelector(".time select").value;
-        
-        console.log(`hores:${hores} | feinaId:${feinaId}`)
-
-        document.querySelectorAll('.feina').forEach(feina => {
-            if(feina.querySelector("input[name='id']").value === feinaId){
-                feina.querySelector("input[name='hores']").value = parseInt(hores.split(':')[0])
-                sumTotalFeina({feinaElement:feina})
-            }
-        })
-
-    }
     if(hide === 'hide'){
         form = (
             <AddPressupostBox>
@@ -515,37 +456,21 @@ function WorksheetDetails({hide,setHide, element}){
                     </div>
                 </div>
 
-
-                <div className="time">
-                    <p name='acumulat'>00:00:00</p>
-                    {/* eslint-disable-next-line */}
-                    <button type="button" className="timer play" onClick={($event) => timer($event)}>
-                        <AiFillPlayCircle/>
-                        <AiFillPauseCircle/>
-                    </button>
-                    <div>
-                        <select>
-                            <option>fna-1</option>
-                            <option>fna-2</option>
-                            <option>fna-3</option>
-                        </select>
-                        <button type="button" className="btnBlue" style={{'--width':'80px'}} onClick={() => addHours()}>Afegir</button>
-                    </div>
-                </div>
-
                 <div className="feinesBox">
                 <div className='feina'>
-                    <select>
-                        <option>Feina</option>
-                        <option>Pintar</option>
-                    </select>
-                    <input type='text' placeholder='identificador' name='id'/>
-                    <div className="row treballador">
-                        <p>Assignada a:</p>
+                    <div className="row">
                         <select>
-                            <option>Treballador</option>
-                            <option>Pere Pons</option>
+                            <option>Feina</option>
+                            <option>Pintar</option>
                         </select>
+                        <input type='text' placeholder='identificador' name='id'/>
+                        <div className="treballador">
+                            <p>Assignada a:</p>
+                            <select>
+                                <option>Treballador</option>
+                                <option>Pere Pons</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div className="row">
