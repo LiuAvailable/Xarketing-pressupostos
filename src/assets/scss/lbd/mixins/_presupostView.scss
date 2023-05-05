@@ -78,8 +78,17 @@
         margin: 1rem 0 1rem 12rem;
         display:flex;
         flex-direction:row;
+        flex-wrap: wrap;
         gap: 20px;
 
+        textarea
+        {
+            min-height: 40px; 
+            max-height: 40px; 
+            width: 100%; 
+            min-width: 180px; 
+            margin: 0;
+        }
         input[name='preuTotal']{position:absolute; right: 0;}
         input[type='number'], input[name='preuTotal']{width: 80px;}
         .inputBox{ 

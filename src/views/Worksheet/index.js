@@ -84,6 +84,8 @@ function WorkSheetView(){
     const filters = [
         {placeholder:'ID', name:'id'},
         {placeholder:'Pressupost', name:'pressupost'},
+        {placeholder:'Block', name:'block'},
+        {placeholder:'Estat', name:'estat'},
     ]
 
     return(

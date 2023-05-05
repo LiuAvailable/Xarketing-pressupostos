@@ -143,7 +143,7 @@ function WorksheetDetails({hide,setHide, element}){
         /* prepare DOM to insert data */
         setTimeout(() => {
             const feines = document.querySelectorAll(".feina");
-    
+
             let contador = feines.length
             while(contador < element.feines.length){
                 addFeina()
@@ -154,7 +154,7 @@ function WorksheetDetails({hide,setHide, element}){
                 element.feines.forEach(f => {
                     const feina = document.querySelector(`.feina:nth-child(${contador})`);
                     const materials = feina.querySelectorAll(`.material`);
-    
+
                     let contador2 = materials.length
                     while(contador2 < element.feines[contador-1].materials.length){
                         addMaterial({feinaElement:feina})
@@ -208,7 +208,6 @@ function WorksheetDetails({hide,setHide, element}){
     const rmMaterial = (material) => {
         const feinaElement = material.parentNode.parentNode
         material.remove()
-        sumTotalFeina({feinaElement})
     }
 
     /**
@@ -232,7 +231,10 @@ function WorksheetDetails({hide,setHide, element}){
                     <p>preu/U</p>
                     <input type='number' name='preuUnitat' />
                 </div>
-                <input type='text' name='preuTotal' readOnly/>
+                <div class="inputBox">
+                    <p>Descripció</p>
+                    <textarea></textarea>
+                </div>
                 <div class="eliminar">eliminar</div>
             `
         const material = document.createElement('div')
@@ -252,9 +254,6 @@ function WorksheetDetails({hide,setHide, element}){
         }
 
         materialElement.querySelector(".eliminar").addEventListener('click', () => rmMaterial(materialElement))
-
-        materialElement.querySelector("input[name='unitatsMaterial']").addEventListener('change', () => sumTotalMaterial({materialElement}));
-        materialElement.querySelector("input[name='preuUnitat']").addEventListener('change', () => sumTotalMaterial({materialElement}));
     }
 
     /**
@@ -279,10 +278,6 @@ function WorksheetDetails({hide,setHide, element}){
                 </div>
                 <div class="row">
                     <div class='inputBox'>
-                        <p>Preu/hora:</p>
-                        <input type='text' name='preu' readOnly/>
-                    </div>
-                    <div class='inputBox'>
                         <p>hores:</p>
                         <input type='number' placeholder="hores" name='hores'/>
                     </div>
@@ -303,7 +298,10 @@ function WorksheetDetails({hide,setHide, element}){
                             <p>preu/U</p>
                             <input type='number' name='preuUnitat' />
                         </div>
-                        <input type='text' name='preuTotal' readOnly/>
+                        <div class="inputBox">
+                            <p>Descripció</p>
+                            <textarea></textarea>
+                        </div>
                     </div>
                 </div>
                     <button 
@@ -311,11 +309,7 @@ function WorksheetDetails({hide,setHide, element}){
                         class="btnTintedGlass" 
                         style="--width: 130px;"
                     >Afegir Material</button>
-            
-                    <div class="totalFeina">
-                        <p>Total:</p>
-                        <input type='text' name='totalFeina' readOnly/>
-                    </div>`
+                    `
 
         const feina = document.createElement('div')
         feina.classList.add('feina');
@@ -326,87 +320,8 @@ function WorksheetDetails({hide,setHide, element}){
         const feinaElement = feinaElements[feinaElements.length -1 ];
         feinaElement.querySelector(".btnTintedGlass:not(.eliminarFeina)").addEventListener('click', () => addMaterial({feinaElement}))
         // feinaElement.querySelector(".eliminarFeina").addEventListener('click', () => {feinaElement.remove(); sumTotal()})
-
-        feinaElement.querySelector("input[name='preu']").addEventListener('change', () => sumTotalFeina({feinaElement}))
-        feinaElement.querySelector("input[name='hores']").addEventListener('change', () => sumTotalFeina({feinaElement}))
-
-        const materialElement = feinaElement.querySelector(".material:first-child");
-        materialElement.querySelector("input[name='unitatsMaterial']").addEventListener('change', () => sumTotalMaterial({materialElement}));
-        materialElement.querySelector("[name='preuUnitat']").addEventListener('change', () => sumTotalMaterial({materialElement}));
     }
 
-    /**
-     * function to sum the total of the presupost
-     */
-    const sumTotal = () => {
-        const feines = document.querySelectorAll("input[name='totalFeina']")
-
-        const totalElement = document.querySelector("input[name='totalPresupost']");
-        const baseImposable = document.querySelector("input[name='baseImposable']");
-        let total = 0;
-
-        feines.forEach(f => total = total + parseInt(f.value));
-
-        total = total > 0 ? total : '';
-        /* descompte */
-        let descompte = parseInt(document.querySelector("input[name='descompte']").value);
-        descompte = descompte >= 0 ? total * descompte / 100 : 0;
-
-        /* impost */
-        let impost = parseInt(document.querySelector("input[name='impost']").value);
-        impost = impost >= 0 ? total * impost / 100 : 0;
-
-        /* total */
-        totalElement.value = ((total - descompte + impost)*1.21).toFixed(2);
-        baseImposable.value = (total - descompte + impost).toFixed(2);
-    }
-
-    /**
-     * Function to sum the total of a task.
-     * @param feina == task to calculate
-     */
-    const sumTotalFeina = (feina) => {
-        if(!feina) feina = document.querySelector(".feina:first-child");
-        else feina = feina.feinaElement;
-
-        const totalFeina = feina.querySelector("input[name='totalFeina']");
-        let total = 0;
-
-        const preu = parseInt(feina.querySelector("input[name='preu']").value)
-        const hores = parseInt(feina.querySelector("input[name='hores']").value);
-
-        const totalMaterials = feina.querySelectorAll(".material input[name='preuTotal']")
-        totalMaterials.forEach(material => {
-            parseInt(material.value) > 0 ? total = total + parseInt(material.value) : total = total;
-        });
-
-        
-        if(preu > 0) hores > 0 ? total = total + hores*preu : total = total + preu;
-        total > 0 ? totalFeina.value = total : totalFeina.value = '';
-
-        sumTotal()
-    }
-
-    /**
-     * Function to sum the total of a material
-     * @param material == material to calculate
-     */
-    const sumTotalMaterial = (material) => {
-        if(!material) material = document.querySelector(".feina:first-child .material:first-child");
-        else material = material.materialElement;
-
-        const totalMaterial = material.querySelector("input[name='preuTotal']");
-
-        let total = 0;
-
-        const unitats = parseInt(material.querySelector("input[name='unitatsMaterial']").value);
-        const preu = parseInt(material.querySelector("input[name='preuUnitat']").value);
-
-        unitats > 0 ? total = total + unitats * preu : total = preu;
-        total > 0 ? totalMaterial.value = total : totalMaterial.value = '';
-
-        sumTotalFeina({feinaElement:material.parentNode.parentNode})
-    }
 
     const CreatePresupost = () => {
         const id = document.querySelector(".identificators input[name='id']").value;
@@ -454,6 +369,10 @@ function WorksheetDetails({hide,setHide, element}){
                         <p>Id fulls de feina</p>
                         <input type='text' name='idff' readOnly/>
                     </div>
+                    <div className="inputBox">
+                        <p>Data entrada</p>
+                        <input type='text' name='dataEntrada' readOnly/>
+                    </div>
                 </div>
 
                 <div className="feinesBox">
@@ -474,13 +393,13 @@ function WorksheetDetails({hide,setHide, element}){
                     </div>
 
                     <div className="row">
-                        <div className="inputBox">
+                        {/* <div className="inputBox">
                             <p>Preu/hora:</p>
                             <input type='text' placeholder="preu/hora" name='preu'  readOnly/>
-                        </div>
+                        </div> */}
                         <div className="inputBox">
                             <p>hores:</p>
-                            <input type='number' name='hores'  onChange={() => sumTotalFeina()}/>
+                            <input type='number' name='hores'/>
                         </div>
                     </div>
 
@@ -494,13 +413,17 @@ function WorksheetDetails({hide,setHide, element}){
                             </select>
                             <div className="inputBox">
                                 <p>unitats</p>
-                                <input type='number' name='unitatsMaterial' onChange={() => sumTotalMaterial()}/>
+                                <input type='number' name='unitatsMaterial'/>
                             </div>
                             <div className="inputBox">
                                 <p>preu/U</p>
-                                <input type='number' name='preuUnitat' onChange={() => sumTotalMaterial()} />
+                                <input type='number' name='preuUnitat'/>
                             </div>
-                            <input type='text' name='preuTotal' readOnly/>
+                            <div class="inputBox">
+                                <p>Descripció</p>
+                                <textarea></textarea>
+                            </div>
+                            {/* <input type='text' name='preuTotal' readOnly/> */}
                         </div>
                     </div>
                         <button 
@@ -509,14 +432,14 @@ function WorksheetDetails({hide,setHide, element}){
                             style={{'--width':'130px'}}
                             onClick={() => addMaterial()}
                         >Afegir Material</button>
-                        <div className="totalFeina">
+                        {/* <div className="totalFeina">
                             <p>Total:</p>
                             <input type='text' name='totalFeina' readOnly/>
-                        </div>
+                        </div> */}
                 </div>
 
                 </div>
-                <Totals className="totals">
+                {/* <Totals className="totals">
                     <div className="inputBox">
                         <p>Descompte</p>
                         <input type='text' name='descompte' min='0' readOnly/>
@@ -533,7 +456,7 @@ function WorksheetDetails({hide,setHide, element}){
                         <p>Preu total</p>
                         <input type='text' name='totalPresupost' readOnly/>
                     </div>
-                </Totals>
+                </Totals> */}
                 <ButtonsExit>
                     <button
                         type='button'
