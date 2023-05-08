@@ -9,7 +9,9 @@ const AddPressupostBox = styled.div`
 {
     padding: 2rem;
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
+    gap: 10px;
     justify-content:space-evenly;
 
     .inputBox
@@ -78,50 +80,6 @@ const AddPressupostBox = styled.div`
     }
 }
 `;
-const Totals = styled.div`
-input
-{
-    width: 160px;
-    height: 40px;
-
-    border:none;
-    outline:none;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 1px 3px 6px #00000020;
-    background: white;
-}
-input:read-only
-{
-    background: #EEE;
-    box-shadow: none;
-    border: 1px solid #A0A0A080;
-}
-margin: 4rem 0 2rem 0;
-display:flex;
-flex-direction: row;
-justify-content: space-evenly;
-.inputBox
-{
-    p{font-size: 12px; margin: 0;}
-}
-
-@media only screen and (max-width: 1200px) {
-    input{width: 140px;}
-}
-@media only screen and (max-width: 760px) {
-    input{width: 100px; height: 36px; font-size:12px;}
-    justify-content: space-between;
-}
-@media only screen and (max-width: 448px) {
-    margin: 2rem 0 2rem 0;
-    display:grid;
-    grid-template-columns: repeat(2,1fr);
-    justify-items:center;
-    grid-gap: 10px 0;
-}
-
-`;
 const ButtonsExit = styled.div`
 margin-top: 2rem;
 display:flex;
@@ -169,11 +127,6 @@ function WorksheetDetails({hide,setHide, element}){
             /* identificators */
             document.querySelector(".identificators input[name='id']").value = element.id;
             document.querySelector(".identificators input[name='idff']").value = element.idff;
-            /* presupost totals */
-            document.querySelector("input[name='descompte']").value = element.descompte;
-            document.querySelector("input[name='impost']").value = element.impost;
-            document.querySelector("input[name='baseImposable']").value = element.bi;
-            document.querySelector("input[name='totalPresupost']").value = element.total;
 
             /* feines */
             let feina = 1;
@@ -181,9 +134,6 @@ function WorksheetDetails({hide,setHide, element}){
                 document.querySelector(`.feina:nth-child(${feina}) select`).value = f.feina;
                 document.querySelector(`.feina:nth-child(${feina}) input[name='id']`).value = f.id;
                 document.querySelector(`.feina:nth-child(${feina}) .treballador select`).value = f.treballador;
-                document.querySelector(`.feina:nth-child(${feina}) input[name='preu']`).value = f.preu;
-                // document.querySelector(`.feina:nth-child(${feina}) p[name='hores'] strong`).textContent = f.hores;
-                document.querySelector(`.feina:nth-child(${feina}) input[name='totalFeina']`).value = f.total;
                 document.querySelector(`.feina:nth-child(${feina}) textarea`).value = f.descripcio;
 
                 /* materials */
@@ -191,8 +141,7 @@ function WorksheetDetails({hide,setHide, element}){
                 f.materials.forEach(m => {
                     document.querySelector(`.feina:nth-child(${feina}) .material:nth-child(${material}) select`).value = m.material;
                     document.querySelector(`.feina:nth-child(${feina}) .material:nth-child(${material}) input[name='unitatsMaterial']`).value = m.unitats;
-                    document.querySelector(`.feina:nth-child(${feina}) .material:nth-child(${material}) input[name='preuUnitat']`).value = m.preu;
-                    document.querySelector(`.feina:nth-child(${feina}) .material:nth-child(${material}) input[name='preuTotal']`).value = m.total;
+                    document.querySelector(`.feina:nth-child(${feina}) .material:nth-child(${material}) textarea`).value = m.descripcio;
                     material = material + 1;
                 })
                 feina=feina+1;
@@ -206,7 +155,6 @@ function WorksheetDetails({hide,setHide, element}){
      * @param material material to be removed
      */
     const rmMaterial = (material) => {
-        const feinaElement = material.parentNode.parentNode
         material.remove()
     }
 
@@ -226,10 +174,6 @@ function WorksheetDetails({hide,setHide, element}){
                 <div class="inputBox">
                     <p>unitats</p>
                     <input type='number' name='unitatsMaterial' />
-                </div>
-                <div class="inputBox">
-                    <p>preu/U</p>
-                    <input type='number' name='preuUnitat' />
                 </div>
                 <div class="inputBox">
                     <p>Descripció</p>
@@ -295,10 +239,6 @@ function WorksheetDetails({hide,setHide, element}){
                             <input type='number' name='unitatsMaterial' />
                         </div>
                         <div class="inputBox">
-                            <p>preu/U</p>
-                            <input type='number' name='preuUnitat' />
-                        </div>
-                        <div class="inputBox">
                             <p>Descripció</p>
                             <textarea></textarea>
                         </div>
@@ -319,7 +259,6 @@ function WorksheetDetails({hide,setHide, element}){
         const feinaElements = document.querySelectorAll(".feinesBox .feina");
         const feinaElement = feinaElements[feinaElements.length -1 ];
         feinaElement.querySelector(".btnTintedGlass:not(.eliminarFeina)").addEventListener('click', () => addMaterial({feinaElement}))
-        // feinaElement.querySelector(".eliminarFeina").addEventListener('click', () => {feinaElement.remove(); sumTotal()})
     }
 
 
@@ -358,123 +297,144 @@ function WorksheetDetails({hide,setHide, element}){
     let form;
 
     if(hide === 'hide'){
-        form = (
-            <AddPressupostBox>
-                <div className="identificators">
-                    <div className="inputBox">
-                        <p>Id</p>
-                        <input type='text' name='id' readOnly/>
-                    </div>
-                    <div className="inputBox">
-                        <p>Id fulls de feina</p>
-                        <input type='text' name='idff' readOnly/>
-                    </div>
-                    <div className="inputBox">
-                        <p>Data entrada</p>
-                        <input type='text' name='dataEntrada' readOnly/>
-                    </div>
-                </div>
-
-                <div className="feinesBox">
-                <div className='feina'>
-                    <div className="row">
-                        <select>
-                            <option>Feina</option>
-                            <option>Pintar</option>
-                        </select>
-                        <input type='text' placeholder='identificador' name='id'/>
-                        <div className="treballador">
-                            <p>Assignada a:</p>
-                            <select>
-                                <option>Treballador</option>
-                                <option>Pere Pons</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        {/* <div className="inputBox">
-                            <p>Preu/hora:</p>
-                            <input type='text' placeholder="preu/hora" name='preu'  readOnly/>
-                        </div> */}
+        if(element.estat !== 'acabat'){
+            form = (
+                <AddPressupostBox>
+                    <div className="identificators">
                         <div className="inputBox">
-                            <p>hores:</p>
-                            <input type='number' name='hores'/>
+                            <p>Id</p>
+                            <input type='text' name='id' readOnly/>
+                        </div>
+                        <div className="inputBox">
+                            <p>Id fulls de feina</p>
+                            <input type='text' name='idff' readOnly/>
+                        </div>
+                        <div className="inputBox">
+                            <p>Data entrega</p>
+                            <input type='text' name='dataEntrega' readOnly/>
+                        </div>
+                        <div className="inputBox">
+                            <p>Block</p>
+                            <input type='text' name='block' readOnly/>
                         </div>
                     </div>
 
-                    <textarea placeholder="Descripció"></textarea>
-                    <div className="materialBox">
-                        <div className="material">
+                    <div className="feinesBox">
+                    <div className='feina'>
+                        <div className="row">
                             <select>
-                                <option>Material</option>
-                                <option>Pot pintura</option>
-                                <option>Pinzell</option>
+                                <option>Feina</option>
+                                <option>Pintar</option>
                             </select>
+                            <input type='text' placeholder='identificador' name='id'/>
+                            <div className="treballador">
+                                <p>Assignada a:</p>
+                                <select>
+                                    <option>Treballador</option>
+                                    <option>Pere Pons</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="row">
                             <div className="inputBox">
-                                <p>unitats</p>
-                                <input type='number' name='unitatsMaterial'/>
+                                <p>hores:</p>
+                                <input type='number' name='hores'/>
                             </div>
-                            <div className="inputBox">
-                                <p>preu/U</p>
-                                <input type='number' name='preuUnitat'/>
+                        </div>
+
+                        <textarea placeholder="Descripció"></textarea>
+                        <div className="materialBox">
+                            <div className="material">
+                                <select>
+                                    <option>Material</option>
+                                    <option>Pot pintura</option>
+                                    <option>Pinzell</option>
+                                </select>
+                                <div className="inputBox">
+                                    <p>unitats</p>
+                                    <input type='number' name='unitatsMaterial'/>
+                                </div>
+                                <div class="inputBox">
+                                    <p>Descripció</p>
+                                    <textarea></textarea>
+                                </div>
                             </div>
-                            <div class="inputBox">
-                                <p>Descripció</p>
-                                <textarea></textarea>
+                        </div>
+                            <button 
+                                type='button' 
+                                className="btnTintedGlass" 
+                                style={{'--width':'130px'}}
+                                onClick={() => addMaterial()}
+                            >Afegir Material</button>
+                    </div>
+
+                    </div>
+                    <ButtonsExit>
+                        <button
+                            type='button'
+                            className="btnBlue"
+                            style={{'--width':'90px'}}
+                            onClick={() => CreatePresupost()}
+                        >Guardar</button>
+                        <button
+                            type='button'
+                            className="btnTintedGlass"
+                            style={{'--width':'90px'}}
+                            onClick={() => setHide('')}
+                        >Cancelar</button>
+                    </ButtonsExit>
+                </AddPressupostBox>
+            )
+        } else {
+            form = (
+                <FinishedPresupost>
+                    <div className="identificators">
+                        <p>Id: <strong name='id'>1234</strong></p>
+                        <p>Id F.F.: <strong name='idff'>1234</strong></p>
+                            
+                        <p>Entrega: <strong name='dataEntrega'>2023-08-22</strong></p>
+                        <p>Block: <strong name='block'>pintar</strong></p>
+                    </div>
+
+                    <div className="feinesBox">
+                    <div className='feina'>
+                        <p>Feina: <strong>Pintar</strong></p>
+                        <p>Id: <strong>1234</strong></p>
+                        <p>Treballador: <strong>Pere Pons</strong></p>
+                        <p>hores: <strong>8</strong></p>
+                        <p>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</p>
+
+                        <div className="materialBox">
+                            <div className="material">
+                                <p><strong>3 x Pinzell: </strong>Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet</p>
                             </div>
-                            {/* <input type='text' name='preuTotal' readOnly/> */}
                         </div>
                     </div>
-                        <button 
-                            type='button' 
-                            className="btnTintedGlass" 
-                            style={{'--width':'130px'}}
-                            onClick={() => addMaterial()}
-                        >Afegir Material</button>
-                        {/* <div className="totalFeina">
-                            <p>Total:</p>
-                            <input type='text' name='totalFeina' readOnly/>
-                        </div> */}
-                </div>
 
-                </div>
-                {/* <Totals className="totals">
-                    <div className="inputBox">
-                        <p>Descompte</p>
-                        <input type='text' name='descompte' min='0' readOnly/>
                     </div>
-                    <div className="inputBox">
-                        <p>Impost</p>
-                        <input type='text' name='impost' min='0' readOnly/>
-                    </div>
-                    <div className="inputBox">
-                        <p>Base imposable</p>
-                        <input type='text' name='baseImposable' readOnly/>
-                    </div>
-                    <div className="inputBox">
-                        <p>Preu total</p>
-                        <input type='text' name='totalPresupost' readOnly/>
-                    </div>
-                </Totals> */}
-                <ButtonsExit>
-                    <button
-                        type='button'
-                        className="btnBlue"
-                        style={{'--width':'90px'}}
-                        onClick={() => CreatePresupost()}
-                    >Guardar</button>
-                    <button
-                        type='button'
-                        className="btnTintedGlass"
-                        style={{'--width':'90px'}}
-                        onClick={() => setHide('')}
-                    >Cancelar</button>
-                </ButtonsExit>
-            </AddPressupostBox>
-        )
+                    <ButtonsExit>
+                        <button
+                            type='button'
+                            className="btnBlue"
+                            style={{'--width':'90px'}}
+                            onClick={() => setHide('')}
+                        >Cancelar</button>
+                    </ButtonsExit>
+                </FinishedPresupost>
+            )
+        }
     }
     return form;
 }
 
+const FinishedPresupost = styled.div`
+    .identificators
+    {
+        display:flex;
+        justify-content:space-evenly;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+`;
 export default WorksheetDetails;

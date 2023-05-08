@@ -501,115 +501,266 @@ function PressupostosTable({hide, setElement, setHide}){
 function WorksheetTable({setElement, setHide}){
     const [llista, setLlista] = useState('');
 
-    const pressupost = {
-        id:1234,
-        idff: 1234,
-        descompte: 20,
-        impost:20,
-        block:'pintar',
-        estat: 'començat',
-        bi:'',
-        total:80,
-        dataEntrada: '2023-06-01',
-        dataEntrega: '2023-06-08',
-        feines:[
-            {
-                feina:'Pintar',
-                id:'fna-1',
-                treballador: 'Pere Pons',
-                preu: 5,
-                hores: '08:30:00',
-                descripcio: 'Lorem Ipsum dolor sit ament.',
-                total: 40,
-                materials:[
-                    {
-                        material:"Pot pintura",
-                        unitats:2,
-                        preu: 5,
-                        total: 10
-                    },
-                    {
-                        material:"Pinzell",
-                        unitats:2,
-                        preu: 5,
-                        total: 10
-                    },
-                    {
-                        material:"Pinzell",
-                        unitats:2,
-                        preu: 5,
-                        total: 10
-                    }
-                ]
-            },
-            {
-                feina:'Pintar',
-                id:'fna-2',
-                treballador: 'Pere Pons',
-                preu: 5,
-                hores: '08:30:00',
-                descripcio: 'Lorem Ipsum dolor sit ament.',
-                total: 40,
-                materials:[
-                    {
-                        material:"Pot pintura",
-                        unitats:2,
-                        preu: 5,
-                        total: 10
-                    },
-                    {
-                        material:"Pinzell",
-                        unitats:2,
-                        preu: 5,
-                        total: 10
-                    }
-                ]
-            },
-            {
-                feina:'Pintar',
-                id:'fna-3',
-                treballador: 'Pere Pons',
-                preu: 5,
-                hores: '08:30:00',
-                descripcio: 'Lorem Ipsum dolor sit ament.',
-                total: 40,
-                materials:[
-                    {
-                        material:"Pot pintura",
-                        unitats:2,
-                        preu: 5,
-                        total: 10
-                    },
-                    {
-                        material:"Pinzell",
-                        unitats:2,
-                        preu: 5,
-                        total: 10
-                    },
-                    {
-                        material:"Pinzell",
-                        unitats:2,
-                        preu: 5,
-                        total: 10
-                    },
-                    {
-                        material:"Pinzell",
-                        unitats:2,
-                        preu: 5,
-                        total: 10
-                    },
-                    {
-                        material:"Pinzell",
-                        unitats:2,
-                        preu: 5,
-                        total: 10
-                    }
-                ]
-            },
-        ]
-    }
+    const pressupostos = [
+        {        
+            id:1234,
+            idff: 1234,
+            block:'pintar',
+            estat: 'començat',
+            dataEntrada: '2023-06-01',
+            dataEntrega: '2023-06-08',
+            treballadors: [
+                {id:'1234567A'}
+            ],
+            feines:[
+                {
+                    feina:'Pintar',
+                    id:'fna-1',
+                    treballador: 'Pere Pons',
+                    hores: '08:30:00',
+                    descripcio: 'Lorem Ipsum dolor sit ament.',
+                    materials:[
+                        {
+                            material:"Pot pintura",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        },
+                        {
+                            material:"Pinzell",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        },
+                        {
+                            material:"Pinzell",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        }
+                    ]
+                },
+                {
+                    feina:'Pintar',
+                    id:'fna-1',
+                    treballador: 'Pere Pons',
+                    hores: '08:30:00',
+                    descripcio: 'Lorem Ipsum dolor sit ament.',
+                    materials:[
+                        {
+                            material:"Pot pintura",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        },
+                        {
+                            material:"Pinzell",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        },
+                        {
+                            material:"Pinzell",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        }
+                    ]
+                },
+                {
+                    feina:'Pintar',
+                    id:'fna-1',
+                    treballador: 'Pere Pons',
+                    hores: '08:30:00',
+                    descripcio: 'Lorem Ipsum dolor sit ament.',
+                    materials:[
+                        {
+                            material:"Pot pintura",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        },
+                        {
+                            material:"Pinzell",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        },
+                        {
+                            material:"Pinzell",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        }
+                    ]
+                },
+            ]
+        },
+        {
+            id:3421,
+            idff: 3421,
+            block:'pintar',
+            estat: 'acabat',
+            dataEntrada: '2023-06-01',
+            dataEntrega: '2023-06-08',
+            treballadors: [
+                {id:'1234567A'}
+            ],
+            feines:[
+                {
+                    feina:'Pintar',
+                    id:'fna-1',
+                    treballador: 'Pere Pons',
+                    hores: '08:30:00',
+                    descripcio: 'Lorem Ipsum dolor sit ament.',
+                    materials:[
+                        {
+                            material:"Pot pintura",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        },
+                        {
+                            material:"Pinzell",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        },
+                        {
+                            material:"Pinzell",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        }
+                    ]
+                },
+                {
+                    feina:'Pintar',
+                    id:'fna-1',
+                    treballador: 'Pere Pons',
+                    hores: '08:30:00',
+                    descripcio: 'Lorem Ipsum dolor sit ament.',
+                    materials:[
+                        {
+                            material:"Pot pintura",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        },
+                        {
+                            material:"Pinzell",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        },
+                        {
+                            material:"Pinzell",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        }
+                    ]
+                },
+                {
+                    feina:'Pintar',
+                    id:'fna-1',
+                    treballador: 'Pere Pons',
+                    hores: '08:30:00',
+                    descripcio: 'Lorem Ipsum dolor sit ament.',
+                    materials:[
+                        {
+                            material:"Pot pintura",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        },
+                        {
+                            material:"Pinzell",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        },
+                        {
+                            material:"Pinzell",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        }
+                    ]
+                },
+            ]
+        },
+        {
+            id:4321,
+            idff: 4321,
+            block:'pintar',
+            estat: 'començat',
+            dataEntrada: '2023-06-01',
+            dataEntrega: '2023-06-08',
+            treballadors: [
+                {id:'1234567A'}
+            ],
+            feines:[
+                {
+                    feina:'Pintar',
+                    id:'fna-1',
+                    treballador: 'Pere Pons',
+                    hores: '08:30:00',
+                    descripcio: 'Lorem Ipsum dolor sit ament.',
+                    materials:[
+                        {
+                            material:"Pot pintura",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        },
+                        {
+                            material:"Pinzell",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        },
+                        {
+                            material:"Pinzell",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        }
+                    ]
+                },
+                {
+                    feina:'Pintar',
+                    id:'fna-1',
+                    treballador: 'Pere Pons',
+                    hores: '08:30:00',
+                    descripcio: 'Lorem Ipsum dolor sit ament.',
+                    materials:[
+                        {
+                            material:"Pot pintura",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        },
+                        {
+                            material:"Pinzell",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        },
+                        {
+                            material:"Pinzell",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        }
+                    ]
+                },
+                {
+                    feina:'Pintar',
+                    id:'fna-1',
+                    treballador: 'Pere Pons',
+                    hores: '08:30:00',
+                    descripcio: 'Lorem Ipsum dolor sit ament.',
+                    materials:[
+                        {
+                            material:"Pot pintura",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        },
+                        {
+                            material:"Pinzell",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        },
+                        {
+                            material:"Pinzell",
+                            unitats:2,
+                            descripcio:'Lorem Ipsum dolor sit amet.'
+                        }
+                    ]
+                },
+            ]
+        }
+]
 
-    const editPresupost = () => {
+
+    const editPresupost = (pressupost) => {
         setElement(pressupost)
         setHide('hide')
     }
@@ -618,17 +769,6 @@ function WorksheetTable({setElement, setHide}){
         setLlista({title:header, list});
         document.querySelector('.llista').classList.remove('hide')
     }
-    const worksheets = [
-        {id:'wks-1234', pressupost:'pst-1234', dataEntrada:'2023-01-01', dataEntrega:'2023-01-08', block:'pintar', estat: 'començat', workers:[
-            {id:'12345678A'}
-        ]},
-        {id:'wks-4321', pressupost:'pst-4321', dataEntrada:'2023-01-01', dataEntrega:'2023-01-08', block:'inox', estat: 'acabat', workers:[
-            {id:'12345678A'}
-        ]},
-        {id:'wks-3412', pressupost:'pst-3412', dataEntrada:'2023-01-01', dataEntrega:'2023-01-08', block:'ferro', estat: 'començat', workers:[
-            {id:'12345678A'}
-        ]}
-    ]
     return(
         <>
         <TableBox className="table" minWidth='1200px' respMinWidth='900px'>
@@ -636,18 +776,18 @@ function WorksheetTable({setElement, setHide}){
             <TableRow className="rowHeader">
                 <p name='id'>ID</p>
                 <p name='string'>Block</p>
-                <p name='string'>Pressupost</p>
+                <p name='string'>Fitxa entrada</p>
                 <p name='popup'>Treballadors</p>
                 <p name='data'>Entrada</p>
                 <p name='data'>Entrega</p>
                 <p name='string'>Estat</p>
             </TableRow>
-            {worksheets.map((w) => (
+            {pressupostos.map((w) => (
                 <TableRow>
                     <p name='id' className="rowid">{w.id}</p>
                     <p name='string' className="rowblock">{w.block}</p>
-                    <p name='string' className="rowpressupost">{w.pressupost}</p>
-                    <div className="popup" onClick={() => showPopUpList({setLlista}, w.workers, 'Fulls de feina')}><p><HiClipboard/></p></div>
+                    <p name='string' className="rowpressupost">{w.idff}</p>
+                    <div className="popup" onClick={() => showPopUpList({setLlista}, w.treballadors, 'Fulls de feina')}><p><HiClipboard/></p></div>
                     <p name='data'>{w.dataEntrada}</p>
                     <p name='data'>{w.dataEntrega}</p>
                     <p name='string' className="rowestat">{w.estat}</p>
@@ -656,7 +796,7 @@ function WorksheetTable({setElement, setHide}){
                             type="button"
                             className="btnBlue"
                             style={{'--width':'75px'}}
-                            onClick={() => editPresupost()}
+                            onClick={() => editPresupost(w)}
                         >
                             Veure
                         </button>

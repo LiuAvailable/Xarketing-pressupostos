@@ -224,8 +224,8 @@ function CreatePresupost({hide,setHide, element}){
                         <input type='text' name='idff'/>
                     </div>
                     <div className="inputBox">
-                        <p>Data Entrada</p>
-                        <input type='date' name='dataEntrada'/>
+                        <p>Data Entrega</p>
+                        <input type='date' name='dataEntrega'/>
                     </div>
                     <div className="inputBox">
                         <p>Block feina</p>
