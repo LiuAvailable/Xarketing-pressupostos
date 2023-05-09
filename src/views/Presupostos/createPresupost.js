@@ -8,6 +8,8 @@ const AddPressupostBox = styled.div`
 {
     padding: 2rem;
     display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
     width: 100%;
     justify-content:space-evenly;
 
@@ -37,7 +39,7 @@ const AddPressupostBox = styled.div`
         .inputBox
         {
             p{font-size: 12px;}
-            input
+            input, select
             {    
                 height: 36px;
                 width: 140px;
@@ -52,7 +54,7 @@ const AddPressupostBox = styled.div`
         .inputBox
         {
             p{font-size: 12px;}
-            input
+            input, select
             {    
                 height: 36px;
                 width: 140px;
@@ -68,7 +70,7 @@ const AddPressupostBox = styled.div`
         .inputBox
         {
             p{font-size: 12px;}
-            input
+            input, select
             {    
                 height: 36px;
                 width: 100px;
@@ -195,7 +197,22 @@ function CreatePresupost({hide,setHide, element}){
     const CreatePresupost = () => {
         const id = document.querySelector(".identificators input[name='id']").value;
         const idFF = document.querySelector(".identificators input[name='idff']").value;
-        const dataEntrada = document.querySelector(".identificators input[name='dataEntrada']").value;
+        const dataEntrega = document.querySelector(".identificators input[name='dataEntrega']").value;
+
+        const fechaActual = new Date();
+
+        const año = fechaActual.getFullYear();
+        let mes = fechaActual.getMonth() + 1;
+        let dia = fechaActual.getDate();
+
+        if (mes < 10) {
+        mes = '0' + mes;
+        }
+        if (dia < 10) {
+        dia = '0' + dia;
+        }
+        const dataEntrada = año + '-' + mes + '-' + dia;
+
         const feines = [];
 
         document.querySelectorAll('.feina').forEach(f => {
@@ -207,7 +224,7 @@ function CreatePresupost({hide,setHide, element}){
             feines.push({feina, id, treballador, descripcio})
         })
 
-        console.log({id, idFF, dataEntrada, feines})
+        console.log({id, idFF, dataEntrega,dataEntrada, feines})
     }
 
     let form;

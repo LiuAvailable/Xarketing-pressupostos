@@ -150,7 +150,7 @@
 
         .row
         {
-            margin: 0;
+            margin: 0 0 1rem 0;
             gap: 20px;
             .inputBox
             {
@@ -163,7 +163,6 @@
 
         .treballador
         {
-            right:1rem;
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -213,7 +212,6 @@
 
         .treballador
         {
-            right:1rem;
             gap: 0;
             p{font-size: 10px;}
         }

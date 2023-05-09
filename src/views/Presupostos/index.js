@@ -93,8 +93,8 @@ function PressupostosView(){
             <div className="pageHeader">
                 <div className="icon"> <FaEuroSign/> </div>
                 <div className="sectionName">
-                    <h1>Pressupostos</h1>
-                    <p>Els teus pressupostos</p>
+                    <h1>Fitxes d'entrada</h1>
+                    <p>Les teves fitxes d'entrada</p>
                 </div>
             </div>
             <CreateUser className={hideTable}>

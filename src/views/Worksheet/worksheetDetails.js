@@ -265,33 +265,26 @@ function WorksheetDetails({hide,setHide, element}){
     const CreatePresupost = () => {
         const id = document.querySelector(".identificators input[name='id']").value;
         const idFF = document.querySelector(".identificators input[name='idff']").value;
-        const descompte = document.querySelector("input[name='descompte']").value;
-        const impost = document.querySelector("input[name='impost']").value;
-        const bi = document.querySelector("input[name='baseImposable']").value;
-        const total = document.querySelector("input[name='totalPresupost']").value;
         const feines = [];
 
         document.querySelectorAll('.feina').forEach(f => {
             const feina = f.querySelector('select').value;
             const id = f.querySelector("input[name='id'").value;
             const treballador = f.querySelector(".treballador select").value;
-            const preu = f.querySelector("input[name='preu']").value;
             const hores = f.querySelector("input[name='hores']").value;
             const descripcio = f.querySelector("textarea").value;
-            const total = f.querySelector("input[name='totalFeina']").value;
 
             const materials = [];
             f.querySelectorAll('.material').forEach(m => {
                 const material = m.querySelector('select').value;
-                const preu = m.querySelector("input[name='preuUnitat']").value;
                 const unitats = m.querySelector("input[name='unitatsMaterial']").value;
-                const total = m.querySelector("input[name='preuTotal']").value;
-                materials.push({material, preu, unitats, total})
+                const descripcio = m.querySelector("textarea").value;
+                materials.push({material, unitats, descripcio})
             })
-            feines.push({feina, id, treballador, preu, hores, descripcio, total, materials})
+            feines.push({feina, id, treballador, hores, descripcio, materials})
         })
 
-        console.log({id, idFF, descompte, impost, bi, total, feines})
+        console.log({id, idFF, feines})
     }
 
     let form;
