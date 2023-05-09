@@ -852,9 +852,9 @@ function MaterialsTable(){
     const [element, setElement] = useState('');
 
     const materials = [
-        {id:'mat-1234', nom:'Pot pintura', preu:0.00, descripcio:'Lorem Ipsum dolor sit amet.'},
-        {id:'mat-4321', nom:'Pot pintura', preu:0.00, descripcio:'Lorem Ipsum dolor sit amet.'},
-        {id:'mat-3412', nom:'Pinzell', preu:0.00, descripcio:'Lorem Ipsum dolor sit amet.'}
+        {id:'mat-1234', nom:'Pot pintura', descripcio:'Lorem Ipsum dolor sit amet.'},
+        {id:'mat-4321', nom:'Pot pintura', descripcio:'Lorem Ipsum dolor sit amet.'},
+        {id:'mat-3412', nom:'Pinzell', descripcio:'Lorem Ipsum dolor sit amet.'}
     ]
     const showPopupNota = (descripcio) => {
         setNota({title:'Descripció del material', descripcio})
@@ -870,19 +870,17 @@ function MaterialsTable(){
     }
     return(
         <>
-        <TableBox className="table" minWidth='920px' respMinWidth='650px'>
+        <TableBox className="table" minWidth='680px' respMinWidth='480px'>
             <ul>
             <TableRow className="rowHeader">
                 <p name='id'>ID</p>
                 <p name='string'>Nom</p>
-                <p name='string'>Preu</p>
                 <p name='popup'>Descripció</p>
             </TableRow>
             {materials.map((m) => (
                 <TableRow className="rowcolored">
                     <p name='id' className="rowid">{m.id}</p>
                     <p name='string' className="rowname">{m.nom}</p>
-                    <p name='string' className="rowname">{m.preu}</p>
                     <div className="popup" onClick={() => showPopupNota(m.descripcio)}><p><IoIosInformationCircleOutline/></p></div>
                     <RowButtons>
                         <button
@@ -915,9 +913,9 @@ function FeinesTable(){
     const [feina, setFeina] = useState('');
 
     const feines = [
-        {id:'fna-1234', nom:'Pintar', preu:10, descripcio:'Lorem Ipsum dolor sit amet.'},
-        {id:'fna-4321', nom:'Pot pintura', preu:11, descripcio:'Lorem Ipsum dolor sit amet.'},
-        {id:'fna-3412', nom:'Pinzell', preu:10, descripcio:'Lorem Ipsum dolor sit amet.'}
+        {id:'fna-1234', nom:'Pintar', descripcio:'Lorem Ipsum dolor sit amet.'},
+        {id:'fna-4321', nom:'Pot pintura', descripcio:'Lorem Ipsum dolor sit amet.'},
+        {id:'fna-3412', nom:'Pinzell', descripcio:'Lorem Ipsum dolor sit amet.'}
     ]
     const showPopupNota = (descripcio) => {
         setNota({title:'Descripció de la feina', descripcio});
@@ -933,19 +931,17 @@ function FeinesTable(){
     }
     return(
         <>
-        <TableBox className="table" minWidth='920px' respMinWidth='650px'>
+        <TableBox className="table" minWidth='680px' respMinWidth='480px'>
             <ul>
             <TableRow className="rowHeader">
                 <p name='id'>ID</p>
                 <p name='string'>Nom</p>
-                <p name='string'>Preu/hora</p>
                 <p name='popup'>Descripció</p>
             </TableRow>
             {feines.map((f) => (
                 <TableRow className="rowcolored">
                     <p name='id' className="rowid">{f.id}</p>
                     <p name='string' className="rowname">{f.nom}</p>
-                    <p name='string' className="rowname">{f.preu}</p>
                     <div className="popup" onClick={() => showPopupNota(f.descripcio)}><p><IoIosInformationCircleOutline/></p></div>
                     <RowButtons>
                         <button

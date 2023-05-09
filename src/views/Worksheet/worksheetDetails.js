@@ -387,39 +387,43 @@ function WorksheetDetails({hide,setHide, element}){
                 </AddPressupostBox>
             )
         } else {
+            console.log(element)
             form = (
                 <FinishedPresupost>
                     <div className="identificators">
-                        <p>Id: <strong name='id'>1234</strong></p>
-                        <p>Id F.F.: <strong name='idff'>1234</strong></p>
+                        <p>Id: <strong name='id'>{element.id}</strong></p>
+                        <p>Id F.F.: <strong name='idff'>{element.idff}</strong></p>
                             
-                        <p>Entrega: <strong name='dataEntrega'>2023-08-22</strong></p>
-                        <p>Block: <strong name='block'>pintar</strong></p>
+                        <p>Entrega: <strong name='dataEntrega'>{element.dataEntrega}</strong></p>
+                        <p>Block: <strong name='block'>{element.block}</strong></p>
                     </div>
 
-                    <div className="feinesBox">
-                    <div className='feina'>
-                        <p>Feina: <strong>Pintar</strong></p>
-                        <p>Id: <strong>1234</strong></p>
-                        <p>Treballador: <strong>Pere Pons</strong></p>
-                        <p>hores: <strong>8</strong></p>
-                        <p>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</p>
-
-                        <div className="materialBox">
-                            <div className="material">
-                                <p><strong>3 x Pinzell: </strong>Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet</p>
+                    <div className="presupostFinal">
+                        {element.feines.map(f => (
+                            <div>
+                                <p>Feina: <strong>{f.feina}</strong></p>
+                                <p>Id: <strong>{f.id}</strong></p>
+                                <p>Treballador: <strong>{f.treballador}</strong></p>
+                                <p>hores: <strong>{f.hores}</strong></p>
+                                <p>{f.descripcio}</p>
+                                <div className="materialBox">
+                                    {f.materials.map(m => (
+                                        <div className="material">
+                                            <p><strong>{m.unitats} x {m.material}: </strong>{m.descripcio}</p>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
+                        ))}
                     </div>
 
-                    </div>
                     <ButtonsExit>
                         <button
                             type='button'
                             className="btnBlue"
                             style={{'--width':'90px'}}
                             onClick={() => setHide('')}
-                        >Cancelar</button>
+                        >Cerrar</button>
                     </ButtonsExit>
                 </FinishedPresupost>
             )

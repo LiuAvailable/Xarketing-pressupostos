@@ -299,3 +299,17 @@
         div > select {height: 26px; font-size: 12px; padding: 0 10px;}
     }
 }
+
+.presupostFinal
+{
+    background: white;
+    border-radius: 15px;
+    box-shadow: 3px 3px 6px #00000020;
+    padding: 2rem;
+
+    > div {
+        margin-bottom: 4rem;
+
+        .materialBox{margin-left: 2rem;}
+    }
+}

@@ -142,7 +142,6 @@ function CrearMaterial({element, feina}){
     const closeThisPopUp = () => {
         document.querySelector(".material input[name='id']").value = '';
         document.querySelector(".material input[name='name']").value = '';
-        document.querySelector(".material input[name='preu']").value = '';
         document.querySelector(".material textarea").value = ''; 
 
         closePopUp();
@@ -153,12 +152,10 @@ function CrearMaterial({element, feina}){
         if(element){
             document.querySelector(".material input[name='id']").value = element.id;
             document.querySelector(".material input[name='name']").value = element.name;
-            document.querySelector(".material input[name='preu']").value = element.preu;
             document.querySelector(".material textarea").value = element.descripcio;
         } else {
             document.querySelector(".material input[name='id']").value = '';
             document.querySelector(".material input[name='name']").value = '';
-            document.querySelector(".material input[name='preu']").value = '';
             document.querySelector(".material textarea").value = '';
         }
     },50);
@@ -184,7 +181,6 @@ function CrearMaterial({element, feina}){
                 <MaterialForm>
                     <input type='text' name='id' placeholder="id"/>
                     <input type='text' name='name' placeholder="Nom"/>
-                    <input type='number' name='preu' placeholder="Preu"/>
                     <textarea placeholder="Descripció"></textarea>
                 </MaterialForm>
                 <button
