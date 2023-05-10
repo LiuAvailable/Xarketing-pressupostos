@@ -128,7 +128,7 @@
         justify-content: flex-end;
         align-items:center;
         gap:10px;
-        p{font-size: 12px;margin:0;}
+        p{font-size: 12px; margin:0;}
     }
     @media only screen and (max-width: 1200px) {
         .material{margin: 1rem 0 1rem 6rem;}
@@ -184,7 +184,7 @@
         &:nth-child(1){padding: 1rem;}
 
         .material{
-            gap:10px;
+            gap:24px 10px;
             margin: 1rem 0 1rem 0;
             input[type='number']{width: 40px; padding: 5px;}
 
@@ -225,7 +225,7 @@
         }
         textarea{width: 100%;}
         .material{
-            gap:5px;
+            gap:24px 10px;
             input[type='number']{width: 30px !important;}
             input[name='preuTotal']{width: 40px; padding: 5px;}
             .eliminar{
@@ -310,4 +310,20 @@
 
         .materialBox{margin-left: 2rem;}
     }
+
+    @media only screen and (max-width: 460px){
+        padding: 1.25rem;
+
+        > div {    
+            .materialBox{margin-left: 1.25rem;}
+        }
+    }
+    @media only screen and (max-width: 320px){
+        padding: 0.75rem;
+
+        > div {    
+            .materialBox{margin-left: 0.75rem;}
+        }
+    }
 }
+.inputBox:has(textarea){width: 100% !important; max-width: 450px;}

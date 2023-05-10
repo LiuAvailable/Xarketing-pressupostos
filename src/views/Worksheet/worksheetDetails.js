@@ -247,7 +247,7 @@ function WorksheetDetails({hide,setHide, element}){
                     <button 
                         type='button' 
                         class="btnTintedGlass" 
-                        style="--width: 130px;"
+                        style="--width: 140px;"
                     >Afegir Material</button>
                     `
 
@@ -357,7 +357,7 @@ function WorksheetDetails({hide,setHide, element}){
                             <button 
                                 type='button' 
                                 className="btnTintedGlass" 
-                                style={{'--width':'130px'}}
+                                style={{'--width':'140px'}}
                                 onClick={() => addMaterial()}
                             >Afegir Material</button>
                     </div>
@@ -428,10 +428,18 @@ function WorksheetDetails({hide,setHide, element}){
 const FinishedPresupost = styled.div`
     .identificators
     {
+        margin: 1.5rem 0 .5rem 0;
         display:flex;
         justify-content:space-evenly;
         flex-wrap: wrap;
         gap: 10px;
+    }
+
+    @media only screen and (max-width: 460px){
+        p{font-size: 12px;}
+    }    
+    @media only screen and (max-width: 320px){
+        p{font-size: 11px;}
     }
 `;
 export default WorksheetDetails;
