@@ -133,7 +133,7 @@ function WorksheetDetails({hide,setHide, element}){
             element.feines.forEach(f => {
                 document.querySelector(`.feina:nth-child(${feina}) select`).value = f.feina;
                 document.querySelector(`.feina:nth-child(${feina}) input[name='id']`).value = f.id;
-                document.querySelector(`.feina:nth-child(${feina}) .treballador select`).value = f.treballador;
+                document.querySelector(`.feina:nth-child(${feina}) .treballador input`).value = f.treballador;
                 document.querySelector(`.feina:nth-child(${feina}) textarea`).value = f.descripcio;
 
                 /* materials */
@@ -207,17 +207,11 @@ function WorksheetDetails({hide,setHide, element}){
         const feinaHTML = 
             `
                 <div class='row'>
-                    <select>
-                        <option>Feina</option>
-                        <option>Pintar</option>
-                    </select>
-                    <input type='text' placeholder='identificador' name='id'/>
+                    <input type'text' name='feina' value='pintar' readOnly/>
+                    <input type='text' placeholder='identificador' name='id' readOnly/>
                     <div class="treballador">
                         <p>Assignada a:</p>
-                        <select>
-                            <option>Treballador</option>
-                            <option>Pere Pons</option>
-                        </select>
+                        <input type='text' name='treballador' value='Pere Pons' readOnly/>
                     </div>
                 </div>
                 <div class="row">
@@ -315,17 +309,19 @@ function WorksheetDetails({hide,setHide, element}){
                     <div className="feinesBox">
                     <div className='feina'>
                         <div className="row">
-                            <select>
+                            {/* <select>
                                 <option>Feina</option>
                                 <option>Pintar</option>
-                            </select>
-                            <input type='text' placeholder='identificador' name='id'/>
+                            </select> */}
+                            <input type='text' name='feina' value='pintar' readOnly/>
+                            <input type='text' placeholder='identificador' name='id' readOnly/>
                             <div className="treballador">
                                 <p>Assignada a:</p>
-                                <select>
+                                {/* <select>
                                     <option>Treballador</option>
                                     <option>Pere Pons</option>
-                                </select>
+                                </select> */}
+                            <input type='text' name='treballador' value='Pere Pons' readOnly/>
                             </div>
                         </div>
 
