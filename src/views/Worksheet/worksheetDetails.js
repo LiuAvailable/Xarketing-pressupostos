@@ -418,7 +418,7 @@ function WorksheetDetails({hide,setHide, element}){
 
         document.querySelectorAll('.feina').forEach(f => {
             const feina = f.querySelector('select').value;
-            const id = f.querySelector("input[name='id'").value;
+            const id = f.querySelector("input[name='id']").value;
             const treballador = f.querySelector(".treballador select").value;
             const preu = f.querySelector("input[name='preu']").value;
             const hores = f.querySelector("input[name='hores']").value;
