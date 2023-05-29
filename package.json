@@ -5,6 +5,7 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.13.0",
         "@popperjs/core": "^2.11.6",
+        "@reduxjs/toolkit": "^1.9.5",
         "@uppy/core": "0.28.0",
         "@uppy/react": "0.28.0",
         "autoprefixer": "10.4.5",
@@ -26,6 +27,7 @@
         "react-chartist": "0.14.3",
         "react-datepicker": "^4.8.0",
         "react-dom": "^18.1.0",
+        "react-i18next": "^12.3.1",
         "react-icons": "^4.4.0",
         "react-loading-skeleton": "^3.1.0",
         "react-notification-alert": "0.0.13",

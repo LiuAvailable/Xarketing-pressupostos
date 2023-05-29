@@ -70,18 +70,21 @@ function getResOk(response) {
 }
 
 function getResError(error) {
+    const errors = [];
+    error.map(e => {
+        errors.push(e)
+    })
+
     return {
         success: false,
-        data: `${error?.response?.data?.error}: ${JSON.stringify(
-            error?.response?.data?.detail,
-        )}`,
+        error: {errors},
     };
 }
 
 const login = async (email, password) => {
     let res;
     await axiosInstance
-        .post('sessions/login/', {
+        .post('auth/session/login/', {
             email,
             password,
         })
@@ -90,8 +93,9 @@ const login = async (email, password) => {
             getCSRF();
         })
         .catch((error) => {
+            const errorMsg = error?.response?.data?.errors;
             clearCache();
-            res = getResError(error);
+            res = getResError(errorMsg);
         });
     return res;
 };
@@ -113,7 +117,7 @@ const getSession = async () => {
 const getCSRF = async () => {
     let res;
     await axiosInstance
-        .get('sessions/get-csrf/')
+        .get('auth/session/get-csrf/')
         .then((response) => {
             localStorage.setItem('csrftoken', response.headers['x-csrftoken']);
             res = { success: true, data: response.headers['x-csrftoken'] };
@@ -128,7 +132,7 @@ const getCSRF = async () => {
 const logout = async () => {
     let res;
     await axiosInstance
-        .get('sessions/logout/', {})
+        .get('auth/session/logout/', {})
         .then((response) => {
             clearCache();
             res = getResOk(response);
