@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import logo from 'assets/img/logo.png';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-bootstrap';
 import { CiLock, CiUser } from 'react-icons/ci';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from "react-router-dom";
 
 import { useSessionSlice } from '../../reducers/auth/index';
 import { selectSessionDomain } from '../../reducers/auth/selectors';
@@ -16,9 +17,10 @@ import {
 } from './components';
 
 function LoginView() {
+    const history = useHistory();
     const dispatch = useDispatch();
     const { sessionActions } = useSessionSlice();
-    const { isLoading, error } = useSelector(selectSessionDomain);
+    const { isLoading, error, isAuthenticated } = useSelector(selectSessionDomain);
 
     const [inputs, setInputs] = useState({
         email: '',
@@ -42,6 +44,11 @@ function LoginView() {
             dispatch(sessionActions.sessionLoginRequest({ email, password }));
         }
     };
+    useEffect(() => {
+        if (isAuthenticated) {
+          history.push('/private/home');
+        }
+      }, [isAuthenticated, history]);
 
     return (
         <ContainerCenter className="text-center">
