@@ -747,16 +747,11 @@ function MaterialsTable(){
     )
 }
 
-function FeinesTable(){
+function FeinesTable({object}){
     const [nota, setNota] = useState('');
     const [element, setElement] = useState('');
     const [feina, setFeina] = useState('');
 
-    const feines = [
-        {id:'fna-1234', nom:'Pintar', preu:10, descripcio:'Lorem Ipsum dolor sit amet.'},
-        {id:'fna-4321', nom:'Pot pintura', preu:11, descripcio:'Lorem Ipsum dolor sit amet.'},
-        {id:'fna-3412', nom:'Pinzell', preu:10, descripcio:'Lorem Ipsum dolor sit amet.'}
-    ]
     const showPopupNota = (descripcio) => {
         setNota({title:'Descripció de la feina', descripcio});
         document.querySelector(".nota").classList.remove('hide');
@@ -779,12 +774,12 @@ function FeinesTable(){
                 <p name='string'>Preu/hora</p>
                 <p name='popup'>Descripció</p>
             </TableRow>
-            {feines.map((f) => (
-                <TableRow className="rowcolored">
+            {object ? object.map((f) => (
+                <TableRow className="rowcolored" key={f.id}>
                     <p name='id' className="rowid">{f.id}</p>
-                    <p name='string' className="rowname">{f.nom}</p>
-                    <p name='string' className="rowname">{f.preu}</p>
-                    <div className="popup" onClick={() => showPopupNota(f.descripcio)}><p><IoIosInformationCircleOutline/></p></div>
+                    <p name='string' className="rowname">{f.name}</p>
+                    <p name='string' className="rowname">{f.price}</p>
+                    <div className="popup" onClick={() => showPopupNota(f.description)}><p><IoIosInformationCircleOutline/></p></div>
                     <RowButtons>
                         <button
                             type="button"
@@ -800,7 +795,7 @@ function FeinesTable(){
                         >Eliminar</button>
                     </RowButtons>
                 </TableRow>
-            ))}
+            )): ''}
             </ul>
         </TableBox>
         <Popup type='nota' element={nota}/>
@@ -844,7 +839,7 @@ function LogsTable(){
     )
 }
 
-function Table({type,hide, setElement, setHide, diferencia}){
+function Table({type,hide, setElement, setHide, diferencia, object}){
     let table;
     switch (type){
         case 'treballadors':
@@ -863,7 +858,7 @@ function Table({type,hide, setElement, setHide, diferencia}){
             table = <MaterialsTable />
             break;
         case 'feines':
-            table = <FeinesTable />
+            table = <FeinesTable object={object}/>
             break;
         case 'logs':
             table = <LogsTable/>

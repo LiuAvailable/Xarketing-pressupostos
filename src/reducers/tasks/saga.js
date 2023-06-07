@@ -1,5 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { frontendApiService } from 'services/frontendAPIService';
+import { frontendApiService } from '../../services/frontendAPIService';
 
 import { taskListActions } from './slices';
 

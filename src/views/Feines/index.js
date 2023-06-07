@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Table from '../../components/Table/Table';
 import Filters from "components/Table/Filters";
 
-import { useTaskListSlice } from "reducers/tasks";
+import { useTaskListSlice } from "../../reducers/tasks/index";
 
 import {
     Bg,
@@ -27,13 +27,6 @@ const crearFeina = () => {
     document.querySelector(".material textarea").value = '';
 }
 
-const getFeines = () => {
-    fetch('http://localhost:8000/api/budget/tasks/')
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error(error));
-}
-
 function FeinesView(){
     const dispatch = useDispatch();
     const { taskListActions, selectTaskListDomain } = useTaskListSlice();
@@ -42,9 +35,6 @@ function FeinesView(){
     useEffect(() => {
         dispatch(taskListActions.getTaskListRequest());
     }, []);
-    console.log(taskList)
-    
-    getFeines()
 
     const filters = [
         {placeholder:'ID', name:'id'},
@@ -73,7 +63,7 @@ function FeinesView(){
                 >Nova feina</button>
             </CreateUser>
             <Filters filters={filters}/>
-            <Table type='feines'/>
+            <Table type='feines' object={taskList}/>
         </Bg>
     )
 }

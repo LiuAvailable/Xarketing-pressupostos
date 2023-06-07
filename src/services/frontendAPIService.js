@@ -143,17 +143,10 @@ const logout = async () => {
     return res;
 };
 
-export const frontendApiService = {
-    login,
-    getSession,
-    getCSRF,
-    logout,
-};
-
-export const getTasks = async () => {
+const getTasks = async () => {
     let res;
     await axiosInstance
-        .get('users/', {})
+        .get('budget/tasks/', {})
         .then((response) => {
             clearCache();
             res = getResOk(response);
@@ -163,3 +156,11 @@ export const getTasks = async () => {
         });
     return res;
 }
+export const frontendApiService = {
+    login,
+    getSession,
+    getCSRF,
+    logout,
+    getTasks
+};
+

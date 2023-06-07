@@ -110,7 +110,6 @@ function Filters({filters, hide}){
             let contador = 0;
 
             while(bool && contador < filtres.length){
-                console.log(`p.row${filtres[contador].type}`)
                 if(!r.querySelector(`p.row${filtres[contador].type}`)
                 .textContent.toLocaleLowerCase()
                 .includes(filtres[contador].value.toLocaleLowerCase())){
