@@ -149,3 +149,17 @@ export const frontendApiService = {
     getCSRF,
     logout,
 };
+
+export const getTasks = async () => {
+    let res;
+    await axiosInstance
+        .get('users/', {})
+        .then((response) => {
+            clearCache();
+            res = getResOk(response);
+        })
+        .catch((error) => {
+            res = getResError(error);
+        });
+    return res;
+}

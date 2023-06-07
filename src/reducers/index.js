@@ -2,6 +2,7 @@
  * Combine all reducers in this file and export the combined reducers.
  */
 
+
 import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -24,6 +25,8 @@ const sessionPersistConfig = {
     storage,
     whitelist: ['session'],
 };
+
+
 export default function createReducer(injectedReducers = {}) {
     return persistReducer(
         rootPersistConfig,
