@@ -1,8 +1,8 @@
 import { useInjectReducer, useInjectSaga } from 'redux-injectors';
 
-import { taskListSaga } from './saga';
+import { taskDetailSaga, taskListSaga } from './saga';
 import { selectTaskListDomain } from './selectors';
-import { taskListSlice } from './slices';
+import { taskDetailSlice, taskListSlice } from './slices';
 
 /** USER LIST */
 export const useTaskListSlice = () => {
@@ -15,3 +15,17 @@ export const useTaskListSlice = () => {
 };
 
 export const taskListReducer = taskListSlice.reducer;
+
+
+/** USER DETAIL */
+
+export const useTaskDetailSlice = () => {
+  useInjectReducer({
+    key: taskDetailSlice.name,
+    reducer: taskDetailSlice.reducer,
+  });
+  useInjectSaga({ key: taskDetailSlice.name, saga: taskDetailSaga });
+  return { userDetailActions: taskDetailSlice.actions };
+};
+
+export const taskDetailReducer = taskDetailSlice.reducer;

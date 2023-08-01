@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { frontendApiService } from '../../services/frontendAPIService';
 
-import { taskListActions } from './slices';
+import { taskDetailActions, taskListActions } from './slices';
 
 /** TASK LIST */
 export function* getTasksList() {
@@ -12,4 +12,26 @@ export function* getTasksList() {
 
 export function* taskListSaga() {
   yield takeLatest(taskListActions.getTaskListRequest.type, getTasksList)
+}
+
+/** TASK DETAIL */
+
+export function* createTaskSaga(action) {
+  const data = action.payload;
+  const response = yield call(
+    frontendApiService.createTask,
+      data.id,
+      data.nom,
+      data.preu,
+      data.descripcio
+    );
+    if(response.success) {
+      yield put(taskDetailActions.createTask(response.data));
+    } else {
+      yield put(taskDetailActions.createTaskError(response.error));
+    }
+}
+
+export function* taskDetailSaga() {
+  yield takeLatest(taskDetailActions.createTask.type, createTaskSaga);
 }

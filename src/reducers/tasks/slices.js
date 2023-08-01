@@ -30,3 +30,37 @@ export const taskListSlice = createSlice({
 });
 
 export const taskListActions = taskListSlice.actions;
+
+
+/** TASK DETAIL */
+
+export const taskDetailInitialState = {
+  isLoading: true,
+  error: null,
+  taskInfo: {},
+  taskDelete: null,
+  taskEdit: null,
+};
+
+export const taskDetailSlice = createSlice({
+  name: 'taskDetail',
+  initialState: taskDetailInitialState,
+  reducers: {
+    createTaskRequest(state){
+      state.isLoading = true;
+      state.error = null;
+      state.taskInfo = {};
+    },
+    createTask(state,action){
+      state.isLoading = false;
+      state.error = null;
+      state.userEdit = action.payload;
+    },
+    createTaskError(state, action){
+      state.isLoading = false;
+      state.error = action.payload;
+    }
+  }
+});
+
+export const taskDetailActions = taskDetailSlice.actions;

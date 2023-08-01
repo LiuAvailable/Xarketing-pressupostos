@@ -191,6 +191,7 @@ function CrearMaterial({element, feina}){
                     type="button"
                     className="btnBlue"
                     style={{'--width':'80px'}}
+                    onClick={() => console.log('AAAAA')}
                 >Crear</button>
         </PopUpBox>
     )
