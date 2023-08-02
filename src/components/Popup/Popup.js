@@ -76,6 +76,11 @@ const closePopUp = () => {
     document.querySelector('.PopupElement:not(.hide)').classList.add('hide')
 }
 
+const deleteElement = (dispatch, taskDetailActions, id, type) => {
+    if(type === 'task') dispatch(taskDetailActions.deleteTask({id}));
+    closePopUp();
+}
+
 function PopupList({element}){
     return(
         <PopUpBox>
@@ -96,6 +101,8 @@ function PopupList({element}){
 }
 
 function PopupNota({element, btnConfirm}){
+    const dispatch = useDispatch();
+    const { taskDetailActions  } = useTaskDetailSlice();
     return(
         <PopUpBox>
             <PopUpHeader>
@@ -108,7 +115,7 @@ function PopupNota({element, btnConfirm}){
                 >Tancar</button>
             </PopUpHeader>
                 <p name='single'>{element.descripcio}</p>
-                {btnConfirm ? <button type="button" className="btnBlue" style={{'--width':'120px'}}>Confirmar</button> : ''}
+                {btnConfirm ? <button type="button" className="btnBlue" style={{'--width':'120px'}} onClick={() => deleteElement(dispatch, taskDetailActions, element.id, element.type)}>Confirmar</button> : ''}
         </PopUpBox>
     )
 }

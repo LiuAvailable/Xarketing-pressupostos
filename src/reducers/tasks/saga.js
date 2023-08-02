@@ -42,6 +42,7 @@ export function* createTaskSaga(action) {
 
 export function* deleteTaskSaga(action) {
   const data = action.payload;
+  console.log(action.payload);
   const response = yield call(frontendApiService.deleteTask, data.id);
   if (response.success) {
       yield put(taskDetailActions.deleteTask(response.data));

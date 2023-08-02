@@ -5,7 +5,8 @@ import styled from "styled-components";
 
 import { FaEuroSign } from 'react-icons/fa';
 import { HiClipboard } from 'react-icons/hi';
-import { IoIosInformationCircleOutline } from 'react-icons/io'
+import { IoIosInformationCircleOutline } from 'react-icons/io';
+
 
 
 const TableBox = styled.div`
@@ -747,7 +748,8 @@ function MaterialsTable(){
     )
 }
 
-function FeinesTable({object}){
+function FeinesTable({object}) {
+
     const [nota, setNota] = useState('');
     const [element, setElement] = useState('');
     const [feina, setFeina] = useState('');
@@ -757,8 +759,9 @@ function FeinesTable({object}){
         document.querySelector(".nota").classList.remove('hide');
     }
     const popupEliminar = (id) => {
-        setElement({title:'Eliminar una feina', descripcio:`Estas segur que vols eliminar la feina amb id ${id}?`})
-        document.querySelector('.eliminar').classList.remove('hide')
+        setElement({title:'Eliminar una feina', descripcio:`Estas segur que vols eliminar la feina amb id ${id}?`, type:'task', id})
+        document.querySelector('.eliminar').classList.remove('hide');
+
     }
     const editFeina = ({f}) => {
         setFeina({id:f.id, name:f.nom, preu:f.preu, descripcio:f.descripcio});

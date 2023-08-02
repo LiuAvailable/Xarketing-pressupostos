@@ -158,7 +158,6 @@ const getTasks = async () => {
 }
 
 const createTask = async (identifier, name, price, description) => {
-
     let res;
     await axiosInstance
         .post('budget/tasks/', {identifier, name, price, description})
@@ -172,12 +171,26 @@ const createTask = async (identifier, name, price, description) => {
     return res;
 }
 
+const deleteTask = async (id) => {
+    let res;
+    await axiosInstance
+        .delete(`budget/tasks/${id}/`, {})
+        .then((response) => {
+            res = getResOk(response);
+        })
+        .catch((error) => {
+            res = getResError(error);
+        });
+    return res;
+}
+
 export const frontendApiService = {
     login,
     getSession,
     getCSRF,
     logout,
     getTasks,
-    createTask
+    createTask,
+    deleteTask
 };
 
