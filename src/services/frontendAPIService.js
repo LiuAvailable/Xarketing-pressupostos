@@ -158,15 +158,17 @@ const getTasks = async () => {
 }
 
 const createTask = async (identifier, name, price, description) => {
+
     let res;
     await axiosInstance
         .post('budget/tasks/', {identifier, name, price, description})
         .then((response) => {
-            //clearCache();
+            clearCache();
             res = getResOk(response);
         }).catch((error) => {
             res = getResError(error);
         });
+    console.log(res);
     return res;
 }
 

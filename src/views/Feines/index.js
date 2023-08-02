@@ -34,7 +34,7 @@ function FeinesView(){
     
     useEffect(() => {
         dispatch(taskListActions.getTaskListRequest());
-    }, [localStorage.getItem('taskUpdate')]);
+    }, []);
 
     const filters = [
         { placeholder:'ID', name:'id' },

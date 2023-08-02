@@ -54,12 +54,26 @@ export const taskDetailSlice = createSlice({
     createTask(state,action){
       state.isLoading = false;
       state.error = null;
-      state.userEdit = action.payload;
+      state.taskInfo = action.payload;
     },
     createTaskError(state, action){
       state.isLoading = false;
       state.error = action.payload;
-    }
+    },
+    deleteTaskRequest(state) {
+        state.isLoading = true;
+        state.error = null;
+        state.taskDelete = null;
+    },
+    deleteTask(state, action) {
+        state.isLoading = false;
+        state.error = null;
+        state.taskDelete = action.payload;
+    },
+    deleteTaskError(state, action) {
+        state.isLoading = false;
+        state.error = action.payload;
+    },
   }
 });
 

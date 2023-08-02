@@ -17,7 +17,6 @@ export function* taskListSaga() {
 /** TASK DETAIL */
 
 export function* createTaskSaga(action) {
-  console.log('AAAAAAAAAABBBBBBBB')
   const data = action.payload;
   let response;
   try{
@@ -41,6 +40,17 @@ export function* createTaskSaga(action) {
     }
 }
 
+export function* deleteTaskSaga(action) {
+  const data = action.payload;
+  const response = yield call(frontendApiService.deleteTask, data.id);
+  if (response.success) {
+      yield put(taskDetailActions.deleteTask(response.data));
+  } else {
+      yield put(taskDetailActions.deleteTaskError(response.error));
+  }
+}
+
 export function* taskDetailSaga() {
   yield takeLatest(taskDetailActions.createTask.type, createTaskSaga);
+  yield takeLatest(taskDetailActions.deleteTask.type, deleteTaskSaga);
 }

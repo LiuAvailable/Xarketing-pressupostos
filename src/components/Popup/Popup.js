@@ -175,9 +175,6 @@ function CrearMaterial({element, feina}){
             if(error.errors.find(error => error.code === "invalid")) errorsString += '<p>El camp preu ha de tenir un número vàlid.</p>';
             errorBox.innerHTML=errorsString;
         } else if (taskInfo && taskInfo.price) {
-            console.log(taskInfo);
-            localStorage.setItem('taskUpdate', new Date());
-            console.log(localStorage.getItem('taskUpdate', new Date()));
             setTimeout(()=>{
                 errorBox.classList.add('hideError');
                 closeThisPopUp();
