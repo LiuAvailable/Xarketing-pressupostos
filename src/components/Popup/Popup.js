@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
+import { useTaskDetailSlice } from "../../reducers/tasks/index";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const PopUpBg = styled.div`
 &.hide{display:none;}
@@ -138,6 +141,19 @@ const MaterialForm = styled.form`
 `;
 
 function CrearMaterial({element, feina}){
+    
+    const dispatch = useDispatch();
+    const { taskDetailActions, selectTaskDetailDomain  } = useTaskDetailSlice();
+    const { error, taskInfo } = useSelector(selectTaskDetailDomain);
+
+    const createElement = () => {
+        const id = document.querySelector(".material input[name='id']").value;
+        const nom = document.querySelector(".material input[name='name']").value;
+        const preu = document.querySelector(".material input[name='preu']").value;
+        const descripcio = document.querySelector(".material textarea").value;
+
+        dispatch(taskDetailActions.createTask({id, nom, preu, descripcio}));
+    }
 
     const closeThisPopUp = () => {
         document.querySelector(".material input[name='id']").value = '';
@@ -145,8 +161,29 @@ function CrearMaterial({element, feina}){
         document.querySelector(".material input[name='preu']").value = '';
         document.querySelector(".material textarea").value = ''; 
 
+        document.querySelector(".material .errorBox").classList.remove('hideError');
+
         closePopUp();
     }
+
+    useEffect(() => { 
+        const errorBox = document.querySelector(".material .errorBox");
+        if(error) {
+            errorBox.classList.remove('hideError');
+            let errorsString = '';
+            if(error.errors.find(error => error.code === "blank")) errorsString += '<p>No hi poden haber camps buits.</p>';
+            if(error.errors.find(error => error.code === "invalid")) errorsString += '<p>El camp preu ha de tenir un número vàlid.</p>';
+            errorBox.innerHTML=errorsString;
+        } else if (taskInfo && taskInfo.price) {
+            console.log(taskInfo);
+            localStorage.setItem('taskUpdate', new Date());
+            console.log(localStorage.getItem('taskUpdate', new Date()));
+            setTimeout(()=>{
+                errorBox.classList.add('hideError');
+                closeThisPopUp();
+            },250);
+        }
+    }, [error, taskInfo]);
 
     setTimeout(
     () => {
@@ -187,11 +224,13 @@ function CrearMaterial({element, feina}){
                     <input type='number' name='preu' placeholder="Preu"/>
                     <textarea placeholder="Descripció"></textarea>
                 </MaterialForm>
+                <div className="errorBox hideError">
+                </div>
                 <button
                     type="button"
                     className="btnBlue"
                     style={{'--width':'80px'}}
-                    onClick={() => console.log('AAAAA')}
+                    onClick={() => createElement()}
                 >Crear</button>
         </PopUpBox>
     )

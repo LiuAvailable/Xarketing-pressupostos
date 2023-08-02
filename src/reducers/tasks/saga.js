@@ -17,17 +17,26 @@ export function* taskListSaga() {
 /** TASK DETAIL */
 
 export function* createTaskSaga(action) {
+  console.log('AAAAAAAAAABBBBBBBB')
   const data = action.payload;
-  const response = yield call(
-    frontendApiService.createTask,
-      data.id,
-      data.nom,
-      data.preu,
-      data.descripcio
-    );
-    if(response.success) {
+  let response;
+  try{
+    response = yield call(
+      frontendApiService.createTask,
+        data.id,
+        data.nom,
+        data.preu,
+        data.descripcio
+      );
+
+  } catch(err) {
+    console.log(err);
+  }
+    if(response.success || response.status === 201) {
+      console.log('---OK---');
       yield put(taskDetailActions.createTask(response.data));
     } else {
+      console.log('---ERROR---');
       yield put(taskDetailActions.createTaskError(response.error));
     }
 }

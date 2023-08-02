@@ -71,7 +71,7 @@ function getResOk(response) {
 
 function getResError(error) {
     const errors = [];
-    error.map(e => {
+    error.response.data.errors.map(e => {
         errors.push(e)
     })
 
@@ -156,11 +156,26 @@ const getTasks = async () => {
         });
     return res;
 }
+
+const createTask = async (identifier, name, price, description) => {
+    let res;
+    await axiosInstance
+        .post('budget/tasks/', {identifier, name, price, description})
+        .then((response) => {
+            //clearCache();
+            res = getResOk(response);
+        }).catch((error) => {
+            res = getResError(error);
+        });
+    return res;
+}
+
 export const frontendApiService = {
     login,
     getSession,
     getCSRF,
     logout,
-    getTasks
+    getTasks,
+    createTask
 };
 
