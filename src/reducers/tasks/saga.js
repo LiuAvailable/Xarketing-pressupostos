@@ -32,10 +32,8 @@ export function* createTaskSaga(action) {
     console.log(err);
   }
     if(response.success || response.status === 201) {
-      console.log('---OK---');
       yield put(taskDetailActions.createTask(response.data));
     } else {
-      console.log('---ERROR---');
       yield put(taskDetailActions.createTaskError(response.error));
     }
 }

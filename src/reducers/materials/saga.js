@@ -15,7 +15,6 @@ export function* materialListSaga() {
 }
 
 /** material DETAIL */
-
 export function* createMaterialSaga(action) {
   const data = action.payload;
   let response;
@@ -32,10 +31,8 @@ export function* createMaterialSaga(action) {
     console.log(err);
   }
     if(response.success || response.status === 201) {
-      console.log('---OK---');
       yield put(materialDetailActions.createMaterial(response.data));
     } else {
-      console.log('---ERROR---');
       yield put(materialDetailActions.createMaterialError(response.error));
     }
 }

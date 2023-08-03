@@ -114,6 +114,7 @@ function PopupNota({element, btnConfirm}){
     const dispatch = useDispatch();
     const { taskDetailActions  } = useTaskDetailSlice();
     const { materialDetailActions  } = useMaterialDetailSlice();
+
     return(
         <PopUpBox>
             <PopUpHeader>
@@ -158,11 +159,14 @@ const MaterialForm = styled.form`
     }
 `;
 
-function CrearMaterial({element, feina}){
+function CrearMaterial({element, feina}) {
     
     const dispatch = useDispatch();
     const { taskDetailActions, selectTaskDetailDomain  } = useTaskDetailSlice();
-    const { error, taskInfo } = useSelector(selectTaskDetailDomain);
+    const { errorT, taskInfo } = useSelector(selectTaskDetailDomain);
+
+    const { materialDetailActions, selectMaterialDetailDomain  } = useMaterialDetailSlice();
+    const { errorM, materialInfo } = useSelector(selectMaterialDetailDomain);
 
     const createElement = () => {
         const id = document.querySelector(".material input[name='id']").value;
@@ -170,7 +174,8 @@ function CrearMaterial({element, feina}){
         const preu = document.querySelector(".material input[name='preu']").value;
         const descripcio = document.querySelector(".material textarea").value;
 
-        dispatch(taskDetailActions.createTask({id, nom, preu, descripcio}));
+        if(feina) dispatch(taskDetailActions.createTask({id, nom, preu, descripcio}));
+        else dispatch(materialDetailActions.createMaterial({nom, preu, descripcio}))
     }
 
     const closeThisPopUp = () => {
@@ -186,7 +191,10 @@ function CrearMaterial({element, feina}){
 
     useEffect(() => { 
         const errorBox = document.querySelector(".material .errorBox");
-        if(error) {
+        if(errorT || errorM) {
+            let error;
+            if(errorT) error = errorT;
+            else error = errorM;
             errorBox.classList.remove('hideError');
             let errorsString = '';
             if(error.errors.find(error => error.code === "blank")) errorsString += '<p>No hi poden haber camps buits.</p>';
@@ -198,7 +206,7 @@ function CrearMaterial({element, feina}){
                 closeThisPopUp();
             },250);
         }
-    }, [error, taskInfo]);
+    }, [errorT, taskInfo, materialInfo, errorM]);
 
     setTimeout(
     () => {

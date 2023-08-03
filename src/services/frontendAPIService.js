@@ -204,7 +204,19 @@ const getMaterials = async () => {
     return res;
 }
 
-const createMaterial = async () => {}
+const createMaterial = async (name, price, description) => {
+    let res;
+    await axiosInstance
+        .post('budget/tasks/', {name, price, description})
+        .then((response) => {
+            clearCache();
+            res = getResOk(response);
+        }).catch((error) => {
+            res = getResError(error);
+        });
+    console.log(res);
+    return res;
+}
 
 const deleteMaterial = async (id) => {
     let res;
