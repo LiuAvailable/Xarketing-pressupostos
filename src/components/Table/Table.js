@@ -699,7 +699,7 @@ function MaterialsTable({object}) {
         document.querySelector('.material').classList.remove('hide')
     }
     const popupEliminar = (id) => {
-        setElement({title:'Eliminar un material', descripcio:`Estas segur que vols eliminar el material amb id ${id}?`})
+        setElement({title:'Eliminar un material', descripcio:`Estas segur que vols eliminar el material amb id ${id}?`, type:'material', id})
         document.querySelector('.eliminar').classList.remove('hide')
     }
     return(
@@ -860,6 +860,7 @@ function Table({type,hide, setElement, setHide, diferencia, object}){
             break;
         case 'logs':
             table = <LogsTable/>
+            break;
         default:
             break;
     }

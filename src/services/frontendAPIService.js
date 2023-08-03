@@ -205,7 +205,19 @@ const getMaterials = async () => {
 }
 
 const createMaterial = async () => {}
-const deleteMaterial = async () => {}
+
+const deleteMaterial = async (id) => {
+    let res;
+    await axiosInstance
+        .delete(`budget/materials/${id}/`, {})
+        .then((response) => {
+            res = getResOk(response);
+        })
+        .catch((error) => {
+            res = getResError(error);
+        });
+    return res;
+}
 
 export const frontendApiService = {
     login,

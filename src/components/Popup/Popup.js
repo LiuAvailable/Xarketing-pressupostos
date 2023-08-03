@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { useTaskDetailSlice } from "../../reducers/tasks/index";
+import { useMaterialDetailSlice } from "../../reducers/materials/index";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
@@ -76,8 +77,17 @@ const closePopUp = () => {
     document.querySelector('.PopupElement:not(.hide)').classList.add('hide')
 }
 
-const deleteElement = (dispatch, taskDetailActions, id, type) => {
-    if(type === 'task') dispatch(taskDetailActions.deleteTask({id}));
+const deleteElement = (dispatch, taskDetailActions,materialDetailActions, id, type) => {
+    switch (type) {
+        case 'task':
+            dispatch(taskDetailActions.deleteTask({id}))
+            break;
+        case 'material':
+            dispatch(materialDetailActions.deleteMaterial({id}))
+            break;
+        default:
+            break;
+    }
     closePopUp();
 }
 
@@ -103,6 +113,7 @@ function PopupList({element}){
 function PopupNota({element, btnConfirm}){
     const dispatch = useDispatch();
     const { taskDetailActions  } = useTaskDetailSlice();
+    const { materialDetailActions  } = useMaterialDetailSlice();
     return(
         <PopUpBox>
             <PopUpHeader>
@@ -115,7 +126,7 @@ function PopupNota({element, btnConfirm}){
                 >Tancar</button>
             </PopUpHeader>
                 <p name='single'>{element.descripcio}</p>
-                {btnConfirm ? <button type="button" className="btnBlue" style={{'--width':'120px'}} onClick={() => deleteElement(dispatch, taskDetailActions, element.id, element.type)}>Confirmar</button> : ''}
+                {btnConfirm ? <button type="button" className="btnBlue" style={{'--width':'120px'}} onClick={() => deleteElement(dispatch, taskDetailActions,materialDetailActions, element.id, element.type)}>Confirmar</button> : ''}
         </PopUpBox>
     )
 }
