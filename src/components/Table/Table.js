@@ -685,16 +685,11 @@ function ComparatorTable({diferencia}){
     )
 }
 
-function MaterialsTable(){
+function MaterialsTable({object}) {
     const [nota, setNota] = useState('');
     const [material, setMaterial] = useState('');
     const [element, setElement] = useState('');
 
-    const materials = [
-        {id:'mat-1234', nom:'Pot pintura', preu:0.00, descripcio:'Lorem Ipsum dolor sit amet.'},
-        {id:'mat-4321', nom:'Pot pintura', preu:0.00, descripcio:'Lorem Ipsum dolor sit amet.'},
-        {id:'mat-3412', nom:'Pinzell', preu:0.00, descripcio:'Lorem Ipsum dolor sit amet.'}
-    ]
     const showPopupNota = (descripcio) => {
         setNota({title:'Descripció del material', descripcio})
         document.querySelector(".nota").classList.remove('hide');
@@ -717,7 +712,7 @@ function MaterialsTable(){
                 <p name='string'>Preu</p>
                 <p name='popup'>Descripció</p>
             </TableRow>
-            {materials.map((m) => (
+            {object ? object.map((m) => (
                 <TableRow className="rowcolored">
                     <p name='id' className="rowid">{m.id}</p>
                     <p name='string' className="rowname">{m.nom}</p>
@@ -738,7 +733,7 @@ function MaterialsTable(){
                         >Eliminar</button>
                     </RowButtons>
                 </TableRow>
-            ))}
+            )): ''}
             </ul>
         </TableBox>
         <Popup type='nota' element={nota}/>
@@ -858,7 +853,7 @@ function Table({type,hide, setElement, setHide, diferencia, object}){
             table = <ComparatorTable diferencia={diferencia}/>
             break;
         case 'materials':
-            table = <MaterialsTable />
+            table = <MaterialsTable object={object}/>
             break;
         case 'feines':
             table = <FeinesTable object={object}/>

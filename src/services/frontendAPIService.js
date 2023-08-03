@@ -143,6 +143,9 @@ const logout = async () => {
     return res;
 };
 
+/********************
+ *      TASKS
+********************/
 const getTasks = async () => {
     let res;
     await axiosInstance
@@ -184,6 +187,26 @@ const deleteTask = async (id) => {
     return res;
 }
 
+/********************
+ *      MATERIALS
+********************/
+const getMaterials = async () => {
+    let res;
+    await axiosInstance
+        .get('budget/materials/', {})
+        .then((response) => {
+            clearCache();
+            res = getResOk(response);
+        })
+        .catch((error) => {
+            res = getResError(error);
+        });
+    return res;
+}
+
+const createMaterial = async () => {}
+const deleteMaterial = async () => {}
+
 export const frontendApiService = {
     login,
     getSession,
@@ -191,6 +214,9 @@ export const frontendApiService = {
     logout,
     getTasks,
     createTask,
-    deleteTask
+    deleteTask,
+    getMaterials,
+    createMaterial,
+    deleteMaterial
 };
 
