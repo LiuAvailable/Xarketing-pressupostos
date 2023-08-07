@@ -174,8 +174,17 @@ function CrearMaterial({element, feina}) {
         const preu = document.querySelector(".material input[name='preu']").value;
         const descripcio = document.querySelector(".material textarea").value;
 
-        if(feina) dispatch(taskDetailActions.createTask({id, nom, preu, descripcio}));
-        else dispatch(materialDetailActions.createMaterial({id, nom, preu, descripcio}))
+        if(feina) {
+            element ?
+                dispatch(taskDetailActions.editTask({id, nom, preu, descripcio}))
+            :
+                dispatch(taskDetailActions.createTask({id, nom, preu, descripcio}))
+        } else {
+            element ?
+                dispatch(materialDetailActions.editMaterial({id, nom, preu, descripcio}))
+            :
+            dispatch(materialDetailActions.createMaterial({id, nom, preu, descripcio}));
+        }
     }
 
     const closeThisPopUp = () => {

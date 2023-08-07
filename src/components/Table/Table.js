@@ -695,7 +695,7 @@ function MaterialsTable({object}) {
         document.querySelector(".nota").classList.remove('hide');
     }
     const editMaterial = ({m}) => {
-        setMaterial({id:m.id, name:m.nom, preu:m.preu, descripcio:m.descripcio});
+        setMaterial({id:m.id, name:m.name, preu:m.price, descripcio:m.description});
         document.querySelector('.material').classList.remove('hide')
     }
     const popupEliminar = (id) => {
@@ -759,7 +759,7 @@ function FeinesTable({object}) {
 
     }
     const editFeina = ({f}) => {
-        setFeina({id:f.id, name:f.nom, preu:f.preu, descripcio:f.descripcio});
+        setFeina({id:f.id, name:f.name, preu:f.price, descripcio:f.description});
         document.querySelector('.material').classList.remove('hide')
     }
     return(

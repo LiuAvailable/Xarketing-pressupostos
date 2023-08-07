@@ -52,8 +52,9 @@ export function* deleteTaskSaga(action) {
 
 export function* editTaskSaga(action) {
   const data = action.payload;
+  console.log(data);
   const response = yield call(
-      frontendApiService.editUser,
+      frontendApiService.editTask,
       data.id,
       data.nom,
       data.preu,

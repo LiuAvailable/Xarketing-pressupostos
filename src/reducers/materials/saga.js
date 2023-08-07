@@ -39,7 +39,6 @@ export function* createMaterialSaga(action) {
 
 export function* deletematerialSaga(action) {
   const data = action.payload;
-  console.log(action.payload);
   const response = yield call(frontendApiService.deleteMaterial, data.id);
   if (response.success) {
       yield put(materialDetailActions.deleteMaterial(response.data));

@@ -74,6 +74,20 @@ export const materialDetailSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
     },
+    editMaterialRequest(state) {
+        state.isLoading = true;
+        state.error = null;
+        state.materialEdit = {};
+    },
+    editMaterial(state, action) {
+        state.isLoading = false;
+        state.error = null;
+        state.materialEdit = action.payload;
+    },
+    editMaterialError(state, action) {
+        state.isLoading = false;
+        state.error = action.payload;
+    },
   }
 });
 

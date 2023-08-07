@@ -187,10 +187,10 @@ const deleteTask = async (id) => {
     return res;
 }
 
-const editTask = async (id) => {
+const editTask = async (id, name, price, description) => {
     let res;
     await axiosInstance
-        .put(`budget/tasks/${id}/`, {})
+        .put(`budget/tasks/${id}/`, {identifier:id, name, price, description})
         .then((response) => {
             res = getResOk(response);
         })
@@ -244,10 +244,10 @@ const deleteMaterial = async (id) => {
     return res;
 }
 
-const editMaterial = async (id) => {
+const editMaterial = async (id, name, price, description) => {
     let res;
     await axiosInstance
-        .put(`budget/materials/${id}/`, {})
+        .put(`budget/materials/${id}/`, {identifier:id, name, price, description})
         .then((response) => {
             res = getResOk(response);
         })
