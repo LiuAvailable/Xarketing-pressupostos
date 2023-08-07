@@ -22,7 +22,7 @@ export const materialListSlice = createSlice({
           state.error = null;
           state.materialList = action.payload;
       },
-      getMaterialsListError(state, action) {
+      getMaterialListError(state, action) {
           state.isLoading = false;
           state.error = action.payload;
       },

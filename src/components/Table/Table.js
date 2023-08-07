@@ -715,9 +715,9 @@ function MaterialsTable({object}) {
             {object ? object.map((m) => (
                 <TableRow className="rowcolored">
                     <p name='id' className="rowid">{m.id}</p>
-                    <p name='string' className="rowname">{m.nom}</p>
-                    <p name='string' className="rowname">{m.preu}</p>
-                    <div className="popup" onClick={() => showPopupNota(m.descripcio)}><p><IoIosInformationCircleOutline/></p></div>
+                    <p name='string' className="rowname">{m.name}</p>
+                    <p name='string' className="rowname">{m.price}</p>
+                    <div className="popup" onClick={() => showPopupNota(m.description)}><p><IoIosInformationCircleOutline/></p></div>
                     <RowButtons>
                         <button
                             type="button"

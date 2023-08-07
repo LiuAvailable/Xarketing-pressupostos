@@ -74,6 +74,20 @@ export const taskDetailSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
     },
+    editTaskRequest(state) {
+        state.isLoading = true;
+        state.error = null;
+        state.taskEdit = {};
+    },
+    editTask(state, action) {
+        state.isLoading = false;
+        state.error = null;
+        state.taskEdit = action.payload;
+    },
+    editTaskError(state, action) {
+        state.isLoading = false;
+        state.error = action.payload;
+    },
   }
 });
 

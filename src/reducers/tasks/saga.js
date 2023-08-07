@@ -49,7 +49,26 @@ export function* deleteTaskSaga(action) {
   }
 }
 
+
+export function* editTaskSaga(action) {
+  const data = action.payload;
+  const response = yield call(
+      frontendApiService.editUser,
+      data.id,
+      data.nom,
+      data.preu,
+      data.descripcio
+  );
+  if (response.success) {
+      yield put(taskDetailActions.editTask(response.data));
+  } else {
+      yield put(taskDetailActions.editTaskError(response.error));
+  }
+}
+
+
 export function* taskDetailSaga() {
   yield takeLatest(taskDetailActions.createTask.type, createTaskSaga);
   yield takeLatest(taskDetailActions.deleteTask.type, deleteTaskSaga);
+  yield takeLatest(taskDetailActions.editTask.type, editTaskSaga);
 }

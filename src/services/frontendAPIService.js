@@ -187,6 +187,19 @@ const deleteTask = async (id) => {
     return res;
 }
 
+const editTask = async (id) => {
+    let res;
+    await axiosInstance
+        .put(`budget/tasks/${id}/`, {})
+        .then((response) => {
+            res = getResOk(response);
+        })
+        .catch((error) => {
+            res = getResError(error);
+        });
+    return res;
+}
+
 /********************
  *      MATERIALS
 ********************/
@@ -204,10 +217,10 @@ const getMaterials = async () => {
     return res;
 }
 
-const createMaterial = async (name, price, description) => {
+const createMaterial = async (identifier, name, price, description) => {
     let res;
     await axiosInstance
-        .post('budget/tasks/', {name, price, description})
+        .post('budget/materials/', {identifier, name, price, description})
         .then((response) => {
             clearCache();
             res = getResOk(response);
@@ -231,6 +244,19 @@ const deleteMaterial = async (id) => {
     return res;
 }
 
+const editMaterial = async (id) => {
+    let res;
+    await axiosInstance
+        .put(`budget/materials/${id}/`, {})
+        .then((response) => {
+            res = getResOk(response);
+        })
+        .catch((error) => {
+            res = getResError(error);
+        });
+    return res;
+}
+
 export const frontendApiService = {
     login,
     getSession,
@@ -239,8 +265,10 @@ export const frontendApiService = {
     getTasks,
     createTask,
     deleteTask,
+    editTask,
     getMaterials,
     createMaterial,
-    deleteMaterial
+    deleteMaterial,
+    editMaterial
 };
 

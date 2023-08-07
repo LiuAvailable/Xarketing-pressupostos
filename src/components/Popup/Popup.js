@@ -175,7 +175,7 @@ function CrearMaterial({element, feina}) {
         const descripcio = document.querySelector(".material textarea").value;
 
         if(feina) dispatch(taskDetailActions.createTask({id, nom, preu, descripcio}));
-        else dispatch(materialDetailActions.createMaterial({nom, preu, descripcio}))
+        else dispatch(materialDetailActions.createMaterial({id, nom, preu, descripcio}))
     }
 
     const closeThisPopUp = () => {
