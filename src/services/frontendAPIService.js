@@ -77,7 +77,7 @@ function getResError(error) {
 
     return {
         success: false,
-        error: {errors},
+        error: { errors },
     };
 }
 
@@ -143,6 +143,9 @@ const logout = async () => {
     return res;
 };
 
+/********************
+ *      TASKS
+********************/
 const getTasks = async () => {
     let res;
     await axiosInstance
@@ -160,7 +163,7 @@ const getTasks = async () => {
 const createTask = async (identifier, name, price, description) => {
     let res;
     await axiosInstance
-        .post('budget/tasks/', {identifier, name, price, description})
+        .post('budget/tasks/', { identifier, name, price, description })
         .then((response) => {
             clearCache();
             res = getResOk(response);
@@ -184,6 +187,76 @@ const deleteTask = async (id) => {
     return res;
 }
 
+const editTask = async (id, name, price, description) => {
+    let res;
+    await axiosInstance
+        .put(`budget/tasks/${id}/`, { identifier: id, name, price, description })
+        .then((response) => {
+            res = getResOk(response);
+        })
+        .catch((error) => {
+            res = getResError(error);
+        });
+    return res;
+}
+
+/********************
+ *      MATERIALS
+********************/
+const getMaterials = async () => {
+    let res;
+    await axiosInstance
+        .get('budget/materials/', {})
+        .then((response) => {
+            clearCache();
+            res = getResOk(response);
+        })
+        .catch((error) => {
+            res = getResError(error);
+        });
+    return res;
+}
+
+const createMaterial = async (identifier, name, price, description) => {
+    let res;
+    await axiosInstance
+        .post('budget/materials/', { identifier, name, price, description })
+        .then((response) => {
+            clearCache();
+            res = getResOk(response);
+        }).catch((error) => {
+            res = getResError(error);
+        });
+    console.log(res);
+    return res;
+}
+
+const deleteMaterial = async (id) => {
+    let res;
+    await axiosInstance
+        .delete(`budget/materials/${id}/`, {})
+        .then((response) => {
+            res = getResOk(response);
+        })
+        .catch((error) => {
+            res = getResError(error);
+        });
+    return res;
+}
+
+const editMaterial = async (id, name, price, description) => {
+    let res;
+    await axiosInstance
+        .put(`budget/materials/${id}/`, { identifier: id, name, price, description })
+        .then((response) => {
+            res = getResOk(response);
+        })
+        .catch((error) => {
+            res = getResError(error);
+        });
+    return res;
+}
+
 export const frontendApiService = {
     login,
     getSession,
@@ -191,6 +264,11 @@ export const frontendApiService = {
     logout,
     getTasks,
     createTask,
-    deleteTask
+    deleteTask,
+    editTask,
+    getMaterials,
+    createMaterial,
+    deleteMaterial,
+    editMaterial
 };
 

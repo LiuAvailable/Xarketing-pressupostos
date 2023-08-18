@@ -685,26 +685,26 @@ function ComparatorTable({diferencia}){
     )
 }
 
-function MaterialsTable(){
+function MaterialsTable({object}) {
     const [nota, setNota] = useState('');
     const [material, setMaterial] = useState('');
     const [element, setElement] = useState('');
 
-    const materials = [
-        {id:'mat-1234', nom:'Pot pintura', preu:0.00, descripcio:'Lorem Ipsum dolor sit amet.'},
-        {id:'mat-4321', nom:'Pot pintura', preu:0.00, descripcio:'Lorem Ipsum dolor sit amet.'},
-        {id:'mat-3412', nom:'Pinzell', preu:0.00, descripcio:'Lorem Ipsum dolor sit amet.'}
-    ]
+    // const materials = [
+    //     {id:'mat-1234', nom:'Pot pintura', preu:0.00, descripcio:'Lorem Ipsum dolor sit amet.'},
+    //     {id:'mat-4321', nom:'Pot pintura', preu:0.00, descripcio:'Lorem Ipsum dolor sit amet.'},
+    //     {id:'mat-3412', nom:'Pinzell', preu:0.00, descripcio:'Lorem Ipsum dolor sit amet.'}
+    // ]
     const showPopupNota = (descripcio) => {
         setNota({title:'Descripció del material', descripcio})
         document.querySelector(".nota").classList.remove('hide');
     }
     const editMaterial = ({m}) => {
-        setMaterial({id:m.id, name:m.nom, preu:m.preu, descripcio:m.descripcio});
+        setMaterial({id:m.id, name:m.name, preu:m.price, descripcio:m.description});
         document.querySelector('.material').classList.remove('hide')
     }
     const popupEliminar = (id) => {
-        setElement({title:'Eliminar un material', descripcio:`Estas segur que vols eliminar el material amb id ${id}?`})
+        setElement({title:'Eliminar un material', descripcio:`Estas segur que vols eliminar el material amb id ${id}?`, type:'material', id})
         document.querySelector('.eliminar').classList.remove('hide')
     }
     return(
@@ -717,12 +717,12 @@ function MaterialsTable(){
                 <p name='string'>Preu</p>
                 <p name='popup'>Descripció</p>
             </TableRow>
-            {materials.map((m) => (
+            {object ? object.map((m) => (
                 <TableRow className="rowcolored">
                     <p name='id' className="rowid">{m.id}</p>
-                    <p name='string' className="rowname">{m.nom}</p>
-                    <p name='string' className="rowname">{m.preu}</p>
-                    <div className="popup" onClick={() => showPopupNota(m.descripcio)}><p><IoIosInformationCircleOutline/></p></div>
+                    <p name='string' className="rowname">{m.name}</p>
+                    <p name='string' className="rowname">{m.price}</p>
+                    <div className="popup" onClick={() => showPopupNota(m.description)}><p><IoIosInformationCircleOutline/></p></div>
                     <RowButtons>
                         <button
                             type="button"
@@ -738,7 +738,7 @@ function MaterialsTable(){
                         >Eliminar</button>
                     </RowButtons>
                 </TableRow>
-            ))}
+            )): ''}
             </ul>
         </TableBox>
         <Popup type='nota' element={nota}/>
@@ -764,7 +764,7 @@ function FeinesTable({object}) {
 
     }
     const editFeina = ({f}) => {
-        setFeina({id:f.id, name:f.nom, preu:f.preu, descripcio:f.descripcio});
+        setFeina({id:f.id, name:f.name, preu:f.price, descripcio:f.description});
         document.querySelector('.material').classList.remove('hide')
     }
     return(
@@ -858,13 +858,14 @@ function Table({type,hide, setElement, setHide, diferencia, object}){
             table = <ComparatorTable diferencia={diferencia}/>
             break;
         case 'materials':
-            table = <MaterialsTable />
+            table = <MaterialsTable object={object}/>
             break;
         case 'feines':
             table = <FeinesTable object={object}/>
             break;
         case 'logs':
             table = <LogsTable/>
+            break;
         default:
             break;
     }

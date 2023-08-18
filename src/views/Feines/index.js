@@ -1,18 +1,17 @@
 import React, { useEffect } from "react";
 import { BsArrowLeft, BsFillBookFill } from 'react-icons/bs';
 
+import {
+    Bg,
+    Back,
+    CreateUser
+} from './components';
 
 import { Link } from "react-router-dom";
 import Table from '../../components/Table/Table';
 import Filters from "components/Table/Filters";
 
 import { useTaskListSlice } from "../../reducers/tasks/index";
-
-import {
-    Bg,
-    Back,
-    CreateUser
-} from './components';
 import { useDispatch, useSelector } from "react-redux";
 
 

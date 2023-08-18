@@ -46,9 +46,9 @@ function LoginView() {
     };
     useEffect(() => {
         if (isAuthenticated) {
-          history.push('/private/home');
+            history.push('/private/home');
         }
-      }, [isAuthenticated, history]);
+    }, [isAuthenticated, history]);
 
     return (
         <ContainerCenter className="text-center">
@@ -76,7 +76,7 @@ function LoginView() {
                                     placeholder="Email"
                                     type="email"
                                     onChange={handleChange}
-                                    // required
+                                // required
                                 />
                             </label>
                         </ContainerInput>
@@ -90,7 +90,7 @@ function LoginView() {
                                     placeholder="Password"
                                     type="password"
                                     onChange={handleChange}
-                                    // required
+                                // required
                                 />
                             </label>
                         </ContainerInput>
